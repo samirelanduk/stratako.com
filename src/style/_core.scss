@@ -7,3 +7,12 @@ body {
 .logo {
     font-family: $logo-font;
 }
+
+input, select, textarea {
+    width: 100%;
+    display: block;
+    background-color: white;
+    margin-bottom: $gap-5;
+    padding: $gap-2;
+    font-size: $font-size-3;
+}
