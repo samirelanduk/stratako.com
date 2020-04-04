@@ -1,0 +1,18 @@
+@import "presets";
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: $font-size-3;
+    font-weight: normal;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-image: none;
+    list-style: inherit;
+    list-style: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
