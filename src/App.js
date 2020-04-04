@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("token")));
@@ -22,6 +23,9 @@ export default function App() {
     <BrowserRouter>
       <Route path="/" exact>
         {loggedIn ? <div /> : <LandingPage login={login} />}
+      </Route>
+      <Route path="/login/" exact>
+        <LoginPage login={login} />
       </Route>
     </BrowserRouter>
   );

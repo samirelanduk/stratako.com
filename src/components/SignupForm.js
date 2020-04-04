@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getApiLocation } from "../api";
 import "../style/SignupForm.scss";
 
@@ -64,6 +64,7 @@ const SignupForm = (props) => {
         required
       />
       <input type="submit" value="Sign Up" />
+      <p>Or <Link to="/login/">Sign In</Link></p>
     </form>
   )
 }
