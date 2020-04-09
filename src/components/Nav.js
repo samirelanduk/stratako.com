@@ -6,6 +6,7 @@ export default function Nav(props) {
   return (
     <nav>
       <Link to="/" className="logo">stratako</Link>
+      <Link to="/goals/">Goals</Link>
       <div className="logout" onClick={props.logout} >Log Out</div>
     </nav>
   )

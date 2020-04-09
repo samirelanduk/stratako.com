@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import GoalsPage from "./pages/GoalsPage";
+import GoalPage from "./pages/GoalPage";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("token")));
@@ -36,6 +37,9 @@ export default function App() {
         </Route>
         <Route path="/goals/" exact>
           <GoalsPage logout={logout} />
+        </Route>
+        <Route path="/goals/:id/" exact>
+          <GoalPage logout={logout} />
         </Route>
       </BrowserRouter>
     </ApolloProvider>

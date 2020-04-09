@@ -7,7 +7,7 @@ const HomePage = (props) => {
 
   return (
     <Base className="home-page" logout={props.logout} >
-      <Link to="/goals/">Goals</Link>
+      
     </Base>
   )
 }
