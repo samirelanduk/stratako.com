@@ -8,7 +8,14 @@ import "../style/GoalPage.scss";
 const GoalPage = (props) => {
 
   const goalId = useRouteMatch("/goals/:id").params.id;
-  const {data, loading} = useQuery(GOAL, {variables: {id: goalId}});
+  const {data, loading, error} = useQuery(GOAL, {variables: {id: goalId}});
+  if (error && error.message.includes("does not exist")) {
+    return (
+      <Base className="goal-page" logout={props.logout} >
+        <h1>Goal Does Not Exist</h1>
+      </Base>
+    )
+  }
   const goal = loading ? null : data.user.goal;
 
   
