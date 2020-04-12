@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import GoalsList from "./GoalsList";
 import "../style/GoalCategory.scss";
 
@@ -8,7 +9,9 @@ const GoalCategory = (props) => {
 
   return (
     <div className="goal-category">
-      <div className="category-name">{props.category.name.toUpperCase()}</div>
+      <Link to={`/goals/categories/${props.category.id}/`}className="category-name">
+        {props.category.name.toUpperCase()}
+      </Link>
       <GoalsList goals={goals} />
     </div>
   )
