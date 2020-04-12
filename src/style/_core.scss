@@ -2,6 +2,11 @@
 
 body {
     font-family: $font;
+    color: $black-1;
+}
+
+main {
+    padding: $gap-3;
 }
 
 .logo {

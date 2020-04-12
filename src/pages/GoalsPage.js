@@ -14,7 +14,6 @@ const GoalsPage = (props) => {
 
   return (
     <Base className="goals-page" logout={props.logout} >
-      <h1>Goals</h1>
       <GoalCategoriesList categories={categories} />
     </Base>
   )

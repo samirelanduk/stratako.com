@@ -1,0 +1,6 @@
+@import "presets";
+
+.goals-list {
+    display: grid;
+    grid-gap: $gap-4;
+}

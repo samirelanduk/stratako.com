@@ -1,0 +1,9 @@
+@import "presets";
+
+.goal {
+    color: $black-1;
+    
+    .goal-name {
+        font-size: $font-size-5;
+    }
+}
