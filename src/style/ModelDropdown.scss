@@ -1,0 +1,28 @@
+@import "presets";
+
+.model-dropdown {
+    position: absolute;
+    top: $nav-height + $gap-3;
+    right: $gap-3;
+    text-align: right;
+    padding: $gap-2 $gap-3;
+
+    img {
+        width: 15px;
+        cursor: pointer;
+    }
+
+    button {
+        display: none;
+    }
+}
+
+.model-dropdown.visible {
+    border: 1px solid $faint-gray;
+    border-radius: 10px;
+    
+    button {
+        display: block;
+        margin: $gap-3 0;
+    }
+}
