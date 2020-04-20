@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useRouteMatch } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { GOAL_CATEGORY } from "../queries";
+import { useRouteMatch, useHistory } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { GOAL_CATEGORY, ALL_GOALS_BY_CATEGORY } from "../queries";
+import { DELETE_GOAL_CATEGORY } from "../mutations";
 import Base from "../components/Base";
 import ModelDropdown from "../components/ModelDropdown";
 import GoalsList from "../components/GoalsList";
@@ -11,6 +12,14 @@ const GoalCategoryPage = (props) => {
   
 
   const categoryId = useRouteMatch("/goals/categories/:id").params.id;
+
+  const history = useHistory();
+  const [deleteGoalCategory] = useMutation(DELETE_GOAL_CATEGORY, {
+    onCompleted: () => history.push("/goals/"),
+    variables: {id: categoryId},
+    refetchQueries: () => [{query: ALL_GOALS_BY_CATEGORY}]
+  });
+
   const {data, loading, error} = useQuery(GOAL_CATEGORY, {variables: {id: categoryId}});
   const [showDropdown, setShowDropdown] = useState(false);
   if (error && error.message.includes("does not exist")) {
@@ -32,6 +41,7 @@ const GoalCategoryPage = (props) => {
       <GoalsList goals={goals} />
       <ModelDropdown
         showDropdown={showDropdown} setShowDropdown={setShowDropdown}
+        delete={deleteGoalCategory}
       />
     </Base>
   )

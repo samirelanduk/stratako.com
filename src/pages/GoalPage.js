@@ -14,7 +14,7 @@ const GoalPage = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const history = useHistory();
-  const [deleteGoalMutation] = useMutation(DELETE_GOAL, {
+  const [deleteGoal] = useMutation(DELETE_GOAL, {
     onCompleted: () => history.push("/goals/"),
     variables: {id: goalId},
     refetchQueries: () => [{query: ALL_GOALS_BY_CATEGORY}]
@@ -39,7 +39,7 @@ const GoalPage = (props) => {
 
       <ModelDropdown
         showDropdown={showDropdown} setShowDropdown={setShowDropdown}
-        delete={deleteGoalMutation}
+        delete={deleteGoal}
       />
     </Base>
   )
