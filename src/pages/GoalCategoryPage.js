@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GOAL_CATEGORY, ALL_GOALS_BY_CATEGORY } from "../queries";
-import { DELETE_GOAL_CATEGORY } from "../mutations";
+import { DragDropContext } from "react-beautiful-dnd";
+import { GOAL_CATEGORY } from "../queries";
+import { MOVE_GOAL, DELETE_GOAL_CATEGORY } from "../mutations";
+import { resultWorthActingOn } from "../reordering";
 import Base from "../components/Base";
 import ModelDropdown from "../components/ModelDropdown";
 import GoalsList from "../components/GoalsList";
 import "../style/GoalCategoryPage.scss";
 
 const GoalCategoryPage = (props) => {
-  
 
   const categoryId = useRouteMatch("/goals/categories/:id").params.id;
 
@@ -17,11 +18,15 @@ const GoalCategoryPage = (props) => {
   const [deleteGoalCategory] = useMutation(DELETE_GOAL_CATEGORY, {
     onCompleted: () => history.push("/goals/"),
     variables: {id: categoryId},
-    refetchQueries: () => [{query: ALL_GOALS_BY_CATEGORY}]
+    refetchQueries: () => [{query: GOAL_CATEGORY}]
   });
 
-  const {data, loading, error} = useQuery(GOAL_CATEGORY, {variables: {id: categoryId}});
+  const [moveGoal, moveResult] = useMutation(MOVE_GOAL);
+  
+  const { loading, error, data } = useQuery(GOAL_CATEGORY, {variables: {id: categoryId}});
+  
   const [showDropdown, setShowDropdown] = useState(false);
+
   if (error && error.message.includes("does not exist")) {
     return (
       <Base className="goal-category-page" logout={props.logout} >
@@ -30,19 +35,60 @@ const GoalCategoryPage = (props) => {
     )
   }
   const category = loading ? null : data.user.goalCategory;
-  const goals = category ? category.goals.edges.map(edge => edge.node) : [];
+  let goals = [];
+  if (moveResult.data) {
+    goals = moveResult.data.moveGoal.goals.edges;
+  } else if (category) {
+    goals = category.goals.edges;
+  }
+  goals = goals.map(edge => edge.node);
+
   if (category) document.title = "stratako - " + category.name;
+
+
+  
+
+  const onDragEnd = result => {
+    if (!resultWorthActingOn(result)) return;
+    const { destination, source } = result;
+    console.log(result)
+    let reorderedGoals = goals.filter(goal => goal.id !== result.draggableId);
+    reorderedGoals.splice(destination.index, 0, goals.filter(goal => goal.id === result.draggableId)[0]);
+    reorderedGoals = reorderedGoals.map(goal => {
+      return {__typename: "GoalEdge", node: goal}
+    });
+
+    moveGoal({
+      variables: {goal: result.draggableId, index: destination.index},
+      optimisticResponse: {
+        moveGoal: {
+          __typename: "MoveGoal",
+          goals: {
+            __typename: "GoalConnection",
+            edges: reorderedGoals
+          }
+        }
+      },
+      update: (proxy) => {
+        const newData = proxy.readQuery({ query: GOAL_CATEGORY, variables: {id: categoryId} });;
+        newData.user.goalCategory.goals.edges = reorderedGoals;
+        proxy.writeQuery({ query: GOAL_CATEGORY, data: newData});
+      }
+    })
+  }
   
 
   return (
     <Base className="goal-category-page" logout={props.logout} >
-      <h1>{category && category.name}</h1>
-      <p className="description">{category && category.description}</p>
-      <GoalsList goals={goals} />
-      <ModelDropdown
-        showDropdown={showDropdown} setShowDropdown={setShowDropdown}
-        delete={deleteGoalCategory}
-      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <h1>{category && category.name}</h1>
+        <p className="description">{category && category.description}</p>
+        <GoalsList goals={goals} listId={category ? category.id : "1"} />
+        <ModelDropdown
+          showDropdown={showDropdown} setShowDropdown={setShowDropdown}
+          delete={deleteGoalCategory}
+        />
+      </DragDropContext>
     </Base>
   )
 }

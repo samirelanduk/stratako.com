@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Base from "../components/Base";
 import "../style/HomePage.scss";
 

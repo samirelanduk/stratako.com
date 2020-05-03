@@ -14,6 +14,7 @@ const ModelDropdown = (props) => {
   return (
     <div className={dropdownClass}>
       <img
+        alt="dropdown"
         src={props.showDropdown ? Up : Down}
         onClick={() => props.setShowDropdown(!props.showDropdown)}
       />

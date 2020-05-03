@@ -12,7 +12,7 @@ const GoalCategory = (props) => {
       <Link to={`/goals/categories/${props.category.id}/`}className="category-name">
         {props.category.name.toUpperCase()}
       </Link>
-      <GoalsList goals={goals} />
+      <GoalsList goals={goals} listId={props.category ? props.category.id : "1"} />
     </div>
   )
 }
