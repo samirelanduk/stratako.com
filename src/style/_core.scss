@@ -3,6 +3,7 @@
 body {
     font-family: $font;
     color: $black-1;
+    background-color: $background-gray;
 }
 
 main {
@@ -11,6 +12,10 @@ main {
 
 .logo {
     font-family: $logo-font;
+}
+
+a {
+    color: $hyperlink-color;
 }
 
 input, select, textarea {

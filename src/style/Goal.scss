@@ -1,10 +1,23 @@
 @import "presets";
 
 .goal {
-    color: $black-1;
     background-color: white;
-    
-    .goal-name {
-        font-size: $font-size-5;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: $gap-3 $gap-4;
+
+    a {
+        color: $black-1;
+
+        .goal-name {
+            font-size: $font-size-6;
+            margin-bottom: $gap-1;
+        }
+
+        .goal-description {
+            font-size: $font-size-2;
+        }
+
+        
     }
 }

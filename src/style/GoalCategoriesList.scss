@@ -2,5 +2,16 @@
 
 .goal-categories-list {
     display: grid;
-    grid-gap: $gap-6;
+    gap: $gap-6;
+
+    @media (min-width: 600px) {
+        grid-template-columns: 1fr 1fr;
+        row-gap: $gap-8;
+    }
+
+    @media (min-width: 900px) {
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }

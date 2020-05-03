@@ -11,8 +11,9 @@ const Goal = (props) => {
         <div {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          className="goal"
         >
-          <Link className="goal" to={`/goals/${props.goal.id}/`} >
+          <Link  to={`/goals/${props.goal.id}/`} >
             <div className="goal-name">{props.goal.name}</div>
             <div className="goal-description">{props.goal.description}</div>
           </Link>

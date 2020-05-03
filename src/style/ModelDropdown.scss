@@ -19,10 +19,12 @@
 
 .model-dropdown.visible {
     border: 1px solid $faint-gray;
-    border-radius: 10px;
+    border-radius: $border-radius;
+    background-color: white;
     
     button {
         display: block;
         margin: $gap-3 0;
+        background-color: white;
     }
 }
