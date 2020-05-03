@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { DragDropContext } from "react-beautiful-dnd";
-import { GOAL_CATEGORY } from "../queries";
+import { GOAL_CATEGORY, ALL_GOALS_BY_CATEGORY } from "../queries";
 import { MOVE_GOAL, DELETE_GOAL_CATEGORY } from "../mutations";
 import { resultWorthActingOn } from "../reordering";
 import Base from "../components/Base";
@@ -18,7 +18,7 @@ const GoalCategoryPage = (props) => {
   const [deleteGoalCategory] = useMutation(DELETE_GOAL_CATEGORY, {
     onCompleted: () => history.push("/goals/"),
     variables: {id: categoryId},
-    refetchQueries: () => [{query: GOAL_CATEGORY}]
+    refetchQueries: () => [{query: ALL_GOALS_BY_CATEGORY}]
   });
 
   const [moveGoal, moveResult] = useMutation(MOVE_GOAL);
