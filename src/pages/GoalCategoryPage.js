@@ -45,30 +45,22 @@ const GoalCategoryPage = (props) => {
 
   if (category) document.title = "stratako - " + category.name;
 
-
-  
-
   const onDragEnd = result => {
     if (!resultWorthActingOn(result)) return;
-    const { destination, source } = result;
-    console.log(result)
-    let reorderedGoals = goals.filter(goal => goal.id !== result.draggableId);
-    reorderedGoals.splice(destination.index, 0, goals.filter(goal => goal.id === result.draggableId)[0]);
+    const { destination, draggableId } = result;
+    let reorderedGoals = goals.filter(goal => goal.id !== draggableId);
+    reorderedGoals.splice(destination.index, 0, goals.filter(goal => goal.id === draggableId)[0]);
     reorderedGoals = reorderedGoals.map(goal => {
       return {__typename: "GoalEdge", node: goal}
     });
 
     moveGoal({
-      variables: {goal: result.draggableId, index: destination.index},
-      optimisticResponse: {
-        moveGoal: {
-          __typename: "MoveGoal",
-          goals: {
-            __typename: "GoalConnection",
-            edges: reorderedGoals
-          }
+      variables: {goal: draggableId, index: destination.index},
+      optimisticResponse: {moveGoal: {
+        __typename: "MoveGoal", goals: {
+          __typename: "GoalConnection", edges: reorderedGoals
         }
-      },
+      }},
       update: (proxy) => {
         const newData = proxy.readQuery({ query: GOAL_CATEGORY, variables: {id: categoryId} });;
         newData.user.goalCategory.goals.edges = reorderedGoals;
@@ -77,7 +69,6 @@ const GoalCategoryPage = (props) => {
     })
   }
   
-
   return (
     <Base className="goal-category-page" logout={props.logout} >
       <DragDropContext onDragEnd={onDragEnd}>
