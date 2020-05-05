@@ -1,13 +1,14 @@
 @import "presets";
 
 .goal-page {
-    h1 {
+    .name {
         font-weight: 800;
         font-size: $font-size-9;
-        margin-bottom: $gap-2;
+        margin-bottom: $gap-5;
     }
 
     .description {
         color: $black-2;
+        margin-bottom: $gap-5;
     }
 }

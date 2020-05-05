@@ -18,6 +18,7 @@ const ModelDropdown = (props) => {
         src={props.showDropdown ? Up : Down}
         onClick={() => props.setShowDropdown(!props.showDropdown)}
       />
+      <button onClick={props.edit}>Edit</button>
       <button onClick={props.delete}>Delete</button>
     </div>
   )
