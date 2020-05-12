@@ -1,0 +1,19 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: calc(100vw - #{$compact-sidebar-width});
+    padding: 0 $gap-4;
+    background-color: white;
+
+    img {
+        display: block;
+        height: 40%;
+        opacity: 0.3;
+        cursor: pointer;
+    }
+
+    @media (min-width: 800px) {
+        width: calc(100vw - #{$extended-sidebar-width});
+    }
+}

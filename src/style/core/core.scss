@@ -1,0 +1,32 @@
+body {
+    font-family: $font, Arial, sans-serif;
+    font-size: $font-size-3;
+    color: $text-black;
+}
+
+input {
+    color: $input-black;
+}
+
+a {
+    color: $hyperlink-color;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.error {
+    color: $error-red;
+}
+
+button, input[type=submit] {
+    cursor: pointer;
+}
+
+.logo {
+    font-family: $logo-font;
+    background-color: $stratako-1;
+    color: white;
+    width: fit-content;
+    padding: $gap-1 $gap-2;
+    letter-spacing: 1px;
+}

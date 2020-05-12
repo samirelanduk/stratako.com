@@ -1,1 +1,1 @@
-# stratako.com
+# stratako

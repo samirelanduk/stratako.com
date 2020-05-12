@@ -1,3 +1,13 @@
-@import "reset";
-@import "presets";
-@import "core";
+@import "core/presets";
+@import "core/reset";
+@import "core/core";
+
+@import "core/pages/LandingPage";
+@import "core/pages/LoginPage";
+@import "core/pages/PrivacyPolicyPage";
+
+@import "core/components/SignupForm";
+@import "core/components/LoginForm";
+@import "core/components/Base";
+@import "core/components/Nav";
+@import "core/components/Sidebar";
