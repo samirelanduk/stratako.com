@@ -20,6 +20,7 @@ const Nav = () => {
 
   return (
     <nav>
+      <div className="logo">stratako</div>
       <img onClick={logout} src={userIcon} alt="user-icon" />
     </nav>
   )

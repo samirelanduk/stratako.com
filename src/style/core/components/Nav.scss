@@ -1,19 +1,22 @@
 nav {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    width: calc(100vw - #{$compact-sidebar-width});
+    justify-content: space-between;
+    width: 100vw;
     padding: 0 $gap-4;
     background-color: white;
+
+    .logo {
+        background-color: inherit;
+        color: $stratako-1;
+        font-size: $font-size-7;
+        padding: 0;
+    }
 
     img {
         display: block;
         height: 40%;
         opacity: 0.3;
         cursor: pointer;
-    }
-
-    @media (min-width: 800px) {
-        width: calc(100vw - #{$extended-sidebar-width});
     }
 }
