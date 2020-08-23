@@ -1,5 +1,5 @@
 {
-  "name": "lytikojs",
+  "name": "stratakojs",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "react-spinners": "^0.8.3"
   },
   "scripts": {
-    "start": "PORT=3003 react-scripts start",
+    "start": "BROWSER=none PORT=4003 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
