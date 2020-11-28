@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 const Base = props => {
+
   return (
     <div className="base">
       <nav>
         <Link to="/">Home</Link>
         <Link to="/operations/">Operations</Link>
       </nav>
-      <main>
+      <main className={props.className}>
         {props.children}
       </main>
     </div>
