@@ -9,3 +9,9 @@ export const FUTURE_OPERATIONS = gql`{
     edges { node { id name description slotOrder } }
   } }
 }`;
+
+export const PAST_OPERATIONS = gql`{
+  slots { id name operations(completed: true) {
+    edges { node { id name description slotOrder started completed } }
+  } }
+}`;

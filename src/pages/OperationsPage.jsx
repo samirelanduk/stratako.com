@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
-import { FUTURE_OPERATIONS } from "../queries";
+import { FUTURE_OPERATIONS, PAST_OPERATIONS } from "../queries";
 import { REORDER_OPERATIONS } from "../mutations";
 
 const OperationsPage = () => {
@@ -9,11 +9,15 @@ const OperationsPage = () => {
   const [slots, setSlots] = useState(null);
 
   
-  const { loading, data } = useQuery(FUTURE_OPERATIONS, {
+  const {loading: futureLoading} = useQuery(FUTURE_OPERATIONS, {
     skip: slots !== null,
     onCompleted: data => {
       setSlots([...data.slots]);
     }
+  });
+
+  const { loading, data } = useQuery(PAST_OPERATIONS, {
+    skip: futureLoading
   });
 
 
@@ -43,10 +47,10 @@ const OperationsPage = () => {
     <Base className="operations-page">
       <div className="slots">
         {slots.map(slot => (
-          <div className="slot">
+          <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operations.edges.map(edge => edge.node).map((operation, index) => (
-              <div className="operation">
+              <div className="operation" key={operation.id}>
                 <h3>{operation.name}</h3>
                 <div className="order-buttons">
                   <div
@@ -63,6 +67,28 @@ const OperationsPage = () => {
           </div>
         ))}        
       </div>
+
+
+      {loading ? <div>Loading</div> : (
+        <div className="past-slots">
+          {data.slots.map(slot => (
+            <div className="slot-history" key={slot.id}>
+              <h3>{slot.name}</h3>
+              <div className="operations">
+                {slot.operations.edges.map(edge => edge.node).map(operation => (
+                  <div className="completed-operation" key={operation.id}>
+                    <h4>{operation.name}</h4>
+                    <div className="when">
+                      {`${operation.started} to ${operation.completed}`}
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </Base>
   );
 };
