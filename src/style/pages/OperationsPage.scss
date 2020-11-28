@@ -1,0 +1,21 @@
+.operations-page {
+    padding: $gap-3;
+
+    .slots {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: $gap-3;
+        max-width: 700px;
+        border: 1px solid black;
+
+        .slot {
+            border: 1px solid black;
+            padding: $gap-3;
+
+            .slot-title {
+                font-size: $font-size-6;
+                margin-bottom: $gap-3;
+            }
+        }
+    }
+}
