@@ -1,4 +1,28 @@
 .operation {
     border: 1px solid black;
     padding: $gap-3;
+    display: flex;
+    justify-content: space-between;
+
+    .order-buttons {
+        font-size: $font-size-3;
+        line-height: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .order-button {
+            cursor: pointer;
+        }
+
+        .order-button:first-child {
+            margin-bottom: $gap-1;
+        }
+
+        .order-button.hidden {
+            pointer-events: none;
+            cursor: auto;
+            opacity: 0;
+        }
+    }
 }

@@ -8,6 +8,6 @@ export const CURRENT_OPERATIONS = gql`{
 
 export const FUTURE_OPERATIONS = gql`{
   operations(started: false) {
-    edges { node { id name description slot } }
+    edges { node { id name description slot slotOrder } }
   }
 }`;
