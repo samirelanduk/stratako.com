@@ -15,29 +15,17 @@ const HomePage = () => {
     );
   }
 
-  const operations = data.operations.edges.map(edge => edge.node);
-  const slot1 = operations.filter(operation => operation.slot === 1);
-  const slot2 = operations.filter(operation => operation.slot === 2);
-
   return (
     <Base className="home-page">
       <div className="slots">
-        <div className="slot">
-          <h2 className="slot-title">Slot 1</h2>
-          {slot1.map(operation => (
-            <div className="operation">
-              <h3>{operation.name}</h3>
-            </div>
-          ))}
-        </div>
-        <div className="slot">
-          <h2 className="slot-title">Slot 2</h2>
-          {slot2.map(operation => (
-            <div className="operation">
-              <h3>{operation.name}</h3>
-            </div>
-          ))}
-        </div>
+        {data.slots.map(slot => (
+          <div className="slot">
+            <h2 className="slot-title">{slot.name}</h2>
+            {slot.operation && <div className="operation">
+              <h3>{slot.operation.name}</h3>
+            </div>}
+          </div>
+        ))}
       </div>
     </Base>
   );
