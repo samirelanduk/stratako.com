@@ -1,0 +1,20 @@
+.slot {
+    width: 400px;
+
+    .slot-name {
+        font-weight: 700;
+        font-size: $font-size-6;
+        margin-bottom: $gap-4;
+    }
+
+    .operations {
+        display: grid;
+        gap: $gap-3;
+    }
+
+    .no-operations {
+        font-weight: 300;
+        color: $dark-gray;
+        font-size: $font-size-2;
+    }
+}

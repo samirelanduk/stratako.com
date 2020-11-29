@@ -1,15 +1,18 @@
 .projects-list {
     font-size: $font-size-1;
     display: grid;
-    gap: $gap-1;
 
-    .project {
+    a.project {
         display: grid;
         align-items: center;
         gap: $gap-1;
         grid-template-columns: 10px 1fr;
         color: $dark-gray;
         font-weight: 300;
+        color: inherit;
+        text-decoration: none;
+        padding: $gap-1;
+        border-radius: 5px;
 
         .project-color {
             width: 10px;
@@ -17,5 +20,9 @@
             border-radius: 50%;
             background-color: $dark-gray;
         }
+    }
+
+    a.project:hover {
+        background-color: $light-gray;
     }
 }

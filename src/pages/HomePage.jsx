@@ -4,7 +4,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
 import { COMPLETE_OPERATION, CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
-import Operation from "../components/Operation";
+
+import Slot from "../components/Slot";
 
 const HomePage = () => {
 
@@ -67,11 +68,8 @@ const HomePage = () => {
   return (
     <Base className="home-page">
       <div className="slots">
-        {data.slots.map((slot, slotIndex) => (
-          <div className="slot" key={slot.id}>
-            <h2 className="slot-title">{slot.name}</h2>
-            {slot.operation && <Operation operation={slot.operation} />}
-          </div>
+        {data.slots.map(slot => (
+          <Slot slot={slot} key={slot.id} />
         ))}
       </div>
     </Base>

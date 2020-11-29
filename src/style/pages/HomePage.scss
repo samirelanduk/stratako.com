@@ -1,21 +1,18 @@
 .home-page {
-    padding: $gap-3;
+    padding: $gap-8 $gap-5;
+    background-color: $background-gray;
 
     .slots {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        padding: $gap-3;
-        max-width: 700px;
-        border: 1px solid black;
+        display: flex;
+        width: fit-content;
+        margin: 0 auto;
 
         .slot {
-            border: 1px solid black;
-            padding: $gap-3;
+            margin-right: $gap-7;
+        }
 
-            .slot-title {
-                font-size: $font-size-6;
-                margin-bottom: $gap-3;
-            }
+        .slot:last-child {
+            margin-right: 0;
         }
     }
 }

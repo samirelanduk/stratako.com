@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ProjectsList = props => {
 
@@ -8,10 +9,10 @@ const ProjectsList = props => {
   return (
     <div className="projects-list">
       {projects.map(project => (
-        <div className="project">
+        <Link className="project" to={`/projects/${project.id}/`} key={project.id}>
           <div className="project-color" />
           <div className="project-name">{project.name}</div>
-        </div>
+        </Link>
       ))}
     </div>
   );
