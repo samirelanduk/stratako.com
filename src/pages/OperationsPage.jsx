@@ -80,6 +80,9 @@ const OperationsPage = () => {
               <div className="operation" key={operation.id}>
                 <h3><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h3>
                 {!slot.operation && <button onClick={() => activate(operation.id)}>Activate</button>}
+                <div className="projects">
+                  {operation.projects.map(project => <div className="project">{project.name}</div>)}
+                </div>
                 <div className="order-buttons">
                   <div
                     className={`order-button ${index === 0 ? "hidden" : ""}`}
@@ -118,6 +121,9 @@ const OperationsPage = () => {
                     <h4><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h4>
                     <div className="when">
                       {`${operation.started} to ${operation.completed}`}
+                    </div>
+                    <div className="projects">
+                      {operation.projects.map(project => <div className="project">{project.name}</div>)}
                     </div>
                   </div>
                 ))}

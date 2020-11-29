@@ -37,6 +37,9 @@ const HomePage = () => {
             <h3><Link to={`/operations/${slot.operation.id}/`}>{slot.operation.name}</Link></h3>
               <div className="started">{slot.operation.started}</div>
               <button onClick={() => complete(slot.operation.id)}>Complete</button>
+              <div className="projects">
+                {slot.operation.projects.map(project => <div className="project">{project.name}</div>)}
+              </div>
             </div>}
           </div>
         ))}

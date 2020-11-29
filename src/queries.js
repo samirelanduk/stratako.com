@@ -5,17 +5,17 @@ export const OPERATION = gql`query operation($id: ID!) { operation(id: $id) {
 } }`
 
 export const CURRENT_OPERATIONS = gql`{
-  slots { id name operation { id name started } }
+  slots { id name operation { id name started projects { id name } } }
 }`;
 
 export const FUTURE_OPERATIONS = gql`{
   slots { id name operation { id } operations(started: false) {
-    edges { node { id name description slotOrder } }
+    edges { node { id name description slotOrder projects { id name } } }
   } }
 }`;
 
 export const PAST_OPERATIONS = gql`{
-  slots { id name operations(completed: true) {
-    edges { node { id name description slotOrder started completed } }
-  } }
+  slots { id name operations(completed: true) { edges { node {
+    id name description slotOrder started completed projects { id name }
+  } } } }
 }`;
