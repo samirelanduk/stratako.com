@@ -1,0 +1,57 @@
+.sidebar {
+    background-color: $sidebar-color;
+
+    .logo, .nav-links a {
+        padding: 0 $gap-5;
+    }
+
+    .logo {
+        color: white;
+        height: $nav-height;
+        display: flex;
+        align-items: center;
+        font-size: $font-size-6;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+        border-bottom: 1px solid $black-gray;
+        padding-bottom: $gap-5;
+        
+        a {
+            display: grid;
+            grid-template-columns: 20px 1fr;
+            gap: $gap-2;
+            font-size: $font-size-3;
+            color: $gray;
+            text-decoration: none;
+            padding-top: $gap-2;
+            padding-bottom: $gap-2;
+            align-items: center;
+            font-weight: 400;
+
+            img, svg {
+                display: block;
+                width: 20px;
+                height: 20px;
+                background: none;
+                fill: $dark-gray;
+                stroke: $dark-gray;
+            }
+        }
+
+        a:hover {
+            background-color: #ffffff15;
+        }
+
+        a.selected {
+            background-color: #ffffff30;
+
+            svg {
+                fill: $gray;
+                stroke: $gray;
+            }
+        }
+    }
+}

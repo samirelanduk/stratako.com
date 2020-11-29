@@ -2,20 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import Div100vh from "react-div-100vh";
+import Sidebar from "../components/Sidebar";
 
 const Base = props => {
 
   return (
-    <div className="base">
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/operations/">Operations</Link>
-        <Link to="/projects/">Projects</Link>
-      </nav>
+    <Div100vh className="base">
+      <Sidebar />
       <main className={props.className}>
         {props.children}
       </main>
-    </div>
+    </Div100vh>
   );
 };
 

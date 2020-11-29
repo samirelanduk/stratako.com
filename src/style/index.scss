@@ -2,9 +2,11 @@
 @import "reset";
 @import "core";
 
+@import "pages/Base";
 @import "pages/HomePage";
 @import "pages/OperationsPage";
 @import "pages/ProjectsPage";
 @import "pages/OperationPage";
 
+@import "components/Sidebar";
 @import "components/Operation";
