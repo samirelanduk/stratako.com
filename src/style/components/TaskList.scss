@@ -3,18 +3,47 @@
         display: flex;
         align-items: center;
         padding: $gap-2 0;
-        border-top: 1px solid black;
+        border-top: 1px solid $gray;
 
         input {
             margin-right: $gap-1;
+            cursor: pointer;
         }
         
         input:checked + .name {
             text-decoration: line-through;
         }
+
+        .name {
+            flex-grow: 5;
+        }
+
+        .delete {
+            cursor: pointer;
+            width: 10px;
+            height: 10px;
+            content: "";
+            position: relative;
+        }
+
+        .delete:before, .delete:after {
+            content: "";
+            width: 1px;
+            height: 10px;
+            position: absolute;
+            background-color: $dark-gray;
+        }
+
+        .delete:before {
+            transform: rotate(45deg);
+        }
+
+        .delete:after {
+            transform: rotate(315deg);
+        }
     }
 
     .task:last-child {
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $gray;
     }
 }

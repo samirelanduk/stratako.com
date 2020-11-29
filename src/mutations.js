@@ -21,3 +21,7 @@ export const CREATE_OPERATION = gql`mutation createOperation(
 export const TOGGLE_TASK = gql`mutation toggleTask($id: ID!) {
   toggleTask(id: $id) { task { id completed } }
 }`;
+
+export const DELETE_TASK = gql`mutation deleteTask($id: ID!) {
+  deleteTask(id: $id) { success }
+}`;

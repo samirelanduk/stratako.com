@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
-import { COMPLETE_OPERATION, TOGGLE_TASK } from "../mutations";
+import { COMPLETE_OPERATION, TOGGLE_TASK, DELETE_TASK } from "../mutations";
 
 const HomePage = () => {
 
@@ -26,6 +26,10 @@ const HomePage = () => {
   const toggle = id => {
     toggleTask({variables: {id}})
   }
+
+  const [deleteTask, deleteTaskMutation] = useMutation(DELETE_TASK, {
+    refetchQueries: [{query: CURRENT_OPERATIONS}]
+  });
 
   if (loading) {
     return (
@@ -58,6 +62,7 @@ const HomePage = () => {
                         onChange={() => toggle(task.id)}
                       />
                       <div className="name">{task.name}</div>
+                      <div className="delete" onClick={() => deleteTask({variables: {id: task.id}})} />
                     </div>
                   ))}
                 </div>
