@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import HomePage from "../pages/HomePage";
 import { makeClient } from "../api";
 import OperationsPage from "../pages/OperationsPage";
+import OperationPage from "../pages/OperationPage";
 
 const client = makeClient();
 
@@ -19,6 +20,9 @@ const App = () => {
           </Route>
           <Route path="/operations/" exact>
             <OperationsPage />
+          </Route>
+          <Route path="/operations/:id" exact>
+            <OperationPage />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { FUTURE_OPERATIONS, PAST_OPERATIONS } from "../queries";
@@ -77,7 +78,7 @@ const OperationsPage = () => {
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operations.edges.map(edge => edge.node).map((operation, index) => (
               <div className="operation" key={operation.id}>
-                <h3>{operation.name}</h3>
+                <h3><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h3>
                 {!slot.operation && <button onClick={() => activate(operation.id)}>Activate</button>}
                 <div className="order-buttons">
                   <div
@@ -114,11 +115,10 @@ const OperationsPage = () => {
               <div className="operations">
                 {slot.operations.edges.map(edge => edge.node).map(operation => (
                   <div className="completed-operation" key={operation.id}>
-                    <h4>{operation.name}</h4>
+                    <h4><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h4>
                     <div className="when">
                       {`${operation.started} to ${operation.completed}`}
                     </div>
-
                   </div>
                 ))}
               </div>
