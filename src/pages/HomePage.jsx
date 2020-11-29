@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
 import { COMPLETE_OPERATION, CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
+import Operation from "../components/Operation";
 
 const HomePage = () => {
 
@@ -69,41 +70,7 @@ const HomePage = () => {
         {data.slots.map((slot, slotIndex) => (
           <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
-            {slot.operation && (
-              <div className="operation">
-                <h3><Link to={`/operations/${slot.operation.id}/`}>{slot.operation.name}</Link></h3>
-                <div className="started">{slot.operation.started}</div>
-                <button onClick={() => complete(slot.operation.id)}>Complete</button>
-                <div className="projects">
-                  {slot.operation.projects.map(project => <Link key={project.id} to={`/projects/${project.id}/`} className="project">{project.name}</Link>)}
-                </div>
-                <div className="task-list">
-                  {slot.operation.tasks.map(task => (
-                    <div className="task" key={task.id}>
-                      <input
-                        type="checkbox"
-                        checked={task.completed}
-                        onChange={() => toggle(task.id)}
-                      />
-                      <div className="name">{task.name}</div>
-                      <div className="delete" onClick={() => deleteTask({variables: {id: task.id}})} />
-                    </div>
-                  ))}
-                  {newTasks !== null && <form onSubmit={e => create(e, newTasks[slotIndex], slot.operation.id)}>
-                    <input
-                      className="new"
-                      value={newTasks[slotIndex]}
-                      placeholder="New task"
-                      onChange={e => {
-                        newTasks[slotIndex] = e.target.value;
-                        setNewTasks([...newTasks]);
-                      }}
-                      required
-                    />
-                  </form>}
-                </div>
-              </div>
-            )}
+            {slot.operation && <Operation operation={slot.operation} />}
           </div>
         ))}
       </div>

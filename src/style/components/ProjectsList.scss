@@ -1,0 +1,21 @@
+.projects-list {
+    font-size: $font-size-1;
+    display: grid;
+    gap: $gap-1;
+
+    .project {
+        display: grid;
+        align-items: center;
+        gap: $gap-1;
+        grid-template-columns: 10px 1fr;
+        color: $dark-gray;
+        font-weight: 300;
+
+        .project-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: $dark-gray;
+        }
+    }
+}
