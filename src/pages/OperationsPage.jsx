@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
+import SlotColumns from "../components/SlotColumns";
 import { FUTURE_OPERATIONS, PAST_OPERATIONS } from "../queries";
 import { REORDER_OPERATIONS, ACTIVATE_OPERATION, CREATE_OPERATION } from "../mutations";
 
@@ -75,7 +76,7 @@ const OperationsPage = () => {
         {slots.map((slot, slotIndex) => (
           <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
-            {slot.operations.edges.map(edge => edge.node).map((operation, index) => (
+            {slot.operations.map((operation, index) => (
               <div className="operation" key={operation.id}>
                 <h3><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h3>
                 {!slot.operation && <button onClick={() => activate(operation.id)}>Activate</button>}
@@ -88,7 +89,7 @@ const OperationsPage = () => {
                     onClick={() => reorder(slot.id, operation.id, index - 1)}
                   >⬆️</div>
                   <div
-                    className={`order-button ${index === slot.operations.edges.length - 1 ? "hidden" : ""}`}
+                    className={`order-button ${index === slot.operations.length - 1 ? "hidden" : ""}`}
                     onClick={() => reorder(slot.id, operation.id, index + 1)}
                   >⬇️</div>
                 </div>
@@ -108,8 +109,10 @@ const OperationsPage = () => {
         ))}        
       </div>
 
+      {loading ? <div>Loading</div> : <SlotColumns slots={data.slots} />}
 
-      {loading ? <div>Loading</div> : (
+
+      {/* {loading ? <div>Loading</div> : (
         <div className="past-slots">
           {data.slots.map(slot => (
             <div className="slot-history" key={slot.id}>
@@ -130,7 +133,7 @@ const OperationsPage = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
     </Base>
   );
 };

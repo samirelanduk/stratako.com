@@ -16,7 +16,7 @@
             margin-bottom: $gap-2;
             height: fit-content;
     
-            button.action {
+            .action {
                 border: 2px solid transparentize($green, 0.3);
                 width: 16px;
                 height: 16px;
@@ -24,8 +24,13 @@
                 cursor: pointer;
             }
 
-            button.action:hover {
+            button.action:hover, img.action {
                 border-color: $green;
+            }
+
+            img.action {
+                background-color: $green;
+                cursor: auto;
             }
 
             .operation-name {

@@ -1,5 +1,6 @@
 .operations-page {
     padding: $gap-3;
+    background-color: $background-gray;
 
     .slots {
         display: grid;
@@ -26,22 +27,4 @@
         }
     }
 
-    .past-slots {
-        padding: $gap-3;
-        max-width: 700px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        h3 {
-            margin-bottom: $gap-3;
-        }
-
-        .completed-operation {
-            margin-bottom: $gap-3;
-
-            h4 {
-                font-size: $font-size-4;
-            }
-        }
-    }
 }

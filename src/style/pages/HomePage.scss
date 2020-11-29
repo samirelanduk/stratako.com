@@ -1,18 +1,4 @@
 .home-page {
     padding: $gap-8 $gap-5;
     background-color: $background-gray;
-
-    .slots {
-        display: flex;
-        width: fit-content;
-        margin: 0 auto;
-
-        .slot {
-            margin-right: $gap-7;
-        }
-
-        .slot:last-child {
-            margin-right: 0;
-        }
-    }
 }

@@ -7,6 +7,7 @@ import TaskList from "./TaskList";
 import ProjectsList from "./ProjectsList";
 import { CURRENT_OPERATIONS } from "../queries";
 import { COMPLETE_OPERATION } from "../mutations";
+import checked from "../images/checked.svg";
 
 const Operation = props => {
 
@@ -20,7 +21,9 @@ const Operation = props => {
     <div className="operation">
       <div className="top-row">
         <div className="main-info">
-          <button className="action" onClick={() => completeOperation({variables: {id: operation.id}})} />
+          {operation.completed ? <img src={checked} alt="checked" className="action" /> : (
+            <button className="action" onClick={() => completeOperation({variables: {id: operation.id}})} />
+          )}
           <Link className="operation-name" to={`/operations/${operation.id}/`}>{operation.name}</Link>
         </div>
         {operation.projects && <ProjectsList projects={operation.projects} />}
@@ -28,7 +31,11 @@ const Operation = props => {
 
 
       {operation.started && !operation.completed && (
-        <div className="started">Started: {moment(operation.started).format("DD-MMM")}</div>
+        <div className="started">Started: {moment(operation.started).format("D MMM")}</div>
+      )}
+      {operation.started && operation.completed && (
+        <div className="started">
+          {moment(operation.started).format("D MMM")} to {moment(operation.completed).format("D MMM")}</div>
       )}
 
       {operation.tasks && <TaskList tasks={operation.tasks} operation={operation} />}

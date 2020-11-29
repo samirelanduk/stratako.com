@@ -12,14 +12,14 @@ export const CURRENT_OPERATIONS = gql`{
 
 export const FUTURE_OPERATIONS = gql`{
   slots { id name operation { id } operations(started: false) {
-    edges { node { id name description slotOrder projects { id name } } }
+    id name description slotOrder projects { id name }
   } }
 }`;
 
 export const PAST_OPERATIONS = gql`{
-  slots { id name operations(completed: true) { edges { node {
+  slots { id name operations(completed: true) {
     id name description slotOrder started completed projects { id name }
-  } } } }
+  } }
 }`;
 
 export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
