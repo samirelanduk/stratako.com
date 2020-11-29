@@ -1,11 +1,22 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
+import { COMPLETE_OPERATION } from "../mutations";
 
 const HomePage = () => {
 
-  const { loading, data } = useQuery(CURRENT_OPERATIONS);
+  const { loading, data, refetch } = useQuery(CURRENT_OPERATIONS);
+
+  const [completeOperation, completeOperationMutation] = useMutation(COMPLETE_OPERATION, {
+    refetchQueries: [{query: CURRENT_OPERATIONS}]
+  });
+
+  const complete = id => {
+    completeOperation({
+      variables: {id}
+    })
+  }
 
   if (loading) {
     return (
@@ -23,6 +34,7 @@ const HomePage = () => {
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operation && <div className="operation">
               <h3>{slot.operation.name}</h3>
+              <button onClick={() => complete(slot.operation.id)}>Complete</button>
             </div>}
           </div>
         ))}
