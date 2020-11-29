@@ -10,7 +10,6 @@ const OperationsPage = () => {
   const [newOperations, setNewOperations] = useState(null);
   
   const {data: futureData, loading: futureLoading} = useQuery(FUTURE_OPERATIONS, {
-    refetchQueries: [{query: FUTURE_OPERATIONS}],
     onCompleted: data => {
       if (newOperations === null) {
         setNewOperations(data.slots.map(() => ""));

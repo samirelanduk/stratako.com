@@ -1,0 +1,11 @@
+.projects-page {
+    padding: $gap-3;
+
+    .project {
+        margin-bottom: $gap-3;
+
+        h2 {
+            font-size: $font-size-6;
+        }
+    }
+}

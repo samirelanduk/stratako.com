@@ -23,3 +23,7 @@ export const PAST_OPERATIONS = gql`{
 export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
   id name description
 } }`;
+
+export const PROJECTS = gql`{ projects { edges { node {
+  id name description
+} } } }`;

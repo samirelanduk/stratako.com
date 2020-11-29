@@ -10,6 +10,7 @@ const Base = props => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/operations/">Operations</Link>
+        <Link to="/projects/">Projects</Link>
       </nav>
       <main className={props.className}>
         {props.children}
