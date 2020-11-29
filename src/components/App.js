@@ -6,6 +6,7 @@ import HomePage from "../pages/HomePage";
 import { makeClient } from "../api";
 import OperationsPage from "../pages/OperationsPage";
 import OperationPage from "../pages/OperationPage";
+import ProjectPage from "../pages/ProjectPage";
 
 const client = makeClient();
 
@@ -23,6 +24,9 @@ const App = () => {
           </Route>
           <Route path="/operations/:id" exact>
             <OperationPage />
+          </Route>
+          <Route path="/projects/:id" exact>
+            <ProjectPage />
           </Route>
         </Switch>
       </BrowserRouter>

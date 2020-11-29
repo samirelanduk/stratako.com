@@ -81,7 +81,7 @@ const OperationsPage = () => {
                 <h3><Link to={`/operations/${operation.id}/`}>{operation.name}</Link></h3>
                 {!slot.operation && <button onClick={() => activate(operation.id)}>Activate</button>}
                 <div className="projects">
-                  {operation.projects.map(project => <div className="project">{project.name}</div>)}
+                  {operation.projects.map(project => <Link to={`/projects/${project.id}/`} className="project">{project.name}</Link>)}
                 </div>
                 <div className="order-buttons">
                   <div
@@ -123,7 +123,7 @@ const OperationsPage = () => {
                       {`${operation.started} to ${operation.completed}`}
                     </div>
                     <div className="projects">
-                      {operation.projects.map(project => <div className="project">{project.name}</div>)}
+                      {operation.projects.map(project => <Link to={`/projects/${project.id}/`} className="project">{project.name}</Link>)}
                     </div>
                   </div>
                 ))}

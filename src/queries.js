@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const OPERATION = gql`query operation($id: ID!) { operation(id: $id) {
   id name description started completed
-} }`
+} }`;
 
 export const CURRENT_OPERATIONS = gql`{
   slots { id name operation { id name started projects { id name } } }
@@ -19,3 +19,7 @@ export const PAST_OPERATIONS = gql`{
     id name description slotOrder started completed projects { id name }
   } } } }
 }`;
+
+export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
+  id name description
+} }`;
