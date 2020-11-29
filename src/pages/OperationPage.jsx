@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Base from "./Base";
 import { OPERATION } from "../queries";
 
@@ -12,13 +12,7 @@ const OperationPage = () => {
     variables: { id: operationId}
   });
 
-  if (loading) {
-    return (
-      <Base className="operation-page">
-        Loading
-      </Base>
-    );
-  }
+  if (loading) return <Base className="operation-page" loading={true} />
 
   const operation = data.operation;
 

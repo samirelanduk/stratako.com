@@ -1,4 +1,9 @@
 .home-page {
     padding: $gap-8 $gap-5;
     background-color: $background-gray;
+
+    .slot-columns {
+        width: fit-content;
+        margin: 0 auto;
+    }
 }

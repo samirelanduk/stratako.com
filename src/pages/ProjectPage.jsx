@@ -12,13 +12,7 @@ const ProjectPage = () => {
     variables: { id: projectId}
   });
 
-  if (loading) {
-    return (
-      <Base className="project-page">
-        Loading
-      </Base>
-    );
-  }
+  if (loading) return <Base className="project-page" loading={true} />
 
   const project = data.project;
 

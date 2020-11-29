@@ -8,19 +8,11 @@ const ProjectsPage = props => {
 
   const { loading, data } = useQuery(PROJECTS);
 
-  if (loading) {
-    return (
-      <Base className="projects-page">
-        loading
-      </Base>
-    );
-  }
-
-  const projects = data.projects.edges.map(edge => edge.node);
+  if (loading) return <Base className="projects-page" loading={true} />
 
   return (
     <Base className="projects-page">
-      {projects.map(project => (
+      {data.projects.map(project => (
         <div className="project" key={project.id}>
           <h2><Link to={`/projects/${project.id}/`}>{project.name}</Link></h2>
           <p>{project.description}</p>

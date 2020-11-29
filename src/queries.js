@@ -10,22 +10,25 @@ export const CURRENT_OPERATIONS = gql`{
   } }
 }`;
 
-export const FUTURE_OPERATIONS = gql`{
-  slots { id name operation { id } operations(started: false) {
+export const FUTURE_OPERATIONS = gql`{ slots {
+  id name
+  operation { id }
+  operations(started: false) {
     id name description slotOrder projects { id name }
-  } }
-}`;
+  }
+} }`;
 
-export const PAST_OPERATIONS = gql`{
-  slots { id name operations(completed: true) {
+export const PAST_OPERATIONS = gql`{ slots {
+  id name
+  operations(completed: true) {
     id name description slotOrder started completed projects { id name }
-  } }
-}`;
+  }
+} }`;
 
 export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
   id name description
 } }`;
 
-export const PROJECTS = gql`{ projects { edges { node {
+export const PROJECTS = gql`{ projects {
   id name description
-} } } }`;
+} }`;

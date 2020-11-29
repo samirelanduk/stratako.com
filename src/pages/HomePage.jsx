@@ -8,13 +8,7 @@ const HomePage = () => {
 
   const { loading, data } = useQuery(CURRENT_OPERATIONS);
 
-  if (loading) {
-    return (
-      <Base className="home-page">
-        Loading
-      </Base>
-    );
-  }
+  if (loading) return <Base className="home-page" loading={true} />
 
   return (
     <Base className="home-page">

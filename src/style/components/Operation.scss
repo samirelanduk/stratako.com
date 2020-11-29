@@ -24,6 +24,37 @@
                 cursor: pointer;
             }
 
+            .action.activate {
+                position: relative;
+            }
+
+            .action.activate:before, .action.activate:after {
+                content: "";
+                width: 2px;
+                position: absolute;
+                height: calc(100% - 4px);
+                background-color: transparentize($green, 0.3);
+                top: 2px;
+                left: 5px;
+            }
+
+            .action.activate.disabled {
+                border-color: $gray;
+                pointer-events: none;
+            }
+
+            .action.activate.disabled:before, .action.activate.disabled:after {
+                background-color: $gray;
+            }
+
+            .action.activate:hover:before, .action.activate:hover:after {
+                background-color: $green;
+            }
+
+            .action.activate:after {
+                transform: rotate(90deg);
+            }
+
             button.action:hover, img.action {
                 border-color: $green;
             }
@@ -43,6 +74,51 @@
             }
         }
 
+    }
+
+    .order-buttons {
+        display: grid;
+        gap: $gap-2;
+        margin-left: 2px;
+
+        .order-spacer {
+            height: 10px;
+        }
+
+        .move-up, .move-down {
+            width: 10px;
+            height: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .move-up:before, .move-up:after, .move-down:before, .move-down:after {
+            content: "";
+            position: absolute;
+            width: 1px;
+            background-color: $gray;
+            height: 100%;
+        }
+
+        .move-up:hover:before, .move-up:hover:after, .move-down:hover:before, .move-down:hover:after {
+            background-color: $dark-gray;
+        }
+
+        .move-up:before, .move-down:after {
+            transform: rotate(45deg);
+        }
+
+        .move-up:after, .move-down:before {
+            transform: rotate(315deg);
+        }
+
+        .move-up:before, .move-down:before {
+            left: 2px;
+        }
+
+        .move-up:after, .move-down:after {
+            right: 0;
+        }
     }
 
     .started {

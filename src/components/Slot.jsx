@@ -15,9 +15,17 @@ const Slot = props => {
     <div className="slot">
       <div className="slot-name">{slot.name}</div>
       <div className="operations">
-        {slot.operation && <Operation operation={slot.operation} />}
-        {slot.operations && slot.operations.map(operation => (
-          <Operation key={operation.id} operation={operation} />
+        {slot.operation && !slot.operations && <Operation operation={slot.operation} />}
+        {slot.operations && slot.operations.map((operation, index) => (
+          <Operation
+            key={operation.id}
+            operation={operation}
+            canActivate={Boolean(!slot.operation)}
+            canMoveUp={index !== 0}
+            canMoveDown={index !== slot.operations.length - 1}
+            slot={slot}
+            index={index}
+          />
         ))}
         {empty && (
           <div className="no-operations">Currently no operations.</div>
