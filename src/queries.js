@@ -1,11 +1,11 @@
 import gql from "graphql-tag";
 
 export const CURRENT_OPERATIONS = gql`{
-  slots { id name operation { id name } }
+  slots { id name operation { id name started } }
 }`;
 
 export const FUTURE_OPERATIONS = gql`{
-  slots { id name operations(started: false) {
+  slots { id name operation { id } operations(started: false) {
     edges { node { id name description slotOrder } }
   } }
 }`;

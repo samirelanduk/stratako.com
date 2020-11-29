@@ -34,6 +34,7 @@ const HomePage = () => {
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operation && <div className="operation">
               <h3>{slot.operation.name}</h3>
+              <div className="started">{slot.operation.started}</div>
               <button onClick={() => complete(slot.operation.id)}>Complete</button>
             </div>}
           </div>

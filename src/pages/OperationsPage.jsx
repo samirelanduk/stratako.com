@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { FUTURE_OPERATIONS, PAST_OPERATIONS } from "../queries";
-import { REORDER_OPERATIONS } from "../mutations";
+import { REORDER_OPERATIONS, ACTIVATE_OPERATION } from "../mutations";
 
 const OperationsPage = () => {
 
-  const [slots, setSlots] = useState(null);
-
-  
-  const {loading: futureLoading} = useQuery(FUTURE_OPERATIONS, {
-    skip: slots !== null,
-    onCompleted: data => {
-      setSlots([...data.slots]);
-    }
+  const {data: futureData, loading: futureLoading} = useQuery(FUTURE_OPERATIONS, {
+    refetchQueries: [{query: FUTURE_OPERATIONS}],
   });
+
+  const slots = futureData ? futureData.slots : null;
 
   const { loading, data } = useQuery(PAST_OPERATIONS, {
     skip: futureLoading
@@ -22,10 +18,7 @@ const OperationsPage = () => {
 
 
   const [reorderOperation, reorderOperationMutation] = useMutation(REORDER_OPERATIONS, {
-    onCompleted: data => {
-      slots[data.reorderOperations.slot.order - 1] = data.reorderOperations.slot;
-      setSlots([...slots]);
-    }
+
   });
 
   const reorder = (slotId, operationId, index) => {
@@ -33,6 +26,16 @@ const OperationsPage = () => {
       variables: {slot: slotId, index, operation: operationId}
     });
   }
+
+  const [activateOperation, activateOperationMutation] = useMutation(ACTIVATE_OPERATION, {
+    refetchQueries: [{query: FUTURE_OPERATIONS}],
+  });
+
+  const activate = id => {
+    activateOperation({
+      variables: {id}
+    })
+  } 
 
   if (!slots) {
     return (
@@ -52,6 +55,7 @@ const OperationsPage = () => {
             {slot.operations.edges.map(edge => edge.node).map((operation, index) => (
               <div className="operation" key={operation.id}>
                 <h3>{operation.name}</h3>
+                {!slot.operation && <button onClick={() => activate(operation.id)}>Activate</button>}
                 <div className="order-buttons">
                   <div
                     className={`order-button ${index === 0 ? "hidden" : ""}`}
