@@ -43,7 +43,15 @@
         }
     }
 
-    .task:last-child {
+    input.new {
+        padding: $gap-2 10px $gap-2 16px;
+        border-top: 1px solid $gray;
         border-bottom: 1px solid $gray;
+        width: 100%;
+    }
+
+    input.new::placeholder {
+        font-weight: 200;
+        color: $gray;
     }
 }

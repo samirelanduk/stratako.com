@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
-import { COMPLETE_OPERATION, TOGGLE_TASK, DELETE_TASK } from "../mutations";
+import { COMPLETE_OPERATION, CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
 
 const HomePage = () => {
 
-  const { loading, data, refetch } = useQuery(CURRENT_OPERATIONS);
+  const [newTasks, setNewTasks] = useState(null);
+
+  const { loading, data } = useQuery(CURRENT_OPERATIONS, {
+    onCompleted: data => {
+      if (newTasks === null) {
+        setNewTasks(data.slots.map(() => ""));
+      }
+    }
+  });
 
   const [completeOperation, completeOperationMutation] = useMutation(COMPLETE_OPERATION, {
     refetchQueries: [{query: CURRENT_OPERATIONS}]
@@ -31,6 +39,22 @@ const HomePage = () => {
     refetchQueries: [{query: CURRENT_OPERATIONS}]
   });
 
+  const [createTask, createTaskMutation] = useMutation(CREATE_TASK, {
+    refetchQueries: [{query: CURRENT_OPERATIONS}],
+    onCompleted: data => {
+      newTasks[data.createTask.task.operation.slot.order - 1] = "";
+      setNewTasks([...newTasks]);
+    }
+  });
+
+
+  const create = (e, name, operationId) => {
+    e.preventDefault();
+    createTask({
+      variables: {name, operation: operationId}
+    })
+  }
+
   if (loading) {
     return (
       <Base className="home-page">
@@ -42,7 +66,7 @@ const HomePage = () => {
   return (
     <Base className="home-page">
       <div className="slots">
-        {data.slots.map(slot => (
+        {data.slots.map((slot, slotIndex) => (
           <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operation && (
@@ -65,6 +89,18 @@ const HomePage = () => {
                       <div className="delete" onClick={() => deleteTask({variables: {id: task.id}})} />
                     </div>
                   ))}
+                  {newTasks !== null && <form onSubmit={e => create(e, newTasks[slotIndex], slot.operation.id)}>
+                    <input
+                      className="new"
+                      value={newTasks[slotIndex]}
+                      placeholder="New task"
+                      onChange={e => {
+                        newTasks[slotIndex] = e.target.value;
+                        setNewTasks([...newTasks]);
+                      }}
+                      required
+                    />
+                  </form>}
                 </div>
               </div>
             )}
