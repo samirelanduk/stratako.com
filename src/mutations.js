@@ -17,3 +17,7 @@ export const REORDER_OPERATIONS = gql`mutation reorderOperations(
 export const CREATE_OPERATION = gql`mutation createOperation(
   $name: String! $slot: ID!
 ) { createOperation(name: $name slot: $slot) { operation { id slot { order }}}}`;
+
+export const TOGGLE_TASK = gql`mutation toggleTask($id: ID!) {
+  toggleTask(id: $id) { task { id completed } }
+}`;

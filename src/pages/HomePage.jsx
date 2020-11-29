@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { CURRENT_OPERATIONS } from "../queries";
-import { COMPLETE_OPERATION } from "../mutations";
+import { COMPLETE_OPERATION, TOGGLE_TASK } from "../mutations";
 
 const HomePage = () => {
 
@@ -17,6 +17,14 @@ const HomePage = () => {
     completeOperation({
       variables: {id}
     })
+  }
+
+  const [toggleTask, toggleTaskMutation] = useMutation(TOGGLE_TASK, {
+    refetchQueries: [{query: CURRENT_OPERATIONS}]
+  });
+
+  const toggle = id => {
+    toggleTask({variables: {id}})
   }
 
   if (loading) {
@@ -47,7 +55,7 @@ const HomePage = () => {
                       <input
                         type="checkbox"
                         checked={task.completed}
-                        readOnly
+                        onChange={() => toggle(task.id)}
                       />
                       <div className="name">{task.name}</div>
                     </div>
