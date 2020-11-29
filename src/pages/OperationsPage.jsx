@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import { FUTURE_OPERATIONS, PAST_OPERATIONS } from "../queries";
-import { REORDER_OPERATIONS, ACTIVATE_OPERATION } from "../mutations";
+import { REORDER_OPERATIONS, ACTIVATE_OPERATION, CREATE_OPERATION } from "../mutations";
 
 const OperationsPage = () => {
 
+  const [newOperations, setNewOperations] = useState(null);
+  
   const {data: futureData, loading: futureLoading} = useQuery(FUTURE_OPERATIONS, {
     refetchQueries: [{query: FUTURE_OPERATIONS}],
+    onCompleted: data => {
+      if (newOperations === null) {
+        setNewOperations(data.slots.map(() => ""));
+      }
+    }
   });
 
   const slots = futureData ? futureData.slots : null;
@@ -35,9 +42,25 @@ const OperationsPage = () => {
     activateOperation({
       variables: {id}
     })
-  } 
+  }
 
-  if (!slots) {
+  const [createOperation, createOperationMutation] = useMutation(CREATE_OPERATION, {
+    refetchQueries: [{query: FUTURE_OPERATIONS}],
+    onCompleted: data => {
+      newOperations[data.createOperation.operation.slot.order - 1] = "";
+      console.log(data.createOperation.operation.slot.order)
+      setNewOperations([...newOperations]);
+    }
+  });
+
+  const create = (e, name, slotId) => {
+    e.preventDefault();
+    createOperation({
+      variables: {name, slot: slotId}
+    })
+  }
+
+  if (futureLoading) {
     return (
       <Base className="operations-page">
         Loading
@@ -49,7 +72,7 @@ const OperationsPage = () => {
   return (
     <Base className="operations-page">
       <div className="slots">
-        {slots.map(slot => (
+        {slots.map((slot, slotIndex) => (
           <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
             {slot.operations.edges.map(edge => edge.node).map((operation, index) => (
@@ -68,6 +91,16 @@ const OperationsPage = () => {
                 </div>
               </div>
             ))}
+            {newOperations !== null && <form onSubmit={e => create(e, newOperations[slotIndex], slot.id)}>
+              <input
+                type="text"
+                value={newOperations[slotIndex]}
+                onChange={e => {
+                  newOperations[slotIndex] = e.target.value;
+                  setNewOperations([...newOperations]);
+                }}
+              />
+            </form>}
           </div>
         ))}        
       </div>

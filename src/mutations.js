@@ -13,3 +13,7 @@ export const REORDER_OPERATIONS = gql`mutation reorderOperations(
 ) { reorderOperations(slot: $slot operation: $operation index: $index) { slot {
   id order name operations(started: false) { edges { node { id slotOrder name description } } }
 } } }`;
+
+export const CREATE_OPERATION = gql`mutation createOperation(
+  $name: String! $slot: ID!
+) { createOperation(name: $name slot: $slot) { operation { id slot { order }}}}`;

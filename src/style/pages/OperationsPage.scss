@@ -16,6 +16,13 @@
                 font-size: $font-size-6;
                 margin-bottom: $gap-3;
             }
+
+            input {
+                border: 1px solid black;
+                display: block;
+                width: 100%;
+                padding: $gap-3;
+            }
         }
     }
 
