@@ -1,0 +1,20 @@
+.task-list {
+    .task {
+        display: flex;
+        align-items: center;
+        padding: $gap-2 0;
+        border-top: 1px solid black;
+
+        input {
+            margin-right: $gap-1;
+        }
+        
+        input:checked + .name {
+            text-decoration: line-through;
+        }
+    }
+
+    .task:last-child {
+        border-bottom: 1px solid black;
+    }
+}

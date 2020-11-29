@@ -18,10 +18,10 @@
     .nav-links {
         border-bottom: 1px solid $black-gray;
         padding-bottom: $gap-5;
-        
+
         a {
             display: grid;
-            grid-template-columns: 20px 1fr;
+            grid-template-columns: 18px 1fr;
             gap: $gap-2;
             font-size: $font-size-3;
             color: $gray;
@@ -33,8 +33,8 @@
 
             img, svg {
                 display: block;
-                width: 20px;
-                height: 20px;
+                width: 18px;
+                height: 18px;
                 background: none;
                 fill: $dark-gray;
                 stroke: $dark-gray;

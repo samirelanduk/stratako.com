@@ -33,14 +33,28 @@ const HomePage = () => {
         {data.slots.map(slot => (
           <div className="slot" key={slot.id}>
             <h2 className="slot-title">{slot.name}</h2>
-            {slot.operation && <div className="operation">
-            <h3><Link to={`/operations/${slot.operation.id}/`}>{slot.operation.name}</Link></h3>
-              <div className="started">{slot.operation.started}</div>
-              <button onClick={() => complete(slot.operation.id)}>Complete</button>
-              <div className="projects">
-                {slot.operation.projects.map(project => <Link to={`/projects/${project.id}/`} className="project">{project.name}</Link>)}
+            {slot.operation && (
+              <div className="operation">
+                <h3><Link to={`/operations/${slot.operation.id}/`}>{slot.operation.name}</Link></h3>
+                <div className="started">{slot.operation.started}</div>
+                <button onClick={() => complete(slot.operation.id)}>Complete</button>
+                <div className="projects">
+                  {slot.operation.projects.map(project => <Link key={project.id} to={`/projects/${project.id}/`} className="project">{project.name}</Link>)}
+                </div>
+                <div className="task-list">
+                  {slot.operation.tasks.map(task => (
+                    <div className="task" key={task.id}>
+                      <input
+                        type="checkbox"
+                        checked={task.completed}
+                        readOnly
+                      />
+                      <div className="name">{task.name}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>}
+            )}
           </div>
         ))}
       </div>

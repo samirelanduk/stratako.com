@@ -1,7 +1,6 @@
 .operation {
     border: 1px solid black;
     padding: $gap-3;
-    display: flex;
     justify-content: space-between;
 
     button {
@@ -30,5 +29,9 @@
             cursor: auto;
             opacity: 0;
         }
+    }
+
+    .task-list {
+        margin-top: $gap-3;
     }
 }

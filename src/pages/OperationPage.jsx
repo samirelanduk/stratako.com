@@ -29,6 +29,19 @@ const OperationPage = () => {
 
       {operation.started && <div>Started: {operation.started}</div> }
       {operation.completed && <div>Completed: {operation.completed}</div> }
+
+      <div className="task-list">
+        {operation.tasks.map(task => (
+          <div className="task" key={task.id}>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              readOnly
+            />
+            <div className="name">{task.name}</div>
+          </div>
+        ))}
+      </div>
     </Base>
   );
 };
