@@ -11,7 +11,9 @@ const TaskList = props => {
   const [newTask, setNewTask] = useState("");
 
   const [createTask,] = useMutation(CREATE_TASK, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}],
+    refetchQueries: [
+      {query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}
+    ],
     onCompleted: () => setNewTask("")
   });
 
@@ -20,7 +22,9 @@ const TaskList = props => {
   });
 
   const [deleteTask,] = useMutation(DELETE_TASK, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}]
+    refetchQueries: [
+      {query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}
+    ]
   });
 
   const formSubmit = e => {

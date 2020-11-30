@@ -1,12 +1,17 @@
 .operation-page {
-    padding: $gap-3;
+    padding: $gap-5;
 
     h1 {
-        font-size: $font-size-8;
+        font-size: $font-size-9;
+        margin-bottom: $gap-2;
     }
 
     p {
-        font-weight: lighter;
-        margin-bottom: $gap-3;
+        font-weight: 300;
+        margin-bottom: $gap-6;
+    }
+
+    .task-list {
+        max-width: 500px;
     }
 }
