@@ -10,6 +10,15 @@
     .operations {
         display: grid;
         gap: $gap-4;
+        max-height: 700px;
+        overflow-y: scroll;
+        padding: 4px;
+        position: relative;
+    }
+
+    .operations:after {
+        content: "";
+        height: 0.1px;
     }
 
     .no-operations {

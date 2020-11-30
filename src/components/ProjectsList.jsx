@@ -10,7 +10,7 @@ const ProjectsList = props => {
     <div className="projects-list">
       {projects.map(project => (
         <Link className="project" to={`/projects/${project.id}/`} key={project.id}>
-          <div className="project-color" />
+          <div className="project-color" style={{backgroundColor: project.color}}/>
           <div className="project-name">{project.name}</div>
         </Link>
       ))}
