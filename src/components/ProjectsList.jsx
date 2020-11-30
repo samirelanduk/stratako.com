@@ -9,7 +9,7 @@ const ProjectsList = props => {
   return (
     <div className="projects-list">
       {projects.map(project => (
-        <Link className="project" to={`/projects/${project.id}/`} key={project.id}>
+        <Link className="project-link" to={`/projects/${project.id}/`} key={project.id}>
           <div className="project-color" style={{backgroundColor: project.color}}/>
           <div className="project-name">{project.name}</div>
         </Link>

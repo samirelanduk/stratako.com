@@ -6,7 +6,7 @@ export const OPERATION = gql`query operation($id: ID!) { operation(id: $id) {
 
 export const CURRENT_OPERATIONS = gql`{
   slots { id name operation {
-    id name started projects { id name } tasks { id name completed }
+    id name started projects { id name color } tasks { id name completed }
   } }
 }`;
 
@@ -30,5 +30,5 @@ export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
 } }`;
 
 export const PROJECTS = gql`{ projects {
-  id name description color
+  id name description color lastActivity
 } }`;

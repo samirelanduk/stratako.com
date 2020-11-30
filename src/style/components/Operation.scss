@@ -1,5 +1,5 @@
 .operation {
-    box-shadow: 0 1px 4px 0 rgba(21,27,38,.08);
+    box-shadow: $box-shadow;
     padding: $gap-4;
     border-radius: 5px;
     background-color: white;

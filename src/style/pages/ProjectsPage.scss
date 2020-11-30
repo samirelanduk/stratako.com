@@ -1,11 +1,13 @@
 .projects-page {
-    padding: $gap-3;
+    padding: $gap-5;
+    background-color: $background-gray;
+    margin-right: -$gap-5;
+    margin-bottom: -$gap-5;
 
     .project {
-        margin-bottom: $gap-3;
-
-        h2 {
-            font-size: $font-size-6;
-        }
+        margin-bottom: $gap-5;
+        margin-right: $gap-5;
+        width: 300px;
+        display: inline-block;
     }
 }

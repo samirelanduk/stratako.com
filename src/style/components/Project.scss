@@ -1,0 +1,17 @@
+a.project {
+    background-color: white;
+    box-shadow: $box-shadow;
+    padding: $gap-4;
+    border-right: 7px solid $dark-gray;
+    border-radius: 4px;
+    color: $black-gray;
+
+    .project-name {
+        font-weight: 500;
+        font-size: $font-size-4;
+    }
+}
+
+a.project:hover {
+    color: black;
+}
