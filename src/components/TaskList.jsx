@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
-import { CURRENT_OPERATIONS } from "../queries";
-import { COMPLETE_OPERATION, CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
+import { CURRENT_OPERATIONS, OPERATION } from "../queries";
+import { CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
 
 const TaskList = props => {
 
@@ -11,7 +11,7 @@ const TaskList = props => {
   const [newTask, setNewTask] = useState("");
 
   const [createTask,] = useMutation(CREATE_TASK, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}],
+    refetchQueries: [{query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}],
     onCompleted: () => setNewTask("")
   });
 

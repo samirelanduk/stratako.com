@@ -41,6 +41,7 @@
             .action.activate.disabled {
                 border-color: $gray;
                 pointer-events: none;
+                opacity: 0.4;
             }
 
             .action.activate.disabled:before, .action.activate.disabled:after {

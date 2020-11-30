@@ -2,6 +2,7 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 import { useQuery } from "@apollo/client";
 import Base from "./Base";
+import TaskList from "../components/TaskList";
 import { OPERATION } from "../queries";
 
 const OperationPage = () => {
@@ -24,18 +25,7 @@ const OperationPage = () => {
       {operation.started && <div>Started: {operation.started}</div> }
       {operation.completed && <div>Completed: {operation.completed}</div> }
 
-      <div className="task-list">
-        {operation.tasks.map(task => (
-          <div className="task" key={task.id}>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              readOnly
-            />
-            <div className="name">{task.name}</div>
-          </div>
-        ))}
-      </div>
+      <TaskList tasks={operation.tasks} operation={operation} />
     </Base>
   );
 };

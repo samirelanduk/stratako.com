@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import moment from "moment";
 import TaskList from "./TaskList";
 import ProjectsList from "./ProjectsList";
-import { CURRENT_OPERATIONS, FUTURE_OPERATIONS } from "../queries";
+import { CURRENT_OPERATIONS, FUTURE_OPERATIONS, PROJECTS } from "../queries";
 import { COMPLETE_OPERATION, ACTIVATE_OPERATION, REORDER_OPERATIONS } from "../mutations";
 import checkedIcon from "../images/checked.svg";
 
@@ -14,11 +14,11 @@ const Operation = props => {
   const { operation, canActivate, canMoveUp, canMoveDown, index, slot } = props;
 
   const [completeOperation,] = useMutation(COMPLETE_OPERATION, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}]
+    refetchQueries: [{query: CURRENT_OPERATIONS}, {query: PROJECTS}]
   });
 
   const [activateOperation,] = useMutation(ACTIVATE_OPERATION, {
-    refetchQueries: [{query: FUTURE_OPERATIONS}],
+    refetchQueries: [{query: FUTURE_OPERATIONS}, {query: PROJECTS}],
   });
 
   const [reorderOperation,] = useMutation(REORDER_OPERATIONS, {

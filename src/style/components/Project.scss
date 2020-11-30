@@ -9,6 +9,12 @@ a.project {
     .project-name {
         font-weight: 500;
         font-size: $font-size-4;
+        margin-bottom: $gap-1;
+    }
+
+    .last-activity {
+        color: $dark-gray;
+        font-size: $font-size-2;
     }
 }
 
