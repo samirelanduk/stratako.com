@@ -12,8 +12,9 @@
         gap: $gap-4;
         max-height: 700px;
         overflow-y: scroll;
-        padding: 4px;
+        padding: $gap-1;
         position: relative;
+        margin-left: -$gap-1;
     }
 
     .operations:after {
@@ -25,6 +26,6 @@
         font-weight: 300;
         color: $dark-gray;
         font-size: $font-size-2;
-        margin: -4px;
+        margin: -$gap-1;
     }
 }

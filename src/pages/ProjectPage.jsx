@@ -2,6 +2,7 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
+import ProjectOperations from "../components/ProjectOperations";
 import { PROJECT } from "../queries";
 
 const ProjectPage = () => {
@@ -20,6 +21,8 @@ const ProjectPage = () => {
     <Base className="project-page">
       <h1>{project.name}</h1>
       <p>{project.description}</p>
+
+      <ProjectOperations project={project} />
     </Base>
   );
 };

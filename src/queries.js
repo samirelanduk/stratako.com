@@ -27,6 +27,9 @@ export const PAST_OPERATIONS = gql`{ slots {
 
 export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
   id name description color
+  operations { id name description slotOrder started completed projects {
+    id name color
+  } }
 } }`;
 
 export const PROJECTS = gql`{ projects {
