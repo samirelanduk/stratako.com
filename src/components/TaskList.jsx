@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { CURRENT_OPERATIONS, OPERATION } from "../queries";
-import { CREATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
+import { CREATE_TASK } from "../mutations";
+import Task from "./Task";
 
 const TaskList = props => {
 
@@ -17,16 +18,6 @@ const TaskList = props => {
     onCompleted: () => setNewTask("")
   });
 
-  const [toggleTask,] = useMutation(TOGGLE_TASK, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}]
-  });
-
-  const [deleteTask,] = useMutation(DELETE_TASK, {
-    refetchQueries: [
-      {query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}
-    ]
-  });
-
   const formSubmit = e => {
     e.preventDefault();
     createTask({
@@ -36,17 +27,7 @@ const TaskList = props => {
 
   return (
     <div className="task-list">
-      {tasks.map(task => (
-        <div className="task" key={task.id}>
-          <input
-            type="checkbox"
-            checked={Boolean(task.completed)}
-            onChange={() => toggleTask({variables: {id: task.id}})}
-          />
-          <div className="name">{task.name}</div>
-          <div className="delete" onClick={() => deleteTask({variables: {id: task.id}})} />
-        </div>
-      ))}
+      {tasks.map(task => <Task task={task} operation={operation} key={task.id} />)}
 
       <form onSubmit={formSubmit}>
         <input
