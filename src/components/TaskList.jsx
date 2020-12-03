@@ -40,7 +40,7 @@ const TaskList = props => {
         <div className="task" key={task.id}>
           <input
             type="checkbox"
-            checked={task.completed}
+            checked={Boolean(task.completed)}
             onChange={() => toggleTask({variables: {id: task.id}})}
           />
           <div className="name">{task.name}</div>
