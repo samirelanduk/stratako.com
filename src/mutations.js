@@ -33,6 +33,12 @@ export const TOGGLE_TASK = gql`mutation toggleTask($id: ID!) {
   toggleTask(id: $id) { task { id completed } }
 }`;
 
+export const MOVE_TASK = gql`mutation moveTask($id: ID! $index: Int!) {
+  moveTask(id: $id index: $index) {
+    task { id }
+  }
+}`;
+
 export const DELETE_TASK = gql`mutation deleteTask($id: ID!) {
   deleteTask(id: $id) { success }
 }`;

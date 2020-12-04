@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { CURRENT_OPERATIONS, OPERATION, PROJECT } from "../queries";
-import { CREATE_TASK } from "../mutations";
+import { CREATE_TASK, MOVE_TASK } from "../mutations";
 import Task from "./Task";
 
 const TaskList = props => {
@@ -21,6 +21,10 @@ const TaskList = props => {
     onCompleted: () => setNewTask("")
   });
 
+  const [moveTask,] = useMutation(MOVE_TASK, {
+    refetchQueries: queriesToUpdate,
+  });
+
   const formSubmit = e => {
     e.preventDefault();
     createTask({
@@ -29,7 +33,9 @@ const TaskList = props => {
   }
 
   const onDragEnd = result => {
-
+    moveTask({variables: {
+      id: tasks[result.source.index].id, index: result.destination.index
+    }})
   }
 
   return (
@@ -38,6 +44,7 @@ const TaskList = props => {
         {provided => (
           <div ref={provided.innerRef} {...provided.droppableProps} className="task-list" >
             {tasks.map((task, index) => <Task index={index} task={task} operation={operation} project={project} key={task.id} />)}
+            {provided.placeholder}
             <form onSubmit={formSubmit}>
               <input
                 className="new"
@@ -47,6 +54,7 @@ const TaskList = props => {
                 required
               />
             </form>
+            
           </div>
         )}
       </Droppable>
