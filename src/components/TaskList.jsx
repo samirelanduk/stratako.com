@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { CURRENT_OPERATIONS, OPERATION, PROJECT } from "../queries";
 import { CREATE_TASK } from "../mutations";
 import Task from "./Task";
@@ -27,20 +28,32 @@ const TaskList = props => {
     })
   }
 
-  return (
-    <div className="task-list">
-      {tasks.map(task => <Task task={task} operation={operation} project={project} key={task.id} />)}
+  const onDragEnd = result => {
 
-      <form onSubmit={formSubmit}>
-        <input
-          className="new"
-          value={newTask}
-          placeholder="New task"
-          onChange={e => setNewTask(e.target.value)}
-          required
-        />
-      </form>
-    </div>
+  }
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId={"1"}>
+        {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className="task-list" >
+            {tasks.map((task, index) => <Task index={index} task={task} operation={operation} project={project} key={task.id} />)}
+            <form onSubmit={formSubmit}>
+              <input
+                className="new"
+                value={newTask}
+                placeholder="New task"
+                onChange={e => setNewTask(e.target.value)}
+                required
+              />
+            </form>
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+    
+
+    
   );
 };
 

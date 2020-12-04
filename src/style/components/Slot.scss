@@ -10,8 +10,6 @@
     .operations {
         display: grid;
         gap: $gap-4;
-        max-height: 700px;
-        overflow-y: scroll;
         padding: $gap-1;
         position: relative;
         margin-left: -$gap-1;

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import moment from "moment";
 import TaskList from "./TaskList";
 import ProjectsList from "./ProjectsList";
@@ -31,7 +32,9 @@ const Operation = props => {
     });
   }
 
-  return (
+  
+
+  return ( 
     <div className="operation">
       <div className="top-row">
         <div className="main-info">

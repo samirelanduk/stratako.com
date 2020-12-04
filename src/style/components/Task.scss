@@ -3,8 +3,10 @@
     align-items: center;
     padding: $gap-2 0;
     border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
     font-size: $font-size-2;
-    grid-template-columns: 22px 1fr 10px;
+    grid-template-columns: 22px 1fr 25px 10px;
+    margin-top: -1px;
 
     input {
         margin-right: $gap-1;
@@ -17,8 +19,21 @@
     }
 
     .name {
-        flex-grow: 5;
         line-height: 1.6;
+    }
+
+    .dragger {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .drag-line {
+            width: 60%;
+            height: 1px;
+            background-color: $gray;
+            margin: 1px 0;
+        }
     }
 
     .delete {
@@ -31,6 +46,7 @@
 
     .delete:before, .delete:after {
         content: "";
+        left: 4px;
         width: 1px;
         height: 10px;
         position: absolute;
