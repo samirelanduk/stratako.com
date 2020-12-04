@@ -1,12 +1,16 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
-import { CURRENT_OPERATIONS, OPERATION } from "../queries";
+import { CURRENT_OPERATIONS, OPERATION, PROJECT } from "../queries";
 import { UPDATE_TASK, TOGGLE_TASK, DELETE_TASK } from "../mutations";
 
 const Task = props => {
 
-  const { task, operation } = props;
+  const { task, operation, project } = props;
+
+  const queriesToUpdate = [{query: CURRENT_OPERATIONS}];
+  if (operation) queriesToUpdate.push({query: OPERATION, variables: {id: operation.id}})
+  if (project) queriesToUpdate.push({query: PROJECT, variables: {id: project.id}})
 
   const [updateTask,] = useMutation(UPDATE_TASK);
 
@@ -15,9 +19,7 @@ const Task = props => {
   });
 
   const [deleteTask,] = useMutation(DELETE_TASK, {
-    refetchQueries: [
-      {query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}
-    ]
+    refetchQueries: queriesToUpdate
   });
 
   const ref = useRef();

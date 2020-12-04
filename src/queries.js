@@ -30,6 +30,7 @@ export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
   operations { id name description slotOrder started completed projects {
     id name color
   } }
+  tasks { id name completed }
 } }`;
 
 export const PROJECTS = gql`{ projects {

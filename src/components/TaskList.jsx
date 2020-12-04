@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
-import { CURRENT_OPERATIONS, OPERATION } from "../queries";
+import { CURRENT_OPERATIONS, OPERATION, PROJECT } from "../queries";
 import { CREATE_TASK } from "../mutations";
 import Task from "./Task";
 
 const TaskList = props => {
 
-  const { tasks, operation } = props;
+  const { tasks, operation, project } = props;
+
+  const queriesToUpdate = [{query: CURRENT_OPERATIONS}];
+  if (operation) queriesToUpdate.push({query: OPERATION, variables: {id: operation.id}})
+  if (project) queriesToUpdate.push({query: PROJECT, variables: {id: project.id}})
 
   const [newTask, setNewTask] = useState("");
 
   const [createTask,] = useMutation(CREATE_TASK, {
-    refetchQueries: [
-      {query: CURRENT_OPERATIONS}, {query: OPERATION, variables: {id: operation.id}}
-    ],
+    refetchQueries: queriesToUpdate,
     onCompleted: () => setNewTask("")
   });
 
   const formSubmit = e => {
     e.preventDefault();
     createTask({
-      variables: {name: newTask, operation: operation.id}
+      variables: {name: newTask, operation: operation && operation.id, project: project && project.id}
     })
   }
 
   return (
     <div className="task-list">
-      {tasks.map(task => <Task task={task} operation={operation} key={task.id} />)}
+      {tasks.map(task => <Task task={task} operation={operation} project={project} key={task.id} />)}
 
       <form onSubmit={formSubmit}>
         <input

@@ -20,8 +20,10 @@ export const CREATE_OPERATION = gql`mutation createOperation(
 
 
 export const CREATE_TASK = gql`mutation createTask(
-  $name: String! $operation: ID!
-) { createTask(name: $name operation: $operation) { task { id operation { id slot { id order }}}}}`;
+  $name: String! $operation: ID $project: ID
+) { createTask(name: $name operation: $operation project: $project) {
+  task { id operation { id slot { id order }}}
+}}`;
 
 export const UPDATE_TASK = gql`mutation createTask(
   $id: ID! $name: String!

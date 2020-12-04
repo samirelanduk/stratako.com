@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import Base from "./Base";
 import ProjectOperations from "../components/ProjectOperations";
 import { PROJECT } from "../queries";
+import TaskList from "../components/TaskList";
 
 const ProjectPage = () => {
 
@@ -22,7 +23,9 @@ const ProjectPage = () => {
       <h1>{project.name}</h1>
       <p>{project.description}</p>
 
+      <TaskList tasks={project.tasks} project={project} />
       <ProjectOperations project={project} />
+
     </Base>
   );
 };
