@@ -36,6 +36,18 @@ const Task = props => {
           proxy.writeQuery({ query: CURRENT_OPERATIONS, data: newData});
         }
       } catch { }
+      if (operation) {
+        try {
+          const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: OPERATION, variables: {id: operation.id}})));  
+          for (let task_ of newData.operation.tasks) {
+            if (task_.id === task.id) {
+              task_.completed = !task.completed
+              break;
+            }
+          }
+          proxy.writeQuery({ query: OPERATION, variables: {id: operation.id}, data: newData});
+        } catch { }
+      } 
       if (project) {
         const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: PROJECT, variables: {id: project.id}})));  
         for (let task_ of newData.project.tasks) {
@@ -70,6 +82,18 @@ const Task = props => {
           proxy.writeQuery({ query: CURRENT_OPERATIONS, data: newData});
         }
       } catch { }
+      if (operation) {
+        try {
+          const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: OPERATION, variables: {id: operation.id}})));  
+          for (let task_ of newData.operation.tasks) {
+            if (task_.id === task.id) {
+              newData.operation.tasks = newData.operation.tasks.filter(task_ => task_.id !== task.id)
+              break;
+            }
+          }
+          proxy.writeQuery({ query: OPERATION, variables: {id: operation.id}, data: newData});
+        } catch { }
+      } 
       if (project) {
         const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: PROJECT, variables: {id: project.id}})));  
         for (let task_ of newData.project.tasks) {
