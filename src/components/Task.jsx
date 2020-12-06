@@ -16,7 +16,37 @@ const Task = props => {
   const [updateTask,] = useMutation(UPDATE_TASK);
 
   const [toggleTask,] = useMutation(TOGGLE_TASK, {
-    refetchQueries: [{query: CURRENT_OPERATIONS}]
+    optimisticResponse: {
+      __typename: "Mutation",
+    },
+    update: (proxy) => {
+      try {
+        const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: CURRENT_OPERATIONS})));
+        if (newData.slots && newData.slots.length) {
+          for (let slot of newData.slots) {
+            if (slot.operation) {
+              for (let task_ of slot.operation.tasks) {
+                if (task_.id === task.id) {
+                  task_.completed = !task.completed
+                  break;
+                }
+              }
+            }
+          }
+          proxy.writeQuery({ query: CURRENT_OPERATIONS, data: newData});
+        }
+      } catch { }
+      if (project) {
+        const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: PROJECT, variables: {id: project.id}})));  
+        for (let task_ of newData.project.tasks) {
+          if (task_.id === task.id) {
+            task_.completed = !task.completed
+            break;
+          }
+        }
+        proxy.writeQuery({ query: PROJECT, variables: {id: project.id}, data: newData});
+      }    
+    }
   });
 
   const [deleteTask,] = useMutation(DELETE_TASK, {
