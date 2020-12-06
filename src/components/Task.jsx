@@ -50,7 +50,37 @@ const Task = props => {
   });
 
   const [deleteTask,] = useMutation(DELETE_TASK, {
-    refetchQueries: queriesToUpdate
+    optimisticResponse: {
+      __typename: "Mutation",
+    },
+    update: (proxy) => {
+      try {
+        const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: CURRENT_OPERATIONS})));
+        if (newData.slots && newData.slots.length) {
+          for (let slot of newData.slots) {
+            if (slot.operation) {
+              for (let task_ of slot.operation.tasks) {
+                if (task_.id === task.id) {
+                  slot.operation.tasks = slot.operation.tasks.filter(task_ => task_.id !== task.id)
+                  break;
+                }
+              }
+            }
+          }
+          proxy.writeQuery({ query: CURRENT_OPERATIONS, data: newData});
+        }
+      } catch { }
+      if (project) {
+        const newData = JSON.parse(JSON.stringify(proxy.readQuery({ query: PROJECT, variables: {id: project.id}})));  
+        for (let task_ of newData.project.tasks) {
+          if (task_.id === task.id) {
+            newData.project.tasks = newData.project.tasks.filter(task_ => task_.id !== task.id)
+            break;
+          }
+        }
+        proxy.writeQuery({ query: PROJECT, variables: {id: project.id}, data: newData});
+      }    
+    }
   });
 
   const ref = useRef();
