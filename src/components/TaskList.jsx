@@ -22,21 +22,11 @@ const TaskList = props => {
     onCompleted: () => setNewTask("")
   });
 
-  const [moveTask,] = useMutation(MOVE_TASK, {
-    refetchQueries: queriesToUpdate,
-  });
-
   const formSubmit = e => {
     e.preventDefault();
     createTask({
       variables: {name: newTask, operation: operation && operation.id, project: project && project.id}
     })
-  }
-
-  const onDragEnd = result => {
-    moveTask({variables: {
-      id: tasks[result.source.index].id, index: result.destination.index
-    }})
   }
 
   return (

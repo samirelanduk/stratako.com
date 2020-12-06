@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { Draggable } from "react-beautiful-dnd";

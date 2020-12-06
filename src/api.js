@@ -30,5 +30,18 @@ export const makeClient = () => {
 
   const httpLink = new HttpLink({uri: getApiLocation(), credentials: "include"});
   const link = ApolloLink.from([httpLink]);
-  return new ApolloClient({link: link, cache: new InMemoryCache(), credentials: "include"});
+  const cache = new InMemoryCache({
+    typePolicies: {
+      OperationType: {
+        fields: {
+          tasks: {
+            merge(existing, incoming) {
+              return incoming;
+            }
+          }
+        }
+      }
+    }
+  })
+  return new ApolloClient({link: link, cache, credentials: "include"});
 }
