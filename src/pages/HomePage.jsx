@@ -10,9 +10,7 @@ const HomePage = () => {
 
   const { loading, data } = useQuery(CURRENT_OPERATIONS);
 
-  const [moveTask,] = useMutation(MOVE_TASK, {
-    //refetchQueries: [{query: CURRENT_OPERATIONS}],
-  });
+  const [moveTask,] = useMutation(MOVE_TASK);
 
   if (loading) return <Base className="home-page" loading={true} />
 
