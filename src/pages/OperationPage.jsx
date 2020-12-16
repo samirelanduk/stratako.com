@@ -1,11 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useRouteMatch } from "react-router";
 import { useQuery, useMutation } from "@apollo/client";
 import { DragDropContext } from "react-beautiful-dnd";
 import Base from "./Base";
 import TaskList from "../components/TaskList";
 import { OPERATION } from "../queries";
-import { MOVE_TASK, UPDATE_OPERATION } from "../mutations";
+import { MOVE_TASK, UPDATE_OPERATION, UPDATE_OPERATION_PROJECTS } from "../mutations";
+import Select from "react-select";
 
 const OperationPage = () => {
 
@@ -16,6 +17,8 @@ const OperationPage = () => {
   const { loading, data } = useQuery(OPERATION, {
     variables: { id: operationId}
   });
+
+  const [selectedProjects, setSelectedProjects] = useState(null)
 
   const [updateOperation, updateOperationMutation] = useMutation(UPDATE_OPERATION, {
     refetchQueries: [{query: OPERATION, variables: {id: operationId}}]
@@ -30,6 +33,10 @@ const OperationPage = () => {
   }
 
   const [moveTask,] = useMutation(MOVE_TASK);
+
+  const [updateProjects,] = useMutation(UPDATE_OPERATION_PROJECTS, {
+    refetchQueries: [{query: OPERATION, variables: {id: operationId}}]
+  })
 
   if (loading) return <Base className="operation-page" loading={true} />
 
@@ -60,6 +67,25 @@ const OperationPage = () => {
     });
   }
 
+  const projects = selectedProjects ? selectedProjects : operation.projects.map(project => ({
+    value: project.id,
+    label: project.name
+  }))
+
+  const projectOptions = data.projects.map(project => ({
+    value: project.id,
+    label: project.name,
+    color: "red"
+  }))
+
+  
+
+  const selectChange = options => {
+    updateProjects({
+      variables: {id: operationId, projects: options.map(option => option.value)}
+    })
+  }
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Base className="operation-page">
@@ -68,6 +94,16 @@ const OperationPage = () => {
 
         {operation.started && <div>Started: {operation.started}</div> }
         {operation.completed && <div>Completed: {operation.completed}</div> }
+        
+        <Select
+          onChange={selectChange}
+          value={projects}
+          options={projectOptions}
+          isMulti={true}
+          openMenuOnClick={true}
+          className="react-select"
+          classNamePrefix="react-select"
+        />
 
         <TaskList tasks={operation.tasks} operation={operation} />
       </Base>

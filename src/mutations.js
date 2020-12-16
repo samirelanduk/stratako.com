@@ -24,6 +24,12 @@ export const UPDATE_OPERATION = gql`mutation updateOperation(
   operation { id name description }
 } }`;
 
+export const UPDATE_OPERATION_PROJECTS = gql`mutation updateOperationProjects(
+  $id: ID! $projects: [ID!]!
+) { updateOperationProjects(id: $id projects: $projects) {
+  operation { id name description projects { id name color } }
+} }`;
+
 
 export const CREATE_TASK = gql`mutation createTask(
   $name: String! $operation: ID $project: ID

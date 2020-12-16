@@ -11,6 +11,10 @@
         margin-bottom: $gap-6;
     }
 
+    .react-select {
+        max-width: 500px;
+    }
+
     .task-list {
         max-width: 500px;
         margin-top: $gap-8;

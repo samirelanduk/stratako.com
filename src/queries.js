@@ -1,8 +1,11 @@
 import gql from "graphql-tag";
 
-export const OPERATION = gql`query operation($id: ID!) { operation(id: $id) {
-  id name description started completed tasks { id name completed }
-} }`;
+export const OPERATION = gql`query operation($id: ID!) {
+  operation(id: $id) {
+    id name description started completed tasks { id name completed } projects { id name }
+  }
+  projects { id name }
+}`;
 
 export const CURRENT_OPERATIONS = gql`{
   slots { id name operation {
