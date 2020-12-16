@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Operation from "../components/Operation";
+import NewOperation from "./NewOperation";
 
 const Slot = props => {
 
@@ -27,6 +28,7 @@ const Slot = props => {
             index={index}
           />
         ))}
+        {slot.operations && <NewOperation slot={slot} />}
         {empty && (
           <div className="no-operations">Currently no operations.</div>
         )}
