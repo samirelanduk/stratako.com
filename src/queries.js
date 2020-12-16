@@ -14,20 +14,20 @@ export const FUTURE_OPERATIONS = gql`{ slots {
   id name
   operation { id }
   operations(started: false) {
-    id name description slotOrder projects { id name color }
+    id name description order projects { id name color }
   }
 } }`;
 
 export const PAST_OPERATIONS = gql`{ slots {
   id name
   operations(completed: true) {
-    id name description slotOrder started completed projects { id name color }
+    id name description order started completed projects { id name color }
   }
 } }`;
 
 export const PROJECT = gql`query project($id: ID!) { project(id: $id) {
   id name description color
-  operations { id name description slotOrder started completed projects {
+  operations { id name description order started completed projects {
     id name color
   } }
   tasks { id name completed }

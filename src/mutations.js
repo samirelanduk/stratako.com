@@ -11,7 +11,7 @@ export const ACTIVATE_OPERATION = gql`mutation activate($id: ID!) {
 export const REORDER_OPERATIONS = gql`mutation reorderOperations(
   $slot: ID! $operation: ID! $index: Int!
 ) { reorderOperations(slot: $slot operation: $operation index: $index) { slot {
-  id order name operations(started: false) { id slotOrder name description }
+  id order name operations(started: false) { id order name description }
 } } }`;
 
 export const CREATE_OPERATION = gql`mutation createOperation(
