@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useRouteMatch } from "react-router";
 import { useQuery, useMutation } from "@apollo/client";
 import { DragDropContext } from "react-beautiful-dnd";
 import Base from "./Base";
 import TaskList from "../components/TaskList";
 import { OPERATION } from "../queries";
-import { MOVE_TASK } from "../mutations";
+import { MOVE_TASK, UPDATE_OPERATION } from "../mutations";
 
 const OperationPage = () => {
 
   const operationId = useRouteMatch("/operations/:id").params.id;
+  const nameEl = useRef(null);
+  const descriptionEl = useRef(null);
 
   const { loading, data } = useQuery(OPERATION, {
     variables: { id: operationId}
   });
+
+  const [updateOperation, updateOperationMutation] = useMutation(UPDATE_OPERATION, {
+    refetchQueries: [{query: OPERATION, variables: {id: operationId}}]
+  })
+
+  const update = () => {
+    updateOperation({variables: {
+      id: operationId,
+      name: nameEl.current.innerText,
+      description: descriptionEl.current.innerText
+    }})
+  }
 
   const [moveTask,] = useMutation(MOVE_TASK);
 
@@ -49,8 +63,8 @@ const OperationPage = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Base className="operation-page">
-        <h1>{operation.name}</h1>
-        <p>{operation.description}</p>
+        <h1 ref={nameEl} contentEditable={true} suppressContentEditableWarning={true} onBlur={update}>{operation.name}</h1>
+        <p contentEditable={true} suppressContentEditableWarning={true} onBlur={update} ref={descriptionEl}>{operation.description}</p>
 
         {operation.started && <div>Started: {operation.started}</div> }
         {operation.completed && <div>Completed: {operation.completed}</div> }
