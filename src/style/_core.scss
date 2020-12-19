@@ -1,33 +1,3 @@
 body {
     font-size: $font-size-3;
-    font-family: $font;
-    color: $black;
-}
-
-input[type=checkbox] {
-    width: 16px;
-    height: 16px;
-    border: 2px solid transparentize($green, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-}
-
-input[type=checkbox]:hover {
-    border-color: $green;
-}
-
-input[type=checkbox]:active, input[type=checkbox]:checked {
-    background-color: $green;
-}
-
-input[type=checkbox]:checked {
-    background-size: 80%;
-    background-position: center;
-    background-image: url(../images/checked.svg);
-    background-repeat: no-repeat;
-}
-
-a {
-    text-decoration: none;
 }
