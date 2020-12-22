@@ -19,7 +19,7 @@ export const SIGNUP = gql`mutation login(
 } ${USER_FIELDS}`;
 
 export const UPDATE_USER = gql`mutation updateUser(
-  $email: String! $email: String! $name: String!
+  $email: String! $name: String!
 ) { updateUser(email: $email name: $name) {
   user { 
     ...UserFields
