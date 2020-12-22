@@ -1,10 +1,11 @@
 import React from "react";
+import Base from "./Base";
 
 const SettingsPage = () => {
   return (
-    <div>
+    <Base>
       Settings
-    </div>
+    </Base>
   );
 };
 

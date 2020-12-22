@@ -29,6 +29,8 @@ const Nav = props => {
   return (
     <nav>
       <div onClick={logout}>Log out</div>
+      <Link to="/">Home</Link>
+      <Link to="/settings/">Settings</Link>
     </nav>
   );
 };

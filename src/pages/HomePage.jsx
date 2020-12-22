@@ -1,11 +1,11 @@
 import React from "react";
-import Nav from "../components/Nav";
+import Base from "./Base";
 
 const HomePage = () => {
   return (
-    <div>
-      <Nav />
-    </div>
+    <Base>
+      Home
+    </Base>
   );
 };
 
