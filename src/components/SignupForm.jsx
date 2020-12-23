@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router";
-import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useApolloClient, useMutation } from "@apollo/client";
 import { TOKEN } from "../queries";
 import { SIGNUP } from "../mutations";
 import { UserContext } from "../contexts";
 import { createErrorObject } from "../forms";
+import AuthForm from "./AuthForm";
+import Button from "./Button";
 
 const SignupForm = () => {
 
@@ -40,7 +41,10 @@ const SignupForm = () => {
   }
 
   return (
-    <form className="signup-form" onSubmit={formSubmit}>
+    <AuthForm className="signup-form" onSubmit={formSubmit}>
+
+      <div className="logo">stratako</div>
+
       {errors.general && <div className="error">There was an error.</div>}
 
       <div className={errors.name ? "input error-input" : "input"}>
@@ -50,6 +54,7 @@ const SignupForm = () => {
           <input
             type="text"
             id="name"
+            required
             value={name}
             onChange={e => setName(e.target.value)}
             autoComplete="name"
@@ -64,6 +69,7 @@ const SignupForm = () => {
           <input
             type="email"
             id="email"
+            required
             value={email}
             onChange={e => setEmail(e.target.value)}
             autoComplete="email"
@@ -78,17 +84,20 @@ const SignupForm = () => {
           <input
             type="password"
             id="password"
+            required
             value={password}
             onChange={e => setPassword(e.target.value)}
             autoComplete="new-password"
           />
         </div>
       </div>
-      <button type="submit" className="primary-button">
-        {signupMutation.loading ? <ClipLoader color="white" size="20px" /> : "Sign Up"}
-      </button>
-      <Link className="auth-link" to="/login/">Log In</Link>
-    </form>
+
+      <div className="links">
+        <Button loading={signupMutation.loading}>Sign Up</Button>
+        <Link className="auth-link" to="/login/">Log In</Link>
+      </div>
+        
+    </AuthForm>
   );
 };
 

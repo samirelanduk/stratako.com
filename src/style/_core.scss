@@ -1,3 +1,14 @@
 body {
     font-size: $font-size-3;
+    background-color: $background-gray;
+    font-family: Wotfard;
+}
+
+a {
+    color: $hyperlink-blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

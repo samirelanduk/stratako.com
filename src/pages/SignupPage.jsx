@@ -1,11 +1,12 @@
 import React from "react";
+import Div100vh from "react-div-100vh";
 import SignupForm from "../components/SignupForm";
 
 const SignupPage = () => {
   return (
-    <div>
+    <Div100vh className="signup-page">
       <SignupForm />
-    </div>
+    </Div100vh>
   );
 };
 

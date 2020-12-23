@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import classNames from "classnames";
-import { ClipLoader } from "react-spinners";
 import { useApolloClient, useMutation } from "@apollo/client";
+import AuthForm from "./AuthForm";
+import Button from "./Button";
 import { LOGIN } from "../mutations";
 import { UserContext } from "../contexts";
 import { TOKEN } from "../queries";
@@ -16,9 +16,6 @@ const LoginForm = () => {
   const history = useHistory();
   const [error, setError] = useState(false);
   const client = useApolloClient();
-  const className = classNames({
-    "signup-form": true, "login-form": true, "error-form": error
-  })
 
   const [login, loginMutation] = useMutation(LOGIN, {
     onCompleted: data => {
@@ -40,7 +37,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form className={className} onSubmit={formSubmit}>
+    <AuthForm className="login-form" onSubmit={formSubmit}>
       {error && <div className="error">Those credentials aren't valid.</div>}
       <div className="input">
         <label htmlFor="email">email</label>
@@ -66,11 +63,11 @@ const LoginForm = () => {
           required
         />
       </div>
-      <button type="submit" className="primary-button">
-        {loginMutation.loading ? <ClipLoader color="white" size="20px" /> : "Log In"}
-      </button>
-      <Link className="auth-link" to="/signup/">Sign Up</Link>
-    </form>
+      <div className="links">
+        <Button loading={loginMutation.loading}>Log In</Button>
+        <Link className="auth-link" to="/">Sign Up</Link>
+      </div>
+    </AuthForm>
   );
 };
 
