@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import { MoonLoader } from "react-spinners";
 import { useContext } from "react";
 import { UserContext } from "../contexts";
+import Sidebar from "../components/Sidebar";
 
 const Base = props => {
   /**
@@ -20,8 +21,9 @@ const Base = props => {
 
   return (
     <Div100vh className="base">
-      <Nav />
+      <Sidebar />
       <main className={fullClassName}>
+        <Nav />
         {loading ? <MoonLoader size="70px" color="#6353C6" /> : props.children}
       </main>
     </Div100vh>
