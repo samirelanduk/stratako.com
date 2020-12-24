@@ -22,8 +22,9 @@ const Base = props => {
   return (
     <Div100vh className="base">
       <Sidebar />
+      <Nav />
       <main className={fullClassName}>
-        <Nav />
+       
         {loading ? <MoonLoader size="70px" color="#6353C6" /> : props.children}
       </main>
     </Div100vh>
