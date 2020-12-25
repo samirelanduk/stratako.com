@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
+import { useMutation } from "@apollo/client";
 import { ClipLoader } from "react-spinners";
 import { UserContext } from "../contexts";
-import { useMutation } from "@apollo/client";
+import Button from "./Button";
 import { UPDATE_PASSWORD, UPDATE_USER } from "../mutations";
 import { createErrorObject } from "../forms";
 
@@ -54,7 +55,7 @@ const AuthSettingsForm = () => {
 
 
   return (
-    <div className="settings-form">
+    <div className="auth-settings-form">
       <div className="left-column">
         <form className="user-form" onSubmit={userFormSubmit}>
           <h2>Edit details</h2>
@@ -88,9 +89,7 @@ const AuthSettingsForm = () => {
             </div>
           </div>
 
-          <button type="submit" className="primary-button">
-            {updateUserMutation.loading ? <ClipLoader color="white" size="20px" /> : "Save details"}
-          </button>
+          <Button loading={updateUserMutation.loading}>Save Details</Button>
         </form>
       </div>
 
@@ -126,9 +125,7 @@ const AuthSettingsForm = () => {
             </div>
           </div>
 
-          <button type="submit" className="primary-button">
-            {updatePasswordMutation.loading ? <ClipLoader color="white" size="20px" /> : "Save password"}
-          </button>
+          <Button loading={updatePasswordMutation.loading}>Save Password</Button>
           
         </form>
       </div>

@@ -4,7 +4,7 @@ import Base from "./Base";
 
 const SettingsPage = () => {
   return (
-    <Base>
+    <Base className="settings-page">
       <AuthSettingsForm />
     </Base>
   );
