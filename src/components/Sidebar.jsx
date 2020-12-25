@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Sidebar = props => {
+const Sidebar = () => {
   return (
     <div className="sidebar">
       <Link to="/" className="logo">stratako</Link>

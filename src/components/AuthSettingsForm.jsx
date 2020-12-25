@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
-import { ClipLoader } from "react-spinners";
 import { UserContext } from "../contexts";
 import Button from "./Button";
 import { UPDATE_PASSWORD, UPDATE_USER } from "../mutations";
@@ -52,7 +51,6 @@ const AuthSettingsForm = () => {
       variables: {new: newPassword, current: currentPassword}
     })
   }
-
 
   return (
     <div className="auth-settings-form">

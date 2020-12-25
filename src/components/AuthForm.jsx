@@ -13,7 +13,8 @@ const AuthForm = props => {
 };
 
 AuthForm.propTypes = {
-  
+  className: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default AuthForm;

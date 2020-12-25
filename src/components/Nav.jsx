@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useApolloClient, useMutation } from "@apollo/client";
 import classNames from "classnames";
-import menuIcon from  "../images/checked.svg";
 import settingsIcon from "../images/cog.svg";
 import { UserContext } from "../contexts";
 import { TOKEN } from "../queries";
@@ -12,7 +11,7 @@ import { ClipLoader } from "react-spinners";
 const Nav = () => {
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [user, setUser] = useContext(UserContext);
+  const [,setUser] = useContext(UserContext);
   const dropdownElement = useRef(null);
   const location = useLocation();
   const history = useHistory();
@@ -43,12 +42,8 @@ const Nav = () => {
   });
 
   useEffect(() => {
-    
-
     window.addEventListener("click", clickOutside);
-    return () => {
-      window.removeEventListener("click", clickOutside);
-    }
+    return () => window.removeEventListener("click", clickOutside);
   })
 
   const className = classNames({

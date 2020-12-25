@@ -29,7 +29,8 @@ const Button = props => {
 };
 
 Button.propTypes = {
-  
+  loading: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export default Button;
