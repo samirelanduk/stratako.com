@@ -12,3 +12,5 @@ export const USER = gql`{
 } ${USER_FIELDS}`;
 
 export const TOKEN = gql`{ accessToken }`;
+
+export const SLOTS = gql`{ user { slots { id name } } }`;
