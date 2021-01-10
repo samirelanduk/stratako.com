@@ -8,13 +8,13 @@
     .slots-grid {
         display: grid;
         gap: $gap-3;
+        width: fit-content;
 
         .slot-summary {
             border: 1px solid $gray;
             border-radius: 4px;
             padding: $gap-2 $gap-3;
             box-shadow: 0 1px 4px 0 rgba(21, 27, 38, 0.08);
-            width: fit-content;
 
             .slot-name {
                 font-size: $font-size-4;
@@ -26,6 +26,22 @@
                 color: $dark-gray;
                 font-weight: 300;
             }
+        }
+
+        button {
+            height: 53px;
+            border: 2px dashed transparentize($dark-gray, 0.8);
+            border-radius: 4px;
+            color: transparentize($dark-gray, 0.8);
+            font-size: $font-size-7;
+            line-height: 1;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            color: transparentize($dark-gray, 0.6);
+            border-color: transparentize($dark-gray, 0.6);
         }
     }
 }

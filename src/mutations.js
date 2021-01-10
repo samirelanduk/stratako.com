@@ -33,3 +33,7 @@ export const UPDATE_PASSWORD = gql`mutation updateUser(
 } }`;
 
 export const DELETE_USER = gql`mutation { deleteUser { success } }`;
+
+export const CREATE_SLOT = gql`mutation createSlot($name: String!) {
+  createSlot(name: $name) { slot { id name order } }
+}`;
