@@ -12,6 +12,7 @@ const SlotSummary = props => {
 
   const ref = useRef(null);
   const textRef = useRef(null);
+  const [newText, setNewText] = useState(null);
   
   useEffect(() => {
     /**
@@ -32,7 +33,7 @@ const SlotSummary = props => {
       const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
       newData.user.slots = newData.user.slots.filter(slot_ => slot.id !== slot_.id)
       proxy.writeQuery({ query: SLOTS, data: newData })
-    },
+    }
   });
 
   const clickOutside = e => {
@@ -41,7 +42,11 @@ const SlotSummary = props => {
      */
 
     if (!e || (ref.current && !ref.current.contains(e.target))) {
-      updateSlot({variables: {id: slot.id, name: textRef.current.innerText}});
+      if (textRef.current.innerText !== slot.name) {
+        updateSlot({variables: {id: slot.id, name: textRef.current.innerText}});
+      } else {
+        textRef.current.innerText = slot.name;
+      }
     }
   }
 

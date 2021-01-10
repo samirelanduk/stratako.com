@@ -11,6 +11,7 @@
         display: inline-block;
         width: calc(100% - 20px - $gap-2);
         line-height: 1;
+        min-width: 10px;
     }
 
     .delete {

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useApolloClient } from "@apollo/client";
 import { cloneDeep } from "lodash";
 import { SLOTS } from "../queries";
 import { CREATE_SLOT } from "../mutations";
 import SlotSummary from "./SlotSummary";
+import { MoonLoader } from "react-spinners";
 
 const SlotsForm = () => {
 
@@ -14,6 +14,7 @@ const SlotsForm = () => {
   const [newName, setNewName] = useState("");
   const newRef = useRef(null);
   const newText = useRef(null);
+  const client = useApolloClient();
 
   useEffect(() => {
     /**
@@ -25,17 +26,26 @@ const SlotsForm = () => {
     return () => window.removeEventListener("click", clickOutside);
   })
 
-  const [createSlot,] = useMutation(CREATE_SLOT, {
+  const [createSlot, createSlotMutation] = useMutation(CREATE_SLOT, {
     optimisticResponse: {__typename: "Mutation"},
     update: (proxy) => {
       const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
       newData.user.slots.push({
-        id: Math.floor(Math.random() * 1000000000000),
+        id: 0,
         order: slots.length, name: newName
       })
       proxy.writeQuery({ query: SLOTS, data: newData })
     },
-    onCompleted: () => setNewName("")
+    onCompleted: data => {
+      const newData = cloneDeep(client.cache.readQuery({ query: SLOTS }));
+      for (let slot of newData.user.slots) {
+        if (slot.id === 0) {
+          slot.id = data.createSlot.slot.id
+        }
+      }
+      client.cache.writeQuery({ query: SLOTS, data: newData });
+      setNewName("")
+    }
   })
 
   const newNameTyping = e => {
@@ -68,14 +78,16 @@ const SlotsForm = () => {
     if (!e || (
       newRef.current && !newRef.current.contains(e.target)
     )) {
-      if (newText.current && newName) {
+      if (newText.current && newName && newName.length) {
         createSlot({variables: {name: newName}});
       }
       setCreating(false);
     }
   }
 
-  if (loading) return <div className="slots-form"></div>
+  if (loading) return (
+    <div className="slots-form loading"><MoonLoader color="#01a3a4" /></div>
+  )
 
   const slots = data.user.slots;
 
@@ -84,7 +96,7 @@ const SlotsForm = () => {
       <div className="slot-count">You have {slots.length} slot{slots.length === 1 ? "" : "s"}:</div>
       <div className="slots-grid">
         {slots.map(slot => (
-          <SlotSummary slot={slot} key={slot.id} canDelete={slots.length !== 1}/>
+          <SlotSummary slot={slot} key={slot.id} canDelete={slots.length !== 1 && slot.id !== 0}/>
         ))}
         {creating ? (
           <div ref={newRef} className="slot-summary new-slot">
@@ -96,7 +108,10 @@ const SlotsForm = () => {
             <div className="slot-info">No current operation, none waiting.</div>
           </div>
         ) : (
-          <button className="new-slot" onClick={newButtonClicked}>+</button>
+          <button
+            className={createSlotMutation.loading ? "new-slot disabled" : "new-slot"}
+            onClick={newButtonClicked}
+          >+</button>
         )}
       </div>
     </div>

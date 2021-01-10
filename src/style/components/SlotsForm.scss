@@ -25,5 +25,17 @@
             color: transparentize($dark-gray, 0.6);
             border-color: transparentize($dark-gray, 0.6);
         }
+
+        button.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     }
+}
+
+.slots-form.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
 }
