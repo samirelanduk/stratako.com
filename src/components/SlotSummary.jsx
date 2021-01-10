@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "lodash";
 import { SLOTS } from "../queries";
-import { UPDATE_SLOT } from "../mutations";
+import { UPDATE_SLOT, DELETE_SLOT } from "../mutations";
+import cross from "../images/cross.svg";
 
 const SlotSummary = props => {
 
-  const { slot } = props;
+  const { slot, canDelete } = props;
 
   const ref = useRef(null);
   const textRef = useRef(null);
@@ -23,9 +24,20 @@ const SlotSummary = props => {
 
   const [updateSlot,] = useMutation(UPDATE_SLOT);
 
+  const [deleteSlot,] = useMutation(DELETE_SLOT, {
+    optimisticResponse: {
+      __typename: "Mutation",
+    },
+    update: (proxy) => {
+      const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
+      newData.user.slots = newData.user.slots.filter(slot_ => slot.id !== slot_.id)
+      proxy.writeQuery({ query: SLOTS, data: newData })
+    },
+  });
+
   const clickOutside = e => {
     /**
-     * Is the user indicating they are done editing the new slot?
+     * Is the user indicating they are done editing the slot?
      */
 
     if (!e || (ref.current && !ref.current.contains(e.target))) {
@@ -51,6 +63,10 @@ const SlotSummary = props => {
         className="slot-name" contentEditable={true} onKeyDown={newNameTyping}
         suppressContentEditableWarning={true} ref={textRef}
       >{slot.name}</div>
+      <div
+        className={canDelete ? "delete" : "delete disabled" }
+        onClick={() => deleteSlot({variables: {id: slot.id}})}
+      ><img src={cross} alt="delete"/></div>
       <div className="slot-info">No current operation, none waiting.</div>
     </div>
   );

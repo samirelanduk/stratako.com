@@ -26,9 +26,7 @@ const SlotsForm = () => {
   })
 
   const [createSlot,] = useMutation(CREATE_SLOT, {
-    optimisticResponse: {
-      __typename: "Mutation",
-    },
+    optimisticResponse: {__typename: "Mutation"},
     update: (proxy) => {
       const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
       newData.user.slots.push({
@@ -58,6 +56,7 @@ const SlotsForm = () => {
      */
 
     e.stopPropagation();
+    setNewName("");
     setCreating(true);
   }
 
@@ -85,7 +84,7 @@ const SlotsForm = () => {
       <div className="slot-count">You have {slots.length} slot{slots.length === 1 ? "" : "s"}:</div>
       <div className="slots-grid">
         {slots.map(slot => (
-          <SlotSummary slot={slot} key={slot.id} />
+          <SlotSummary slot={slot} key={slot.id} canDelete={slots.length !== 1}/>
         ))}
         {creating ? (
           <div ref={newRef} className="slot-summary new-slot">
