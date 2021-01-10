@@ -33,7 +33,7 @@
             }
 
             .option:hover, .option.selected {
-                border-color: #01a3a4;
+                border-color: $active-color;
             }
 
             .option.selected {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AuthSettingsForm from "../components/AuthSettingsForm";
+import SlotsForm from "../components/SlotsForm";
 import Base from "./Base";
 
 const SettingsPage = () => {
@@ -25,6 +26,7 @@ const SettingsPage = () => {
         </div>
         <div className="content">
           {settings === "account" && <AuthSettingsForm />}
+          {settings === "slots" && <SlotsForm />}
         </div>
       </div>
     </Base>

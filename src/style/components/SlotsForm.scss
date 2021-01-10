@@ -1,0 +1,31 @@
+.slots-form {
+    .slot-count {
+        font-size: $font-size-5;
+        font-weight: 300;
+        margin-bottom: $gap-4;
+    }
+
+    .slots-grid {
+        display: grid;
+        gap: $gap-3;
+
+        .slot-summary {
+            border: 1px solid $gray;
+            border-radius: 4px;
+            padding: $gap-2 $gap-3;
+            box-shadow: 0 1px 4px 0 rgba(21, 27, 38, 0.08);
+            width: fit-content;
+
+            .slot-name {
+                font-size: $font-size-4;
+                margin-bottom: $gap-1;
+            }
+
+            .slot-info {
+                font-size: $font-size-2;
+                color: $dark-gray;
+                font-weight: 300;
+            }
+        }
+    }
+}
