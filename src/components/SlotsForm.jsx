@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { cloneDeep } from "lodash";
 import { SLOTS } from "../queries";
 import { CREATE_SLOT } from "../mutations";
+import SlotSummary from "./SlotSummary";
 
 const SlotsForm = () => {
 
@@ -84,10 +85,7 @@ const SlotsForm = () => {
       <div className="slot-count">You have {slots.length} slot{slots.length === 1 ? "" : "s"}:</div>
       <div className="slots-grid">
         {slots.map(slot => (
-          <div className="slot-summary" key={slot.id}>
-            <div className="slot-name">{slot.name}</div>
-            <div className="slot-info">No current operation, none waiting.</div>
-          </div>
+          <SlotSummary slot={slot} key={slot.id} />
         ))}
         {creating ? (
           <div ref={newRef} className="slot-summary new-slot">
