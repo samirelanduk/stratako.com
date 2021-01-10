@@ -12,7 +12,6 @@ const SlotSummary = props => {
 
   const ref = useRef(null);
   const textRef = useRef(null);
-  const [newText, setNewText] = useState(null);
   
   useEffect(() => {
     /**
@@ -23,7 +22,9 @@ const SlotSummary = props => {
     return () => window.removeEventListener("click", clickOutside);
   })
 
-  const [updateSlot,] = useMutation(UPDATE_SLOT);
+  const [updateSlot,] = useMutation(UPDATE_SLOT, {
+    onError: () => {}
+  });
 
   const [deleteSlot,] = useMutation(DELETE_SLOT, {
     optimisticResponse: {
@@ -59,6 +60,8 @@ const SlotSummary = props => {
       clickOutside();
       e.preventDefault();
       textRef.current.blur();
+    } else if (textRef.current.innerText.length >= 40 && e.key.length === 1 && !(e.ctrlKey ||  e.altKey || e.metaKey || e.shiftKey)) {
+      e.preventDefault();
     }
   }
 

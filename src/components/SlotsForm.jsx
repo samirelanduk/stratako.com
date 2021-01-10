@@ -45,7 +45,8 @@ const SlotsForm = () => {
       }
       client.cache.writeQuery({ query: SLOTS, data: newData });
       setNewName("")
-    }
+    },
+    onError: () => {}
   })
 
   const newNameTyping = e => {
@@ -55,6 +56,8 @@ const SlotsForm = () => {
 
     if (e.keyCode === 13) {
       clickOutside();
+    } else if (newText.current.innerText.length >= 40 && e.key.length === 1 && !(e.ctrlKey ||  e.altKey || e.metaKey || e.shiftKey)) {
+      e.preventDefault();
     } else {
       setNewName(newText.current.innerText + (e.key.length === 1 ? e.key : ""));
     }
