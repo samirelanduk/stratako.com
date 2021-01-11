@@ -5,6 +5,12 @@ body {
     color: $text-black;
 }
 
+.loading-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 a {
     color: $hyperlink-blue;
     text-decoration: none;

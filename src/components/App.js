@@ -36,7 +36,7 @@ const App = () => {
   if (tokenQuery.loading || user === null) {
     return (
       <Div100vh className="loading-page">
-        <PulseLoader color="#111" />
+        <PulseLoader color="#40739e" />
       </Div100vh>
     )
   }

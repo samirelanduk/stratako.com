@@ -2,8 +2,6 @@ import React from "react";
 import Div100vh from "react-div-100vh";
 import Nav from "../components/Nav";
 import { MoonLoader } from "react-spinners";
-import { useContext } from "react";
-import { UserContext } from "../contexts";
 import Sidebar from "../components/Sidebar";
 
 const Base = props => {
@@ -12,8 +10,6 @@ const Base = props => {
    */
 
   const { className, blank, loading } = props;
-
-  const [user,] = useContext(UserContext);
 
   let fullClassName = className;
   if (blank) fullClassName += " blank";
@@ -24,8 +20,7 @@ const Base = props => {
       <Sidebar />
       <Nav />
       <main className={fullClassName}>
-       
-        {loading ? <MoonLoader size="70px" /> : props.children}
+        {loading ? <MoonLoader size="70px" color="#40739e" /> : props.children}
       </main>
     </Div100vh>
   )
