@@ -42,6 +42,10 @@ export const UPDATE_SLOT = gql`mutation updateSlot($id: ID! $name: String!) {
   updateSlot(id: $id name: $name) { slot { id name order } }
 }`;
 
+export const MOVE_SLOT = gql`mutation moveSlot($id: ID! $index: Int!) {
+  moveSlot(id: $id index: $index) { slot { id name order } }
+}`;
+
 export const DELETE_SLOT = gql`mutation updateSlot($id: ID!) {
   deleteSlot(id: $id) { success }
 }`;

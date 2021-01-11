@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "lodash";
+import { Draggable } from "react-beautiful-dnd";
 import { SLOTS } from "../queries";
 import { UPDATE_SLOT, DELETE_SLOT } from "../mutations";
 import cross from "../images/cross.svg";
@@ -66,17 +67,21 @@ const SlotSummary = props => {
   }
 
   return (
-    <div className="slot-summary" key={slot.id} ref={ref}>
-      <div 
-        className="slot-name" contentEditable={true} onKeyDown={newNameTyping}
-        suppressContentEditableWarning={true} ref={textRef}
-      >{slot.name}</div>
-      <div
-        className={canDelete ? "delete" : "delete disabled" }
-        onClick={() => deleteSlot({variables: {id: slot.id}})}
-      ><img src={cross} alt="delete"/></div>
-      <div className="slot-info">No current operation, none waiting.</div>
-    </div>
+    <Draggable draggableId={slot.id.toString()} index={slot.order}>
+      {provided => (
+        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="slot-summary">
+          <div 
+            className="slot-name" contentEditable={true} onKeyDown={newNameTyping}
+            suppressContentEditableWarning={true} ref={textRef}
+          >{slot.name}</div>
+          <div
+            className={canDelete ? "delete" : "delete disabled" }
+            onClick={() => deleteSlot({variables: {id: slot.id}})}
+          ><img src={cross} alt="delete"/></div>
+          <div className="slot-info">No current operation, none waiting.</div>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

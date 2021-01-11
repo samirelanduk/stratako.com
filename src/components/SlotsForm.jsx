@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation, useApolloClient } from "@apollo/client";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { cloneDeep } from "lodash";
 import { SLOTS } from "../queries";
-import { CREATE_SLOT } from "../mutations";
+import { CREATE_SLOT, MOVE_SLOT } from "../mutations";
 import SlotSummary from "./SlotSummary";
 import { MoonLoader } from "react-spinners";
 
@@ -47,7 +48,11 @@ const SlotsForm = () => {
       setNewName("")
     },
     onError: () => {}
-  })
+  });
+
+  const [moveSlot,] = useMutation(MOVE_SLOT, {
+    optimisticResponse: {__typename: "Mutation"},
+  });
 
   const newNameTyping = e => {
     /**
@@ -94,30 +99,54 @@ const SlotsForm = () => {
 
   const slots = data.user.slots;
 
+  const onDragEnd = e => {
+    moveSlot({
+      variables: {id: e.draggableId, index: e.destination.index - 1},
+      update: (proxy) => {
+        const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
+        const matchingSlots = newData.user.slots.filter(s => s.id === e.draggableId);
+        if (matchingSlots.length) {
+          const slot = matchingSlots[0];
+          newData.user.slots = newData.user.slots.filter(s => s.id !== e.draggableId);
+          newData.user.slots.splice(e.destination.index - 1, 0, slot);
+          newData.user.slots = newData.user.slots.map((s, i) => ({...s, order: i + 1}));
+        }
+        proxy.writeQuery({ query: SLOTS, data: newData })
+      },
+    })
+  }
+
   return (
-    <div className="slots-form">
-      <div className="slot-count">You have {slots.length} slot{slots.length === 1 ? "" : "s"}:</div>
-      <div className="slots-grid">
-        {slots.map(slot => (
-          <SlotSummary slot={slot} key={slot.id} canDelete={slots.length !== 1 && slot.id !== 0}/>
-        ))}
-        {creating ? (
-          <div ref={newRef} className="slot-summary new-slot">
-            <div
-              className="slot-name" contentEditable={true}
-              suppressContentEditableWarning={true} ref={newText}
-              onKeyDown={newNameTyping}
-            />
-            <div className="slot-info">No current operation, none waiting.</div>
-          </div>
-        ) : (
-          <button
-            className={createSlotMutation.loading ? "new-slot disabled" : "new-slot"}
-            onClick={newButtonClicked}
-          >+</button>
-        )}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="slots-form">
+        <div className="slot-count">You have {slots.length} slot{slots.length === 1 ? "" : "s"}:</div>
+        <Droppable droppableId={"1"}>
+          {provided => (
+            <div className="slots-grid" ref={provided.innerRef} {...provided.droppableProps}>
+              {slots.map(slot => (
+                <SlotSummary slot={slot} key={slot.id} canDelete={slots.length !== 1 && slot.id !== 0}/>
+              ))}
+              {provided.placeholder}
+              {creating ? (
+                <div ref={newRef} className="slot-summary new-slot">
+                  <div
+                    className="slot-name" contentEditable={true}
+                    suppressContentEditableWarning={true} ref={newText}
+                    onKeyDown={newNameTyping}
+                  />
+                  <div className="slot-info">No current operation, none waiting.</div>
+                </div>
+              ) : (
+                <button
+                  className={createSlotMutation.loading ? "new-slot disabled" : "new-slot"}
+                  onClick={newButtonClicked}
+                >+</button>
+              )}
+            </div>
+          )}
+        </Droppable>
       </div>
-    </div>
+    </DragDropContext>
   );
 };
 
