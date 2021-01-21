@@ -1,0 +1,122 @@
+.project-form {
+    min-width: 520px;
+
+    label {
+        color: $dark-gray;
+        font-weight: 300;
+        margin-bottom: $gap-2;
+        font-size: $font-size-3;
+        display: block;
+
+        span {
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            border-radius: 50%;
+            position: relative;
+            top: 2.5px;
+            left: 2px;
+        }
+    }
+
+    .input {
+        margin-bottom: $gap-5;
+    }
+
+    input, textarea {
+        display: block;
+        color: $black;
+        border: 1px solid $input-border;
+        padding: $gap-1 $gap-2;
+        border-radius: 6px;
+        line-height: 20px;
+        height: 36px;
+        font-weight: 300;
+        font-size: $font-size-4;
+        width: 100%;
+    }
+
+    textarea {
+        resize: none;
+        height: 90px;
+        padding: $gap-2 $gap-2;
+        font-size: $font-size-3;
+    }
+
+    .twitter-picker {
+        border: none !important;
+        box-shadow: none !important;
+        margin-right: -6px;
+
+        input {
+            display: inline;
+            padding: 1px 0;
+        }
+
+        div {
+            padding: 0 !important;
+        }
+    }
+
+    .status {
+        cursor: pointer;
+        max-width: 150px;
+        font-weight: 300;
+
+        .status__control {
+            cursor: pointer;
+            box-shadow: none;
+            border-color: $input-border;
+            overflow: hidden;
+        }
+
+        .status__menu {
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .status__option {
+            cursor: pointer;
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .status__option--is-selected, .status__option--is-selected.status__option--is-focused  {
+            background-color: $active-color;
+        }
+
+        .status__option--is-focused {
+            background-color: transparentize($active-color, 0.7);
+        }
+
+        input {
+            height: inherit;
+            font-weight: 300;
+        }
+    }
+
+    .bottom-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        background-color: $primary-button;
+        color: white;
+        border-radius: 6px;
+        font-weight: 300;
+        padding: $gap-1 $gap-2;
+        cursor: pointer;
+        transition-duration: .2s;
+        line-height: 36px;
+        padding: 0 $gap-5;
+        margin-top: $gap-3;
+    }
+
+    button:hover {
+        background-color: darken($primary-button, 10);
+    }
+}
