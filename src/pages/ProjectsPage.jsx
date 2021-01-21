@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Base from "./Base";
+import Modal from "../components/Modal";
+import ProjectForm from "../components/ProjectForm";
 
 const ProjectsPage = () => {
 
   useEffect(() => {
     document.title = "stratako - Projects";
   });
+
+  const [showModal, setShowModal] = useState(false);
 
   //const { loading, data } = useQuery(SLOTS);
 
@@ -15,7 +19,12 @@ const ProjectsPage = () => {
 
   return (
     <Base className="projects-page">
-     
+      <div className="projects-panel">
+        <button className="new-project" onClick={() => setShowModal(true)}>+ New Project</button>
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <ProjectForm />
+        </Modal>
+      </div>
     </Base>
   );
 };

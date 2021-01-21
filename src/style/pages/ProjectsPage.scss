@@ -1,0 +1,18 @@
+.projects-page {
+    .projects-panel {
+        padding: $gap-4 $gap-5;
+        border-bottom: 1px solid $gray;
+
+        .new-project {
+            background-color: $primary-button;
+            color: white;
+            padding: $gap-2 $gap-4;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .new-project:hover {
+            background-color: darken($primary-button, 5);
+        }
+    }
+}
