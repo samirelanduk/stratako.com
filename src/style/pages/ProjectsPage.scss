@@ -15,4 +15,21 @@
             background-color: darken($primary-button, 5);
         }
     }
+
+    .projects {
+        padding: $gap-5 #{$gap-5 - $gap-4} $gap-5 $gap-5;
+
+        h2 {
+            font-weight: 600;
+            font-size: $font-size-7;
+            margin-bottom: $gap-4;
+        }
+
+        .projects-grid {
+            width: 100%;
+            display: grid;
+            gap: $gap-5;
+            grid-template-columns: repeat(auto-fill, 320px);
+        }
+    }
 }
