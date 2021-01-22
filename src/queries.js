@@ -15,4 +15,10 @@ export const TOKEN = gql`{ accessToken }`;
 
 export const SLOTS = gql`{ user { slots { id name order } } }`;
 
-export const PROJECTS = gql`{ user { projects { id name color status creationTime } } }`;
+export const PROJECTS = gql`{ user { projects {
+  id name color status creationTime 
+} } }`;
+
+export const PROJECT = gql`query project($id: ID!) {
+  user { project(id: $id) { id name description status creationTime } }
+}`;

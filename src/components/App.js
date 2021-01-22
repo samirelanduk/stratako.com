@@ -11,6 +11,7 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import SettingsPage from "../pages/SettingsPage";
 import ProjectsPage from "../pages/ProjectsPage";
+import ProjectPage from "../pages/ProjectPage";
 import PageNotFound from "../pages/PageNotFound";
 import { TOKEN, USER } from "../queries";
 
@@ -62,6 +63,9 @@ const App = () => {
             </Route>}
             {user && <Route path="/projects/" exact>
               <ProjectsPage />
+            </Route>}
+            {user && <Route path="/projects/:id/" exact>
+              <ProjectPage />
             </Route>}
             <Route><PageNotFound /></Route>
           </Switch>

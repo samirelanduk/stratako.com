@@ -1,0 +1,53 @@
+.project-page {
+    padding: $gap-4 #{$gap-5 - $gap-4} $gap-5 $gap-5;
+
+    .top-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: $gap-4;
+
+        h1 {
+            font-size: $font-size-9;
+            position: relative;
+        }
+
+        .status {
+            background-color: $gray;
+            color: white;
+            height: fit-content;
+            padding: $gap-1 $gap-2;
+            border-radius: 5px;
+            font-size: $font-size-2;
+            opacity: 0.8;
+        }
+
+        .status.not-started {
+            background-color: $project-not-started;
+        }
+
+        .status.active {
+            background-color: $project-active;
+        }
+
+        .status.maintenance {
+            background-color: $project-maintenance;
+        }
+
+        .status.abandoned {
+            background-color: $project-abandoned;
+        }
+
+        .status.completed {
+            background-color: $project-completed;
+        }
+
+    }
+
+    p.description {
+        font-size: $font-size-5;
+        font-weight: 300;
+        border-bottom: 1px solid $gray;
+        padding-bottom: $gap-6;
+    }
+}
