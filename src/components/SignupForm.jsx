@@ -27,7 +27,6 @@ const SignupForm = () => {
       });
       history.push("/");
     },
-    
     onError: ({graphQLErrors}) => {
       setErrors(createErrorObject(errors, graphQLErrors))
     }

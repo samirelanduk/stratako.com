@@ -16,15 +16,6 @@
         display: block;
     }
 
-    .error {
-        color: $error-color;
-        margin-bottom: $gap-1;
-    }
-
-    .error + input {
-        border-color: $error-color;
-    }
-
     input {
         display: block;
         border: 1px solid $input-border;

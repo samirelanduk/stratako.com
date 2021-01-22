@@ -49,3 +49,11 @@ export const MOVE_SLOT = gql`mutation moveSlot($id: ID! $index: Int!) {
 export const DELETE_SLOT = gql`mutation updateSlot($id: ID!) {
   deleteSlot(id: $id) { success }
 }`;
+
+export const CREATE_PROJECT = gql`mutation createProject(
+  $name: String! $description: String! $status: Int! $color: String!
+) {
+  createProject(name: $name description: $description status: $status color: $color) {
+    project { id }
+  }
+}`;
