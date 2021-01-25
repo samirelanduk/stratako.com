@@ -34,6 +34,10 @@
             background-color: $project-maintenance;
         }
 
+        .status.on-hold {
+            background-color: $project-on-hold;
+        }
+
         .status.abandoned {
             background-color: $project-abandoned;
         }

@@ -18,8 +18,8 @@ const ProjectForm = () => {
 
   const statuses = [
     {value: 1, label: "Not Started"}, {value: 2, label: "Active"},
-    {value: 3, label: "Maintenance"}, {value: 4, label: "Completed"},
-    {value: 5, label: "Abandoned"}
+    {value: 3, label: "Maintenance"}, {value: 4, label: "On Hold"},
+    {value: 5, label: "Completed"}, {value: 6, label: "Abandoned"}
   ]
 
   const colors = [

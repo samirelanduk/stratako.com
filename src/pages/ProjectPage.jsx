@@ -23,8 +23,9 @@ const ProjectPage = () => {
     1: "Not Started",
     2: "Active",
     3: "Maintenance",
-    4: "Abandoned",
-    5: "Completed"
+    4: "On Hold",
+    5: "Abandoned",
+    6: "Completed"
   }[project.status]
   
   const statusClass = classNames({
