@@ -4,6 +4,8 @@
 
 @import "../fonts/Wotfard/wotfard";
 
+@import "react-toggle/style.css";
+
 @import "pages/Base";
 @import "pages/SignupPage";
 @import "pages/LoginPage";
@@ -20,6 +22,7 @@
 @import "components/Modal";
 @import "components/AuthSettingsForm";
 @import "components/SlotsForm";
+@import "components/ProjectSettingsForm";
 @import "components/ProjectForm";
 @import "components/SlotSummary";
 @import "components/Project";

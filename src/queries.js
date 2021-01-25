@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const USER_FIELDS = gql`
   fragment UserFields on UserType { 
-    id email name
+    id email name defaultProjectGrouping showDoneProjects
   }`;
 
 export const USER = gql`{

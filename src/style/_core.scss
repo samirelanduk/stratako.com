@@ -67,3 +67,33 @@ a:hover {
         font-weight: 300;
     }
 }
+
+.react-toggle {
+    .react-toggle-track  {
+        height: 20px;
+        background-color: $dark-gray !important;
+    }
+
+    .react-toggle-thumb {
+        border-color: $dark-gray !important;
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.react-toggle--checked {
+    .react-toggle-track {
+        background-color: $active-color !important;
+    }
+
+    .react-toggle-thumb {
+        border-color: $active-color !important;
+        left: 31px !important;
+    }
+}
+
+.react-toggle--focus, .react-toggle--active, .react-toggle:active:not(.react-toggle--disabled) {
+    .react-toggle-thumb {
+        box-shadow: none;
+    }
+}

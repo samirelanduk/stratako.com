@@ -32,6 +32,14 @@ export const UPDATE_PASSWORD = gql`mutation updateUser(
   success
 } }`;
 
+export const UPDATE_PROJECT_SETTINGS = gql`mutation updateProjectSettings(
+  $defaultProjectGrouping: String! $showDoneProjects: Boolean
+) { updateProjectSettings(
+  defaultProjectGrouping: $defaultProjectGrouping showDoneProjects: $showDoneProjects
+) { user { 
+  ...UserFields
+} } } ${USER_FIELDS}`;
+
 export const DELETE_USER = gql`mutation { deleteUser { success } }`;
 
 export const CREATE_SLOT = gql`mutation createSlot($name: String!) {
