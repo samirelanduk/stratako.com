@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import Base from "./Base";
 import Modal from "../components/Modal";
 import ProjectForm from "../components/ProjectForm";
 import { PROJECTS } from "../queries";
-import { useQuery } from "@apollo/client";
 import Project from "../components/Project";
+import Select from "react-select";
 
 const ProjectsPage = () => {
 
@@ -13,6 +14,7 @@ const ProjectsPage = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [groupBy, setGroupBy] = useState("none");
 
   const { loading, data } = useQuery(PROJECTS);
 
@@ -20,9 +22,34 @@ const ProjectsPage = () => {
 
   const projects = data.user.projects;
 
+  const groupByOptions = [
+    {value: "none", label: "Don't Group"},
+    {value: "status", label: "Project Status"},
+  ]
+
+  let projectLists = [["All Projects", projects]];
+  if (groupBy === "status") {
+    projectLists =  Object.entries({
+      1: "Active", 2: "Maintenance", 3: "On Hold",
+      4: "Not Started", 5: "Abandoned", 6: "Completed"
+    }).map(([num, label]) => [
+      label, projects.filter(p => p.status === parseInt(num))
+    ]);
+  }
+
   return (
     <Base className="projects-page">
       <div className="projects-panel">
+        <div className="option">
+          <label>Group Projects by:</label>
+          <Select 
+            options={groupByOptions}
+            value={groupByOptions.filter(o => o.value === groupBy)[0]}
+            onChange={e => setGroupBy(e.value)}
+            className="select" classNamePrefix="select"
+          />
+        </div>
+
         <button className="new-project" onClick={() => setShowModal(true)}>+ New Project</button>
         <Modal showModal={showModal} setShowModal={setShowModal}>
           <ProjectForm />
@@ -30,12 +57,16 @@ const ProjectsPage = () => {
       </div>
 
       <div className="projects">
-        <h2>All Projects ({projects.length})</h2>
-        <div className="projects-grid">
-          {projects.map(project => (
-            <Project key={project.id} project={project} />
-          ))}
-        </div>
+        {projectLists.map(([label, projects]) => (
+          <React.Fragment key={label}>
+            <h2>{label} ({projects.length})</h2>
+            <div className="projects-grid">
+              {projects.map(project => (
+                <Project key={project.id} project={project} />
+              ))}
+            </div>
+          </React.Fragment>
+        ))}
       </div>
     </Base>
   );

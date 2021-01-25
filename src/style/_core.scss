@@ -28,3 +28,42 @@ a:hover {
 .error + input {
     border-color: $error-color;
 }
+
+.select {
+    cursor: pointer;
+    font-weight: 300;
+
+    .select__control {
+        cursor: pointer;
+        box-shadow: none;
+        border-color: $input-border;
+        overflow: hidden;
+    }
+
+    .select__menu {
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .select__option {
+        cursor: pointer;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .select__option--is-selected, .select__option--is-selected.select__option--is-focused  {
+        background-color: $active-color;
+    }
+
+    .select__option--is-focused, .select__option:active {
+        background-color: transparentize($active-color, 0.7);
+    }
+
+    input {
+        height: inherit;
+        font-weight: 300;
+    }
+}

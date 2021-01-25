@@ -58,43 +58,11 @@
         }
     }
 
-    .status {
-        cursor: pointer;
+    .select {
         max-width: 150px;
-        font-weight: 300;
-
-        .status__control {
-            cursor: pointer;
-            box-shadow: none;
-            border-color: $input-border;
-            overflow: hidden;
-        }
-
-        .status__menu {
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .status__option {
-            cursor: pointer;
-
-            div {
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .status__option--is-selected, .status__option--is-selected.status__option--is-focused  {
-            background-color: $active-color;
-        }
-
-        .status__option--is-focused {
-            background-color: transparentize($active-color, 0.7);
-        }
 
         input {
             height: inherit;
-            font-weight: 300;
         }
     }
 

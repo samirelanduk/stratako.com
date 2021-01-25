@@ -17,8 +17,8 @@ const ProjectForm = () => {
   const history = useHistory();
 
   const statuses = [
-    {value: 1, label: "Not Started"}, {value: 2, label: "Active"},
-    {value: 3, label: "Maintenance"}, {value: 4, label: "On Hold"},
+    {value: 1, label: "Active"}, {value: 2, label: "Maintenance"},
+    {value: 3, label: "On Hold"}, {value: 4, label: "Not Started"},
     {value: 5, label: "Completed"}, {value: 6, label: "Abandoned"}
   ]
 
@@ -69,8 +69,8 @@ const ProjectForm = () => {
             options={statuses}
             value={statuses.filter(s => s.value === status)[0]}
             onChange={e => setStatus(e.value)}
-            className="status"
-            classNamePrefix="status"
+            className="select"
+            classNamePrefix="select"
           />
         </div>
         <div className="input">

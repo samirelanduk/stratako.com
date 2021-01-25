@@ -1,12 +1,29 @@
 .projects-page {
     .projects-panel {
         padding: $gap-4 $gap-5;
+        padding: $gap-4 #{$gap-5 - $gap-4} $gap-5 $gap-5;
         border-bottom: 1px solid $gray;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        .option {
+            label {
+                margin-bottom: $gap-1;
+                display: block;
+            }
+
+            .select {
+                width: 200px;
+            }
+        }
+
 
         .new-project {
             background-color: $primary-button;
             color: white;
             padding: $gap-2 $gap-4;
+            height: fit-content;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -22,7 +39,7 @@
         h2 {
             font-weight: 600;
             font-size: $font-size-7;
-            margin-bottom: $gap-4;
+            margin-bottom: $gap-5;
         }
 
         .projects-grid {
@@ -30,6 +47,7 @@
             display: grid;
             gap: $gap-5;
             grid-template-columns: repeat(auto-fill, 320px);
+            margin-bottom: $gap-9;
         }
     }
 }
