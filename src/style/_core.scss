@@ -29,6 +29,19 @@ a:hover {
     border-color: $error-color;
 }
 
+.delete-button {
+    padding: $gap-2 $gap-3;
+    min-width: 90px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    background-color: $delete-red;
+}
+
+.delete-button:hover {
+    background-color: darken($delete-red, 5);
+}
+
 .select {
     cursor: pointer;
     font-weight: 300;

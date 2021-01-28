@@ -73,3 +73,7 @@ export const UPDATE_PROJECT = gql`mutation updateProject(
     project { id }
   }
 }`;
+
+export const DELETE_PROJECT = gql`mutation deleteProject($id: ID!) {
+  deleteProject(id: $id) { success }
+}`;

@@ -30,6 +30,18 @@
         img.dismiss:hover {
             opacity: 0.3;
         }
+
+        .modal-heading {
+            font-size: $font-size-6;
+            margin-bottom: $gap-3;
+            margin-top: $gap-2;
+        }
+
+        .modal-text {
+            font-weight: 300;
+            margin-bottom: $gap-5;
+            font-size: $font-size-4;
+        }
     }
 }
 

@@ -56,9 +56,7 @@ const ProjectsPage = () => {
         </div>
 
         <button className="new-project" onClick={() => setShowModal(true)}>+ New Project</button>
-        <Modal showModal={showModal} setShowModal={setShowModal}>
-          <ProjectForm />
-        </Modal>
+        <ProjectForm showFormModal={showModal} setShowFormModal={setShowModal}/>
       </div>
 
       <div className="projects">
