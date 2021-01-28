@@ -65,3 +65,11 @@ export const CREATE_PROJECT = gql`mutation createProject(
     project { id }
   }
 }`;
+
+export const UPDATE_PROJECT = gql`mutation updateProject(
+  $id: ID! $name: String! $description: String! $status: Int! $color: String!
+) {
+  updateProject(id: $id name: $name description: $description status: $status color: $color) {
+    project { id }
+  }
+}`;

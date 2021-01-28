@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router";
 import { useQuery } from "@apollo/client";
 import classNames from "classnames";
+import ProjectForm from "../components/ProjectForm";
 import { PROJECT } from "../queries";
 import Base from "./Base";
 
 const ProjectPage = () => {
 
   const projectId = useRouteMatch("/projects/:id").params.id;
-
+  const [showFormModal, setShowFormModal] = useState(false);
   const { loading, data } = useQuery(PROJECT, {variables: {id: projectId}});
   
   useEffect(() => {
@@ -38,6 +39,8 @@ const ProjectPage = () => {
         <h1>{project.name}</h1>
         <div className={statusClass}>{status}</div>
       </div>
+      <div onClick={() => setShowFormModal(true)}>Edit</div>
+      <ProjectForm project={project} showFormModal={showFormModal} setShowFormModal={setShowFormModal}/>
       <p className="description">{project.description}</p>
     </Base>
   );

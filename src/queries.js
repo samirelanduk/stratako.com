@@ -20,5 +20,5 @@ export const PROJECTS = gql`{ user { projects {
 } } }`;
 
 export const PROJECT = gql`query project($id: ID!) {
-  user { project(id: $id) { id name description status creationTime } }
+  user { project(id: $id) { id name description status color creationTime } }
 }`;
