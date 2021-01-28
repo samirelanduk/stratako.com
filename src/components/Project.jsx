@@ -14,7 +14,7 @@ const Project = props => {
 };
 
 Project.propTypes = {
-  
+  project: PropTypes.object.isRequired
 };
 
 export default Project;

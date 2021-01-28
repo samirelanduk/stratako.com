@@ -3,7 +3,7 @@ import { useHistory, useRouteMatch } from "react-router";
 import { useMutation, useQuery } from "@apollo/client";
 import classNames from "classnames";
 import ProjectForm from "../components/ProjectForm";
-import { PROJECT } from "../queries";
+import { PROJECT, PROJECTS } from "../queries";
 import { DELETE_PROJECT } from "../mutations";
 import Base from "./Base";
 import Modal from "../components/Modal";
@@ -22,7 +22,9 @@ const ProjectPage = () => {
   });
 
   const [deleteProject, deleteProjectMutation] = useMutation(DELETE_PROJECT, {
-    onCompleted: () => history.push("/projects/")
+    onCompleted: () => history.push("/projects/"),
+    refetchQueries: [{query: PROJECTS}],
+    awaitRefetchQueries: true
   })
 
   if (loading) return <Base loading={true} />

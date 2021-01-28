@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 import { useMutation } from "@apollo/client";
 import Select from "react-select";
@@ -7,7 +8,7 @@ import Modal from "../components/Modal";
 import { CREATE_PROJECT, UPDATE_PROJECT } from "../mutations";
 import Button from "./Button";
 import { createErrorObject } from "../forms";
-import { PROJECT } from "../queries";
+import { PROJECT, PROJECTS } from "../queries";
 
 const ProjectForm = props => {
 
@@ -39,7 +40,10 @@ const ProjectForm = props => {
 
   const [updateProject, updateProjectMutation] = useMutation(UPDATE_PROJECT, {
     onCompleted: () => setShowFormModal(false),
-    refetchQueries: [{query: PROJECT, variables: {id: project ? project.id : null}}],
+    refetchQueries: [
+      {query: PROJECT, variables: {id: project ? project.id : null}},
+      {query: PROJECTS},
+    ],
     awaitRefetchQueries: true,
     onError: ({graphQLErrors}) => {
       setErrors(createErrorObject(errors, graphQLErrors))
@@ -107,7 +111,9 @@ const ProjectForm = props => {
 };
 
 ProjectForm.propTypes = {
-  
+  project: PropTypes.object,
+  showFormModal: PropTypes.bool.isRequired,
+  setShowFormModal: PropTypes.func.isRequired,
 };
 
 export default ProjectForm;

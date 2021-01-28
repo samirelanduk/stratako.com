@@ -6,7 +6,7 @@ import { UserContext } from "../contexts";
 import { useMutation } from "@apollo/client";
 import { UPDATE_PROJECT_SETTINGS } from "../mutations";
 
-const ProjectsSettingsForm = props => {
+const ProjectsSettingsForm = () => {
 
   const [user, setUser] = useContext(UserContext);
 
@@ -15,10 +15,8 @@ const ProjectsSettingsForm = props => {
     {value: "status", label: "Project Status"},
   ]
 
-  const [updateProjectSettings, updateProjectSettingsMutation] = useMutation(
-    UPDATE_PROJECT_SETTINGS, {
-      
-    }
+  const [updateProjectSettings,] = useMutation(
+    UPDATE_PROJECT_SETTINGS
   )
 
   const groupChanged = e => {
