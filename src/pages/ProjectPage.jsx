@@ -51,10 +51,13 @@ const ProjectPage = () => {
     <Base className="project-page">
       <div className="top-row">
         <h1>{project.name}</h1>
-        <div className={statusClass}>{status}</div>
+        <div className="options">
+          <div className={statusClass}>{status}</div>
+          <div className="option" onClick={() => setShowFormModal(true)}>Edit</div>
+          <div className="option" onClick={() => setShowDeletionModal(true)}>Delete</div>
+        </div>
       </div>
-      <div onClick={() => setShowFormModal(true)}>Edit</div>
-      <div onClick={() => setShowDeletionModal(true)}>Delete</div>
+      
       <ProjectForm project={project} showFormModal={showFormModal} setShowFormModal={setShowFormModal}/>
       <Modal showModal={showDeletionModal} setShowModal={setShowDeletionModal}>
         <form onSubmit={deleteSubmit}>
