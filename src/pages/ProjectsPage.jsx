@@ -26,10 +26,12 @@ const ProjectsPage = () => {
   const projects = data.user.projects.filter(
     project => project.status < 5 || user.showDoneProjects
   );
+  const categories = data.user.projectCategories.map(category => category.name);
 
   const groupByOptions = [
     {value: "none", label: "Don't Group"},
     {value: "status", label: "Project Status"},
+    {value: "category", label: "Project Category"},
   ]
 
   let projectLists = [["All Projects", projects]];
@@ -40,6 +42,13 @@ const ProjectsPage = () => {
     }).map(([num, label]) => [
       label, projects.filter(p => p.status === parseInt(num))
     ]);
+  }
+  if (actualGroupBy === "category") {
+    projectLists = categories.map(category => [category, projects.filter(
+      project => project.category === category
+    )])
+    const noCategory = projects.filter(project => project.category === null);
+    if (noCategory.length) projectLists.push(["No Category", noCategory])
   }
 
   return (

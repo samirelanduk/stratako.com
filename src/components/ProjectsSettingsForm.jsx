@@ -13,6 +13,7 @@ const ProjectsSettingsForm = () => {
   const groupByOptions = [
     {value: "none", label: "Don't Group"},
     {value: "status", label: "Project Status"},
+    {value: "category", label: "Project Category"},
   ]
 
   const [updateProjectSettings,] = useMutation(
