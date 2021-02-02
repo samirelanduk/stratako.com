@@ -59,17 +59,17 @@ export const DELETE_SLOT = gql`mutation updateSlot($id: ID!) {
 }`;
 
 export const CREATE_PROJECT = gql`mutation createProject(
-  $name: String! $description: String! $status: Int! $color: String!
+  $name: String! $description: String! $status: Int! $color: String! $category: String
 ) {
-  createProject(name: $name description: $description status: $status color: $color) {
+  createProject(name: $name description: $description status: $status color: $color category: $category) {
     project { id }
   }
 }`;
 
 export const UPDATE_PROJECT = gql`mutation updateProject(
-  $id: ID! $name: String! $description: String! $status: Int! $color: String!
+  $id: ID! $name: String! $description: String! $status: Int! $color: String! $category: String
 ) {
-  updateProject(id: $id name: $name description: $description status: $status color: $color) {
+  updateProject(id: $id name: $name description: $description status: $status color: $color category: $category) {
     project { id }
   }
 }`;

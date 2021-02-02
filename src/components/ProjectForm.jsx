@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Select from "react-select";
+import Creatable from "react-select/creatable";
 import { TwitterPicker } from "react-color";
 import Modal from "../components/Modal";
 import { CREATE_PROJECT, UPDATE_PROJECT } from "../mutations";
 import Button from "./Button";
 import { createErrorObject } from "../forms";
-import { PROJECT, PROJECTS } from "../queries";
+import { PROJECT, PROJECTS, PROJECT_CATEGORIES } from "../queries";
 
 const ProjectForm = props => {
 
   const { project, showFormModal, setShowFormModal } = props;
   const [name, setName] = useState(project ? project.name : "");
   const [description, setDescription] = useState(project ? project.description : "");
+  const [category, setCategory] = useState(project ? (project.category || "") : "");
   const [color, setColor] = useState(project ? project.color : "#111111");
   const [status, setStatus] = useState(project ? project.status : 1);
   const [errors, setErrors] = useState({});
   const history = useHistory();
+
+  const { loading, data } = useQuery(PROJECT_CATEGORIES);
+  const categories = loading ? [] : data.user.projectCategories.map(
+    category => ({label: category.name, value: category.name})
+  )
 
   const statuses = [
     {value: 1, label: "Active"}, {value: 2, label: "Maintenance"},
@@ -33,6 +40,7 @@ const ProjectForm = props => {
 
   const [createProject, createProjectMutation] = useMutation(CREATE_PROJECT, {
     onCompleted: data => history.push(`/projects/${data.createProject.project.id}/`),
+    refetchQueries: [{query: PROJECTS}],
     onError: ({graphQLErrors}) => {
       setErrors(createErrorObject(errors, graphQLErrors))
     }
@@ -53,9 +61,9 @@ const ProjectForm = props => {
   const formSubmit = e => {
     e.preventDefault();
     if (project) {
-      updateProject({variables: {id: project.id, name, description, color, status}});
+      updateProject({variables: {id: project.id, name, description, color, status, category}});
     } else {
-      createProject({variables: {name, description, color, status}});
+      createProject({variables: {name, description, color, status, category}});
     }
   }
 
@@ -84,6 +92,21 @@ const ProjectForm = props => {
         </div>
 
         <div className="bottom-row">
+        <div className="input category">
+          <label htmlFor="description">What category does it belong to, if any?</label>
+            <Creatable
+              options={categories}
+              isClearable={true}
+              value={categories.filter(c => c.value === category)[0] || {label: category, value: category}}
+              onChange={e => setCategory(e ? e.value : "")}
+              loading={loading}
+              placeholder=""
+              backspaceRemovesValue={true}
+              className="select"
+              classNamePrefix="select"
+            />
+        </div>
+
           <div className="input">
             <label>What is its initial status?</label>
             <Select
@@ -94,6 +117,8 @@ const ProjectForm = props => {
               classNamePrefix="select"
             />
           </div>
+          
+        </div>
           <div className="input">
             <label htmlFor="color">What color should it use? <span style={{backgroundColor: color}} /></label>
             <TwitterPicker
@@ -101,7 +126,6 @@ const ProjectForm = props => {
               colors={colors} width={`324px`}
             />
           </div>
-        </div>
         <Button loading={createProjectMutation.loading || updateProjectMutation.loading}>
           {project ? "Save" : "Create Project"}
         </Button>

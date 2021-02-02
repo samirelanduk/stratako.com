@@ -23,6 +23,20 @@
         margin-bottom: $gap-5;
     }
 
+    .category {
+        .select__control {
+            width: 255px;
+        }
+
+        .select__value-container {
+            cursor: text;
+        }
+
+        .select__indicators {
+            display: none;
+        }
+    }
+
     input, textarea {
         display: block;
         color: $black;
