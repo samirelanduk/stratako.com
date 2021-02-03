@@ -77,3 +77,15 @@ export const UPDATE_PROJECT = gql`mutation updateProject(
 export const DELETE_PROJECT = gql`mutation deleteProject($id: ID!) {
   deleteProject(id: $id) { success }
 }`;
+
+export const UPDATE_PROJECT_CATEGORY = gql`mutation updateProjectCategory($id: ID! $name: String!) {
+  updateProjectCategory(id: $id name: $name) { category { id name order } }
+}`;
+
+export const MOVE_PROJECT_CATEGORY = gql`mutation moveProjectCategory($id: ID! $index: Int!) {
+  moveProjectCategory(id: $id index: $index) { category { id name order } }
+}`;
+
+export const DELETE_PROJECT_CATEGORY = gql`mutation updateProjectCategory($id: ID!) {
+  deleteProjectCategory(id: $id) { success }
+}`;

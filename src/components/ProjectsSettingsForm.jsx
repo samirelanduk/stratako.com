@@ -1,14 +1,20 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
+import { useQuery, useMutation } from "@apollo/client";
 import Select from "react-select";
 import Toggle from "react-toggle";
+import { MoonLoader } from "react-spinners";
+import { cloneDeep } from "lodash";
 import { UserContext } from "../contexts";
-import { useMutation } from "@apollo/client";
-import { UPDATE_PROJECT_SETTINGS } from "../mutations";
+import { MOVE_PROJECT_CATEGORY, UPDATE_PROJECT_SETTINGS } from "../mutations";
+import { PROJECT_CATEGORIES } from "../queries";
+import ProjectCategorySummary from "./ProjectCategorySummary";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const ProjectsSettingsForm = () => {
 
   const [user, setUser] = useContext(UserContext);
+
+  const { loading, data } = useQuery(PROJECT_CATEGORIES);
 
   const groupByOptions = [
     {value: "none", label: "Don't Group"},
@@ -20,6 +26,14 @@ const ProjectsSettingsForm = () => {
     UPDATE_PROJECT_SETTINGS
   )
 
+  const [moveProjectCategory,] = useMutation(MOVE_PROJECT_CATEGORY, {
+    optimisticResponse: {__typename: "Mutation"},
+  });
+
+  if (loading) return (
+    <div className="project-settings-form loading"><MoonLoader color="#01a3a4" /></div>
+  )
+
   const groupChanged = e => {
     setUser({...user, defaultProjectGrouping: e.value})
     updateProjectSettings({variables: {
@@ -29,6 +43,25 @@ const ProjectsSettingsForm = () => {
 
   const doneChanged = e => {
     setUser({...user, showDoneProjects: e.target.checked})
+  }
+
+  const categories = data.user.projectCategories;
+
+  const onDragEnd = e => {
+    moveProjectCategory({
+      variables: {id: e.draggableId, index: e.destination.index - 1},
+      update: (proxy) => {
+        const newData = cloneDeep(proxy.readQuery({ query: PROJECT_CATEGORIES }));
+        const matchingCategories = newData.user.projectCategories.filter(s => s.id === e.draggableId);
+        if (matchingCategories.length) {
+          const category = matchingCategories[0];
+          newData.user.projectCategories = newData.user.projectCategories.filter(s => s.id !== e.draggableId);
+          newData.user.projectCategories.splice(e.destination.index - 1, 0, category);
+          newData.user.projectCategories = newData.user.projectCategories.map((s, i) => ({...s, order: i + 1}));
+        }
+        proxy.writeQuery({ query: PROJECT_CATEGORIES, data: newData })
+      },
+    })
   }
 
   return (
@@ -44,13 +77,27 @@ const ProjectsSettingsForm = () => {
       </div>
 
       <div className="option">
-      <label>Show Abandoned/Completed Projects:</label>
+        <label>Show Abandoned/Completed Projects:</label>
         <Toggle
           checked={user.showDoneProjects}
           onChange={doneChanged}
           icons={false}
         />
       </div>
+
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="category-count">You have {categories.length} project categor{categories.length === 1 ? "y" : "ies"}:</div>
+        <Droppable droppableId="1">
+          {provided => (
+            <div className="categories-grid" ref={provided.innerRef} {...provided.droppableProps}>
+              {categories.map(category => (
+                <ProjectCategorySummary category={category} key={category.id} />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation, useApolloClient } from "@apollo/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { MoonLoader } from "react-spinners";
 import { cloneDeep } from "lodash";
 import { SLOTS } from "../queries";
 import { CREATE_SLOT, MOVE_SLOT } from "../mutations";
 import SlotSummary from "./SlotSummary";
-import { MoonLoader } from "react-spinners";
 
 const SlotsForm = () => {
 
