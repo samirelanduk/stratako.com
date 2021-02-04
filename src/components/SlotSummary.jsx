@@ -86,7 +86,8 @@ const SlotSummary = props => {
 };
 
 SlotSummary.propTypes = {
-  
+  slot: PropTypes.object.isRequired,
+  canDelete: PropTypes.bool
 };
 
 export default SlotSummary;

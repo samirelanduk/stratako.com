@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { cloneDeep } from "lodash";
@@ -89,7 +89,7 @@ const ProjectCategorySummary = props => {
 };
 
 ProjectCategorySummary.propTypes = {
-  
+  category: PropTypes.object.isRequired
 };
 
 export default ProjectCategorySummary;

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import down from "../images/down.svg";
 
@@ -20,7 +19,8 @@ const DropdownList = props => {
     return () => window.removeEventListener("click", clickOutside);
   })
 
-  const className = classNames({list: true, visible: listVisible})
+  const className = classNames({list: true, visible: listVisible});
+
   return (
     <div className="dropdown-list" ref={dropdownElement}>
       <div className="down-button" onClick={() => setListVisible(!listVisible)}>
