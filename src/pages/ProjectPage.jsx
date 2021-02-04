@@ -6,8 +6,11 @@ import ProjectForm from "../components/ProjectForm";
 import { PROJECT, PROJECTS } from "../queries";
 import { DELETE_PROJECT } from "../mutations";
 import Base from "./Base";
+import trash from "../images/trash.svg";
+import pencil from "../images/pencil.svg";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
+import DropdownList from "../components/DropdownList";
 
 const ProjectPage = () => {
 
@@ -52,18 +55,24 @@ const ProjectPage = () => {
   return (
     <Base className="project-page">
       <div className="top-row">
-        <h1>{project.name}</h1>
-        <div className="options">
-          <div className={statusClass}>{status}</div>
-          <div className="option" onClick={() => setShowFormModal(true)}>Edit</div>
-          <div className="option" onClick={() => setShowDeletionModal(true)}>Delete</div>
-        </div>
+        <h1><span className="color" style={{backgroundColor: project.color}}/>
+          {project.name}
+          <DropdownList>
+            <div onClick={() => setShowFormModal(true)}>
+              <img src={pencil} alt="edit" />Edit
+            </div>
+            <div onClick={() => setShowDeletionModal(true)}>
+              <img src={trash} alt="delete" />Delete
+            </div>
+          </DropdownList>
+        </h1>
+        <div className={statusClass}>{status}</div>
       </div>
       
       <ProjectForm project={project} showFormModal={showFormModal} setShowFormModal={setShowFormModal}/>
       <Modal showModal={showDeletionModal} setShowModal={setShowDeletionModal}>
         <form onSubmit={deleteSubmit}>
-          <div className="modal-heading">Delete Project {project.name}?</div>
+          <div className="modal-heading">Delete Project <span className="instance">{project.name}</span>?</div>
           <p className="modal-text">This cannot be undone.</p>
           <Button className="delete-button" loading={deleteProjectMutation.loading}>Delete</Button>
         </form>

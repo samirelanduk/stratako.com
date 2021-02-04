@@ -20,7 +20,7 @@
         padding: $gap-4 $gap-5;
 
         img.dismiss {
-            width: 20px;
+            width: 18px;
             display: block;
             margin-left: auto;
             opacity: 0.2;
@@ -34,12 +34,16 @@
         .modal-heading {
             font-size: $font-size-6;
             margin-bottom: $gap-3;
-            margin-top: $gap-2;
+            margin-top: $gap-3;
+
+            .instance {
+                font-style: italic;
+            }
         }
 
         .modal-text {
             font-weight: 300;
-            margin-bottom: $gap-5;
+            margin-bottom: $gap-6;
             font-size: $font-size-4;
         }
     }

@@ -10,29 +10,37 @@
         h1 {
             font-size: $font-size-9;
             position: relative;
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            line-height: 1;
+
+            .color {
+                width: 18px;
+                height: 18px;
+                content: "";
+                display: inline-block;
+                border-radius: 50%;
+                margin-right: $gap-2;
+            }
+
+            .dropdown-list {
+                margin-left: $gap-2;
+            }
         }
 
-        .options {
-            .status {
-                background-color: $gray;
-                color: white;
-                height: fit-content;
-                padding: $gap-1 $gap-2;
-                border-radius: 5px;
-                font-size: $font-size-2;
-                opacity: 0.8;
-            }
-    
-            .status.not-started {
-                background-color: $project-not-started;
-            }
+        .status {
+            background-color: $gray;
+            color: white;
+            height: fit-content;
+            padding: $gap-1 $gap-2;
+            border-radius: 5px;
+            font-size: $font-size-2;
+            opacity: 0.8;
+        }
 
-            .option {
-                cursor: pointer;
-                text-align: right;
-                padding-top: $gap-1;
-                color: $hyperlink-blue;
-            }
+        .status.not-started {
+            background-color: $project-not-started;
         }
 
 
