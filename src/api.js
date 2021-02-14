@@ -50,7 +50,8 @@ export const makeClient = () => {
   const cache = new InMemoryCache({
     typePolicies: {
       UserType: {fields: {
-        projects: {merge(existing, incoming) { return incoming } }
+        projects: {merge(existing, incoming) { return incoming } },
+        projectCategories: {merge(existing, incoming) { return incoming } },
       }}
     }
   })

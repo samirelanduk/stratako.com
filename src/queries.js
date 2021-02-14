@@ -22,6 +22,7 @@ export const PROJECTS = gql`{ user {
 
 export const PROJECT = gql`query project($id: ID!) { user { id project(id: $id) {
   id name description status color creationTime category
+  statusChanges { original timestamp }
 } } }`;
 
 export const PROJECT_CATEGORIES = gql`{ user { projectCategories {

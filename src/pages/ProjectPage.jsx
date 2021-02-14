@@ -10,7 +10,9 @@ import trash from "../images/trash.svg";
 import pencil from "../images/pencil.svg";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
+import { PROJECT_STATUSES } from "../utils";
 import DropdownList from "../components/DropdownList";
+import moment from "moment";
 
 const ProjectPage = () => {
 
@@ -34,14 +36,7 @@ const ProjectPage = () => {
 
   const project = data.user.project;
 
-  const status = {
-    1: "Active",
-    2: "Maintenance",
-    3: "On Hold",
-    4: "Not Started",
-    5: "Abandoned",
-    6: "Completed"
-  }[project.status]
+  const status = PROJECT_STATUSES[project.status]
   
   const statusClass = classNames({
     status: true, [status.toLowerCase().replace(" ", "-")]: true
@@ -51,6 +46,13 @@ const ProjectPage = () => {
     e.preventDefault();
     deleteProject({variables: {id: project.id}})
   }
+
+  const changes = project.statusChanges.map((change, i) => [
+    moment(change.timestamp * 1000).format("D MMMM, YYYY"),
+    moment(change.timestamp * 1000).format(),
+    PROJECT_STATUSES[change.original],
+    PROJECT_STATUSES[i === project.statusChanges.length - 1 ? project.status : project.statusChanges[i + 1].original],
+  ])
 
   return (
     <Base className="project-page">
@@ -68,6 +70,8 @@ const ProjectPage = () => {
         </h1>
         <div className={statusClass}>{status}</div>
       </div>
+
+      
       
       <ProjectForm project={project} showFormModal={showFormModal} setShowFormModal={setShowFormModal}/>
       <Modal showModal={showDeletionModal} setShowModal={setShowDeletionModal}>
@@ -77,7 +81,18 @@ const ProjectPage = () => {
           <Button className="delete-button" loading={deleteProjectMutation.loading}>Delete</Button>
         </form>
       </Modal>
-      <p className="description">{project.description}</p>
+
+      <div className="second-row">
+        <p className="description">{project.description}</p>
+        <div className="project-history">
+          <div className="event">Started <time title={moment(project.creationTime * 1000).format()}>{moment(project.creationTime * 1000).format("D MMMM, YYYY")}</time></div>
+          {changes.map((change, i) => (
+            <div className="event" key={i}>
+              Changed from <span className="status">{change[2]}</span> to <span className="status">{change[3]}</span> on <time title={change[1]}> {change[0]}</time></div>
+          ))}
+        </div>
+      </div>
+      
     </Base>
   );
 };
