@@ -10,6 +10,7 @@ import HomePage from "../pages/HomePage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import SettingsPage from "../pages/SettingsPage";
+import OperationsPage from "../pages/OperationsPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import ProjectPage from "../pages/ProjectPage";
 import PageNotFound from "../pages/PageNotFound";
@@ -60,6 +61,9 @@ const App = () => {
             </Route>
             {user && <Route path="/settings/" exact>
               <SettingsPage />
+            </Route>}
+            {user && <Route path="/operations/" exact>
+              <OperationsPage />
             </Route>}
             {user && <Route path="/projects/" exact>
               <ProjectsPage />
