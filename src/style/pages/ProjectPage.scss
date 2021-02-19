@@ -72,6 +72,7 @@
         justify-content: space-between;
         border-bottom: 1px solid $gray;
         padding-bottom: $gap-5;
+        margin-bottom: $gap-5;
         
         p.description {
             font-size: $font-size-5;
@@ -91,6 +92,12 @@
                 font-weight: 400;
             }
         }
+    }
+
+    .operations {
+        width: 400px;
+        display: grid;
+        gap: $gap-5;
     }
 
     

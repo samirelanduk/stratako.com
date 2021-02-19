@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router";
+import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import classNames from "classnames";
 import ProjectForm from "../components/ProjectForm";
@@ -35,6 +36,8 @@ const ProjectPage = () => {
   if (loading) return <Base loading={true} />
 
   const project = data.user.project;
+
+  const futureOperations = project.operations.filter(p => p.started === null);
 
   const status = PROJECT_STATUSES[project.status]
   
@@ -91,6 +94,22 @@ const ProjectPage = () => {
               Changed from <span className="status">{change[2]}</span> to <span className="status">{change[3]}</span> on <time title={change[1]}> {change[0]}</time></div>
           ))}
         </div>
+      </div>
+
+      <div className="operations future-operations">
+        {futureOperations.map(operation => (
+          <div className="operation" key={operation.id}>
+            <div className="operation-name">{operation.name}</div>
+            <div className="operation-projects">
+              {operation.projects.map(project => (
+                <Link className="operation-project" key={project.id} to={`/projects/${project.id}/`}>
+                  <div className="project-color" style={{backgroundColor: project.color }}/>
+                  <div className="project-name">{project.name}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
       
     </Base>
