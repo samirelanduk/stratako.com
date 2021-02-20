@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router";
-import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import classNames from "classnames";
 import ProjectForm from "../components/ProjectForm";
@@ -11,8 +10,9 @@ import trash from "../images/trash.svg";
 import pencil from "../images/pencil.svg";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
-import { PROJECT_STATUSES } from "../utils";
 import DropdownList from "../components/DropdownList";
+import OperationsList from "../components/OperationsList";
+import { PROJECT_STATUSES } from "../utils";
 import moment from "moment";
 
 const ProjectPage = () => {
@@ -96,21 +96,7 @@ const ProjectPage = () => {
         </div>
       </div>
 
-      <div className="operations future-operations">
-        {futureOperations.map(operation => (
-          <div className="operation" key={operation.id}>
-            <div className="operation-name">{operation.name}</div>
-            <div className="operation-projects">
-              {operation.projects.map(project => (
-                <Link className="operation-project" key={project.id} to={`/projects/${project.id}/`}>
-                  <div className="project-color" style={{backgroundColor: project.color }}/>
-                  <div className="project-name">{project.name}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <OperationsList operations={futureOperations} /> 
       
     </Base>
   );
