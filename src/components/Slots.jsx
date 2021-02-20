@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OperationsList from "./OperationsList";
+import Operation from "./Operation";
 
 const Slots = props => {
   
@@ -11,7 +12,9 @@ const Slots = props => {
       {slots.map(slot => (
         <div className="slot" key={slot.id}>
           <h2>{slot.name}</h2>
-          {slot.futureOperations && slot.futureOperations.length ? (
+          {slot.currentOperation ? (
+            <Operation operation={slot.currentOperation} />
+          ) : slot.futureOperations && slot.futureOperations.length ? (
             <OperationsList operations={slot.futureOperations} />
           ) : (
             <div className="no-data">
