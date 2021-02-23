@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Select from "react-select";
 import Creatable from "react-select/creatable";
 import { TwitterPicker } from "react-color";
@@ -9,11 +9,11 @@ import Modal from "../components/Modal";
 import { CREATE_PROJECT, UPDATE_PROJECT } from "../mutations";
 import Button from "./Button";
 import { createErrorObject } from "../forms";
-import { PROJECT, PROJECTS, PROJECT_CATEGORIES } from "../queries";
+import { PROJECT, PROJECTS } from "../queries";
 
 const ProjectForm = props => {
 
-  const { project, showFormModal, setShowFormModal } = props;
+  const { project, showFormModal, setShowFormModal, projectCategories } = props;
   const [name, setName] = useState(project ? project.name : "");
   const [description, setDescription] = useState(project ? project.description : "");
   const [category, setCategory] = useState(project ? (project.category || "") : "");
@@ -22,8 +22,7 @@ const ProjectForm = props => {
   const [errors, setErrors] = useState({});
   const history = useHistory();
 
-  const { loading, data } = useQuery(PROJECT_CATEGORIES);
-  const categories = loading ? [] : data.user.projectCategories.map(
+  const categories = projectCategories.map(
     category => ({label: category.name, value: category.name})
   )
 
@@ -99,7 +98,6 @@ const ProjectForm = props => {
               isClearable={true}
               value={categories.filter(c => c.value === category)[0] || {label: category, value: category}}
               onChange={e => setCategory(e ? e.value : "")}
-              loading={loading}
               placeholder=""
               backspaceRemovesValue={true}
               className="select"

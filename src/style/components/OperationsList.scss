@@ -2,6 +2,12 @@
 
     .operations-list {
         width: 400px;
-        display: grid;
-        gap: $gap-5;
+        
+        .operation {
+            margin-bottom: $gap-5;
+        }
+
+        .operation:last-child {
+            margin-bottom: 0;
+        }
     }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useMutation, useQuery } from "@apollo/client";
+import { DragDropContext } from "react-beautiful-dnd";
+import { cloneDeep } from "lodash";
 import classNames from "classnames";
 import ProjectForm from "../components/ProjectForm";
 import { PROJECT, PROJECTS } from "../queries";
-import { DELETE_PROJECT } from "../mutations";
+import { DELETE_PROJECT, MOVE_OPERATION_WITHIN_PROJECT } from "../mutations";
 import Base from "./Base";
 import trash from "../images/trash.svg";
 import pencil from "../images/pencil.svg";
@@ -33,6 +35,10 @@ const ProjectPage = () => {
     awaitRefetchQueries: true
   })
 
+  const [moveOperationWithinProject,] = useMutation(MOVE_OPERATION_WITHIN_PROJECT, {
+    optimisticResponse: {__typename: "Mutation"},
+  });
+
   if (loading) return <Base loading={true} />
 
   const project = data.user.project;
@@ -57,6 +63,30 @@ const ProjectPage = () => {
     PROJECT_STATUSES[i === project.statusChanges.length - 1 ? project.status : project.statusChanges[i + 1].original],
   ])
 
+  const onDragEnd = e => {
+    if (e.destination) {
+      moveOperationWithinProject({
+        variables: {
+          id: e.draggableId, index: e.destination.index - 1,
+          project: e.destination.droppableId
+        },
+        update: (proxy) => {
+          const newData = cloneDeep(proxy.readQuery({ query: PROJECT, variables: {id: project.id}}));
+          const operation = newData.user.project.operations.filter(o => o.id === e.draggableId)[0];
+          const zeroOrderOpCount = newData.user.project.operations.filter(o => o.projectOrder === 0).length;
+          newData.user.project.operations = newData.user.project.operations.filter(o => o.id !== e.draggableId);
+          newData.user.project.operations.splice(e.destination.index - 1 + zeroOrderOpCount, 0, operation);
+          let index = 1;
+          for (let op of newData.user.project.operations.filter(o => o.started === null)) {
+            op.projectOrder = index;
+            index += 1;
+          }
+          proxy.writeQuery({ query: PROJECT, variables: {id: project.id}, data: newData });
+        },
+      })
+    }
+  }
+
   return (
     <Base className="project-page">
       <div className="top-row">
@@ -76,7 +106,10 @@ const ProjectPage = () => {
 
       
       
-      <ProjectForm project={project} showFormModal={showFormModal} setShowFormModal={setShowFormModal}/>
+      <ProjectForm
+        project={project} projectCategories={data.user.projectCategories}
+        showFormModal={showFormModal} setShowFormModal={setShowFormModal}
+      />
       <Modal showModal={showDeletionModal} setShowModal={setShowDeletionModal}>
         <form onSubmit={deleteSubmit}>
           <div className="modal-heading">Delete Project <span className="instance">{project.name}</span>?</div>
@@ -96,7 +129,9 @@ const ProjectPage = () => {
         </div>
       </div>
 
-      <OperationsList operations={futureOperations} /> 
+      <DragDropContext onDragEnd={onDragEnd}>
+        <OperationsList operations={futureOperations} droppableId={project.id} /> 
+      </DragDropContext>
       
     </Base>
   );

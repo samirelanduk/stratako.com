@@ -15,7 +15,7 @@ const Slots = props => {
           {slot.currentOperation ? (
             <Operation operation={slot.currentOperation} />
           ) : slot.futureOperations && slot.futureOperations.length ? (
-            <OperationsList operations={slot.futureOperations} />
+            <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
           ) : (
             <div className="no-data">
               Currently no operations.

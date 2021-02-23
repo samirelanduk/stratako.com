@@ -65,7 +65,10 @@ const ProjectsPage = () => {
         </div>
 
         <button className="new-project" onClick={() => setShowModal(true)}>+ New Project</button>
-        <ProjectForm showFormModal={showModal} setShowFormModal={setShowModal}/>
+        <ProjectForm
+          projectCategories={data.user.projectCategories}
+          showFormModal={showModal} setShowFormModal={setShowModal}
+        />
       </div>
 
       <div className="projects">

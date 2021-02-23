@@ -1,17 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Droppable } from "react-beautiful-dnd";
 import Operation from "./Operation";
 
 const OperationsList = props => {
 
-  const { operations } = props;
+  const { operations, droppableId } = props;
 
   return (
-    <div className="operations-list">
-      {operations.map(operation => (
-        <Operation operation={operation} key={operation.id} />
-      ))}
-    </div>
+    <Droppable droppableId={droppableId}>
+      {provided => (
+        <div className="operations-list" ref={provided.innerRef} {...provided.droppableProps}>
+          {operations.map(operation => (
+            <Operation operation={operation} key={operation.id} />
+          ))}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 };
 
