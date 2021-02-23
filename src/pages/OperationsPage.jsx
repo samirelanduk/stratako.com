@@ -32,25 +32,41 @@ const OperationsPage = () => {
         update: (proxy) => {
           const newData = cloneDeep(proxy.readQuery({ query: FUTURE_OPERATIONS }));
           let operation = null;
-          for (let slot of newData.user.slots) {
-            if (slot.id === e.source.droppableId) {
-              operation = slot.futureOperations.filter(o => o.id === e.draggableId)[0];
-              slot.futureOperations = slot.futureOperations.filter(o => o.id !== e.draggableId);
-              for (let i = 0; i < slot.futureOperations.length; i++) {
-                slot.futureOperations[i].order = i + 1;
+          if (e.source.droppableId === "0") {
+            operation = newData.user.operationsWithoutSlots.filter(o => o.id === e.draggableId)[0];
+            newData.user.operationsWithoutSlots = newData.user.operationsWithoutSlots.filter(o => o.id !== e.draggableId);
+            for (let i = 0; i < newData.user.operationsWithoutSlots.length; i++) {
+              newData.user.operationsWithoutSlots[i].order = i + 1;
+            }
+          } else {
+            for (let slot of newData.user.slots) {
+              if (slot.id === e.source.droppableId) {
+                operation = slot.futureOperations.filter(o => o.id === e.draggableId)[0];
+                slot.futureOperations = slot.futureOperations.filter(o => o.id !== e.draggableId);
+                for (let i = 0; i < slot.futureOperations.length; i++) {
+                  slot.futureOperations[i].order = i + 1;
+                }
+                break;
               }
-              break;
             }
           }
-          for (let slot of newData.user.slots) {
-            if (slot.id === e.destination.droppableId) {
-              slot.futureOperations.splice(e.destination.index - 1, 0, operation);
-              for (let i = 0; i < slot.futureOperations.length; i++) {
-                slot.futureOperations[i].order = i + 1;
+          if (e.destination.droppableId === "0") {
+            newData.user.operationsWithoutSlots.splice(e.destination.index - 1, 0, operation);
+            for (let i = 0; i < newData.user.operationsWithoutSlots.length; i++) {
+              newData.user.operationsWithoutSlots[i].order = i + 1;
+            }
+          } else {
+            for (let slot of newData.user.slots.concat([ {id: "0", futureOperations: newData.user.operationsWithoutSlots}   ])) {
+              if (slot.id === e.destination.droppableId) {
+                slot.futureOperations.splice(e.destination.index - 1, 0, operation);
+                for (let i = 0; i < slot.futureOperations.length; i++) {
+                  slot.futureOperations[i].order = i + 1;
+                }
+                break;
               }
-              break;
             }
           }
+
           proxy.writeQuery({ query: FUTURE_OPERATIONS, data: newData });
         },
       })
@@ -60,7 +76,7 @@ const OperationsPage = () => {
   return (
     <Base className="operations-page">
       <DragDropContext onDragEnd={onDragEnd}>
-        <Slots slots={slots} />
+        <Slots slots={slots} unassigned={data.user.operationsWithoutSlots} />
       </DragDropContext>
     </Base>
   )

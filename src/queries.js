@@ -36,7 +36,10 @@ export const PROJECT_CATEGORIES = gql`{ user { projectCategories {
   id name order projectCount activeProjectCount
 } } }`;
 
-export const FUTURE_OPERATIONS = gql`{ user { id slots { 
-  id name order
-  futureOperations { id name started completed order projects { id name color } }
-} } }`;
+export const FUTURE_OPERATIONS = gql`{ user {
+  id slots { 
+    id name order
+    futureOperations { id name started completed order projects { id name color } }
+  } 
+  operationsWithoutSlots { id name started completed order projects { id name color } }
+} }`;

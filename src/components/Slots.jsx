@@ -5,7 +5,7 @@ import Operation from "./Operation";
 
 const Slots = props => {
   
-  const { slots } = props;
+  const { slots, unassigned } = props;
 
   return (
     <div className="slots">
@@ -17,18 +17,25 @@ const Slots = props => {
           ) : slot.futureOperations && slot.futureOperations.length ? (
             <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
           ) : (
-            <div className="no-data">
-              Currently no operations.
-            </div>
+            <div className="no-data">Currently no operations.</div>
           )}
         </div>
       ))}
+      {unassigned && (
+        <div className="slot unassigned">
+          <h2>Unassigned</h2>
+          {unassigned.length ? (
+            <OperationsList operations={unassigned} droppableId={"0"} />
+          ): <div className="no-data">Currently no operations.</div>}
+        </div>
+      )}
     </div>
 );
 };
 
 Slots.propTypes = {
-  slots: PropTypes.array.isRequired
+  slots: PropTypes.array.isRequired,
+  unassigned: PropTypes.array
 };
 
 export default Slots;

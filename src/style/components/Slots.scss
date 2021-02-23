@@ -23,4 +23,9 @@
     .slot:last-child {
         margin-right: 0;
     }
+
+    .slot.unassigned {
+        padding-left: $gap-7;
+        border-left: 1px dashed $input-border;
+    }
 }
