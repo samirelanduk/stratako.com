@@ -15,7 +15,7 @@ export const TOKEN = gql`{ accessToken }`;
 
 export const SLOTS = gql`{ user { id slots { 
   id name order 
-  currentOperation { id name started completed projects { id name color } }
+  currentOperation { id name order started completed projects { id name color } }
 } } }`;
 
 export const PROJECTS = gql`{ user {

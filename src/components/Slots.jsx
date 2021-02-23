@@ -12,8 +12,9 @@ const Slots = props => {
       {slots.map(slot => (
         <div className="slot" key={slot.id}>
           <h2>{slot.name}</h2>
+
           {slot.currentOperation ? (
-            <Operation operation={slot.currentOperation} />
+            <OperationsList operations={[slot.currentOperation]} droppableId="0" />
           ) : slot.futureOperations && slot.futureOperations.length ? (
             <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
           ) : (

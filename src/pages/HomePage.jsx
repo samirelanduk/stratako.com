@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
 import { SLOTS } from "../queries";
 import Base from "./Base";
 import { useQuery } from "@apollo/client";
@@ -18,7 +19,9 @@ const HomePage = () => {
 
   return (
     <Base className="home-page">
-      <Slots slots={slots} />
+      <DragDropContext onDragEnd={() => null}>
+        <Slots slots={slots} />
+      </DragDropContext>
     </Base>
   );
 };

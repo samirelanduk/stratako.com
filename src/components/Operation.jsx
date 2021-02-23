@@ -8,7 +8,7 @@ const Operation = props => {
   const { operation } = props;
 
   return (
-    <Draggable draggableId={operation.id.toString()} index={operation.order || operation.projectOrder}>
+    <Draggable draggableId={operation.id.toString()} index={operation.order === undefined ? operation.projectOrder : operation.order}>
       {provided => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="operation">
           <div className="operation-name">{operation.name}</div>
