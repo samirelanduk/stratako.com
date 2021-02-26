@@ -14,7 +14,7 @@ const Slots = props => {
           <h2>{slot.name}</h2>
 
           {slot.currentOperation ? (
-            <OperationsList operations={[slot.currentOperation]} droppableId="0" />
+            <Operation operation={slot.currentOperation} draggable={false} />
           ) : slot.futureOperations && slot.futureOperations.length ? (
             <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
           ) : (

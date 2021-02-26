@@ -22,11 +22,11 @@ const Operation = props => {
         <div className="top-row">
           <div className="operation-name">{operation.name}</div>
           <div className="top-right">
-            {expanded ? (
+            {expand && (expanded ? (
                 <img src={minimizeIcon} alt="minimize" className="close" onClick={close} />
               ) : (
                 <img src={expandIcon} alt="expand" className="expand" onClick={expand} />
-              )}
+              ))}
             <div className="operation-projects">
               {operation.projects.map(project => (
                 <Link className="operation-project" key={project.id} to={`/projects/${project.id}/`}>
