@@ -1,35 +1,113 @@
-.operation {
-    background-color: white;
-    box-shadow: $box-shadow;
-    padding: $gap-4;
-    border-radius: 5px;
+.operation-background {
+    .operation {
+        background-color: white;
+        box-shadow: $box-shadow;
+        padding: $gap-4;
+        border-radius: 5px;
+    
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+
+            .top-right {
+                display: flex;
+                align-items: flex-start;
+            }
+
+            img {
+                margin-top: $gap-1;
+                width: 12px;
+                margin-right: $gap-2;
+                cursor: pointer;
+                background: none;
+                opacity: 0.8;
+            }
+
+            img:hover {
+                opacity: 1;
+            }
+    
+            .operation-projects {
+                display: grid;
+        
+                .operation-project {
+                    display: grid;
+                    grid-template-columns: 10px 1fr;
+                    align-items: center;
+                    font-size: $font-size-1;
+                    font-weight: 300;
+                    padding: $gap-1 $gap-1;
+                    gap: $gap-1;
+                    border-radius: 4px;
+                    text-decoration: none;
+                    color: inherit;
+        
+                    .project-color {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                    }
+                }
+        
+                .operation-project:hover {
+                    background-color: $gray;
+                }
+            }
+        }    
+    }
+}
+
+
+.operation-background.expanded {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: $transparent-black;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 
-    .operation-projects {
-        display: grid;
+    .operation {
+        width: 600px;
+        padding: $gap-5 $gap-5;
 
-        .operation-project {
-            display: grid;
-            grid-template-columns: 10px 1fr;
-            align-items: center;
-            font-size: $font-size-1;
-            font-weight: 300;
-            padding: $gap-1 $gap-1;
-            gap: $gap-1;
-            border-radius: 4px;
-            text-decoration: none;
-            color: inherit;
+        .top-row {
+            margin-bottom: $gap-3;
 
-            .project-color {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
+            .operation-name {
+                font-size: $font-size-7;
+            }
+
+            img {
+                width: 18px;
+            }
+
+            .operation-projects {
+                .operation-project {
+                    font-size: $font-size-3;
+                    padding: $gap-1 $gap-2;
+                }
             }
         }
 
-        .operation-project:hover {
-            background-color: $gray;
+        .description {
+            font-weight: 300;
+            margin-bottom: $gap-3;
+            font-size: $font-size-4;
         }
     }
 }
+
+/* .operation:before {
+    position: fixed;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    content: "";
+    //background: blue;
+} */

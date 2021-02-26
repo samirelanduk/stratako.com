@@ -3,11 +3,11 @@
     .operations-list {
         width: 400px;
         
-        .operation {
+        .operation-background {
             margin-bottom: $gap-5;
         }
 
-        .operation:last-child {
+        .operation-background:last-child {
             margin-bottom: 0;
         }
     }
