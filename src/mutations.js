@@ -101,3 +101,7 @@ export const MOVE_OPERATION_WITHIN_PROJECT = gql`mutation moveOperationWithinPro
     operation { id name projectOrder }
   }
 }`;
+
+export const DELETE_OPERATION = gql`mutation deleteOperation($id: ID!) {
+  deleteOperation(id: $id) { success }
+}`;

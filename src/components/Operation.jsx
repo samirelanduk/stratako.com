@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
-import expandIcon from "../images/expand.svg"
-import minimizeIcon from "../images/minimize.svg"
+import expandIcon from "../images/expand.svg";
+import minimizeIcon from "../images/minimize.svg";
+import pencilIcon from "../images/pencil.svg";
 import { Draggable } from "react-beautiful-dnd";
+import { DELETE_OPERATION } from "../mutations";
+import { FUTURE_OPERATIONS, PROJECT } from "../queries";
 
 const Operation = props => {
 
   const { operation, expanded, expand, close, provided } = props;
+  const [editing, setEditing] = useState(false);
 
   const className = classNames({"operation-background": true, expanded});
+
+  const [deleteOperation, deleteOperationMutation] = useMutation(DELETE_OPERATION, {
+    onCompleted: () => close(),
+    refetchQueries: [{query: FUTURE_OPERATIONS}].concat(operation.projects.map(
+      project => ({query: PROJECT, variables: {id: project.id}})
+    )),
+    awaitRefetchQueries: true
+  })
 
   return (
     <div
@@ -22,11 +35,14 @@ const Operation = props => {
         <div className="top-row">
           <div className="operation-name">{operation.name}</div>
           <div className="top-right">
+            {expanded && !editing && (
+              <img src={pencilIcon} alt="edit" className="edit" onClick={() => setEditing(true)} />
+            )}
             {expand && (expanded ? (
-                <img src={minimizeIcon} alt="minimize" className="close" onClick={close} />
-              ) : (
-                <img src={expandIcon} alt="expand" className="expand" onClick={expand} />
-              ))}
+              <img src={minimizeIcon} alt="minimize" className="close" onClick={close} />
+            ) : (
+              <img src={expandIcon} alt="expand" className="expand" onClick={expand} />
+            ))}
             <div className="operation-projects">
               {operation.projects.map(project => (
                 <Link className="operation-project" key={project.id} to={`/projects/${project.id}/`}>
@@ -35,10 +51,16 @@ const Operation = props => {
                 </Link>
               ))}
             </div>
-
           </div>
         </div>
         {expanded && <div className="description">{operation.description}</div>  }
+
+        {editing && (
+          <div className="buttons">
+            <button className="save">Save</button>
+            <button className="delete-button" onClick={() => deleteOperation({variables: {id: operation.id}})}>Delete</button>
+          </div>
+        )}
         
       </div>
     </div>

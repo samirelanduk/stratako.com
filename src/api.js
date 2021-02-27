@@ -56,6 +56,9 @@ export const makeClient = () => {
       }},
       SlotType: {fields: {
         futureOperations: {merge(existing, incoming) { return incoming } },
+      }},
+      ProjectType: {fields: {
+        operations: {merge(existing, incoming) { return incoming } },
       }}
     }
   })

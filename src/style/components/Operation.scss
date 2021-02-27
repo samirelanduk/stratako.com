@@ -20,11 +20,11 @@
                 margin-right: $gap-2;
                 cursor: pointer;
                 background: none;
-                opacity: 0.8;
+                opacity: 0.3;
             }
 
             img:hover {
-                opacity: 1;
+                opacity: 0.4;
             }
     
             .operation-projects {
@@ -83,6 +83,7 @@
 
             img {
                 width: 18px;
+                margin-right: $gap-3;
             }
 
             .operation-projects {
@@ -98,16 +99,29 @@
             margin-bottom: $gap-3;
             font-size: $font-size-4;
         }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 85px);
+            gap: $gap-4;
+            margin-top: $gap-5;
+
+            button {
+                padding: $gap-2 $gap-4;
+                cursor: pointer;
+                border-radius: 5px;
+                opacity: 0.8;
+                font-size: $font-size-3;
+            }
+
+            button:hover {
+                opacity: 1;
+            }
+
+            button.save {
+                background-color: $primary-button;
+                color: white;
+            }
+        }
     }
 }
-
-/* .operation:before {
-    position: fixed;
-    z-index: -1;
-    width: 100vw;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    content: "";
-    //background: blue;
-} */

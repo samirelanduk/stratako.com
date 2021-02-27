@@ -14,9 +14,9 @@ const OperationsList = props => {
       {provided => (
         <div className="operations-list" ref={provided.innerRef} {...provided.droppableProps}>
           {operations.map((operation, i) => (
-            <>
+            <React.Fragment key={i}>
               <Operation
-                operation={operation} key={operation.id}
+                operation={operation}
                 expanded={expanded === i}
                 expand={() => setExpanded(i)}
                 close={() => setExpanded(null)}
@@ -24,14 +24,14 @@ const OperationsList = props => {
               />
               {expanded === i && (
                 <Operation
-                  operation={operation} key={operation.id}
+                  operation={operation}
                   expanded={false}
                   expand={() => setExpanded(i)}
                   close={() => setExpanded(null)}
-                  draggable={true}
+                  draggable={false}
                 />
               )}
-            </>
+            </React.Fragment>
           ))}
           {provided.placeholder}
         </div>
