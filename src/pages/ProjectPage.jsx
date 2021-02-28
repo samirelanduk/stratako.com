@@ -16,6 +16,7 @@ import DropdownList from "../components/DropdownList";
 import OperationsList from "../components/OperationsList";
 import { PROJECT_STATUSES } from "../utils";
 import moment from "moment";
+import NewOperation from "../components/NewOperation";
 
 const ProjectPage = () => {
 
@@ -132,6 +133,7 @@ const ProjectPage = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <OperationsList operations={futureOperations} droppableId={project.id} /> 
       </DragDropContext>
+      <NewOperation project={project} />
       
     </Base>
   );

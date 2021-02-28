@@ -90,6 +90,12 @@ export const DELETE_PROJECT_CATEGORY = gql`mutation updateProjectCategory($id: I
   deleteProjectCategory(id: $id) { success }
 }`;
 
+export const CREATE_OPERATION = gql`mutation createOperation(
+  $name: String! $project: ID $slot: ID
+) {
+  createOperation(name: $name project: $project slot: $slot) { operation { id } }
+}`;
+
 export const MOVE_OPERATION = gql`mutation moveOperation($id: ID! $index: Int! $slot: ID) {
   moveOperation(id: $id index: $index slot: $slot) { operation { id name order } }
 }`;

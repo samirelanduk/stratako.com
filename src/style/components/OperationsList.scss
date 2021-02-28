@@ -1,13 +1,9 @@
 
 
     .operations-list {
-        width: 400px;
+        width: $operation-width;
         
         .operation-background {
             margin-bottom: $gap-5;
-        }
-
-        .operation-background:last-child {
-            margin-bottom: 0;
         }
     }

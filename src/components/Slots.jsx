@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OperationsList from "./OperationsList";
 import Operation from "./Operation";
+import NewOperation from "./NewOperation";
 
 const Slots = props => {
   
@@ -16,7 +17,10 @@ const Slots = props => {
           {slot.currentOperation ? (
             <Operation operation={slot.currentOperation} draggable={false} />
           ) : slot.futureOperations && slot.futureOperations.length ? (
-            <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
+            <>
+              <OperationsList operations={slot.futureOperations} droppableId={slot.id} />
+              <NewOperation slot={slot} />
+            </>
           ) : (
             <div className="no-data">Currently no operations.</div>
           )}
@@ -26,7 +30,10 @@ const Slots = props => {
         <div className="slot unassigned">
           <h2>Unassigned</h2>
           {unassigned.length ? (
-            <OperationsList operations={unassigned} droppableId={"0"} />
+            <>
+              <OperationsList operations={unassigned} droppableId={"0"} />
+              <NewOperation slot={null} />
+            </>
           ): <div className="no-data">Currently no operations.</div>}
         </div>
       )}
