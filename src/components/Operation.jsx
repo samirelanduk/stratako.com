@@ -7,8 +7,8 @@ import expandIcon from "../images/expand.svg";
 import minimizeIcon from "../images/minimize.svg";
 import pencilIcon from "../images/pencil.svg";
 import { Draggable } from "react-beautiful-dnd";
-import { DELETE_OPERATION } from "../mutations";
-import { FUTURE_OPERATIONS, PROJECT } from "../queries";
+import { DELETE_OPERATION, START_OPERATION, COMPLETE_OPERATION } from "../mutations";
+import { FUTURE_OPERATIONS, PROJECT, SLOTS } from "../queries";
 
 const Operation = props => {
 
@@ -16,6 +16,18 @@ const Operation = props => {
   const [editing, setEditing] = useState(false);
 
   const className = classNames({"operation-background": true, expanded});
+
+  const [startOperation, startOperationMutation] = useMutation(START_OPERATION, {
+    refetchQueries: [{query: FUTURE_OPERATIONS}, {query: SLOTS }].concat(operation.projects.map(
+      project => ({query: PROJECT, variables: {id: project.id}})
+    )),
+  });
+
+  const [completeOperation, completeOperationMutation] = useMutation(COMPLETE_OPERATION, {
+    refetchQueries: [{query: FUTURE_OPERATIONS}, {query: SLOTS }].concat(operation.projects.map(
+      project => ({query: PROJECT, variables: {id: project.id}})
+    )),
+  });
 
   const [deleteOperation, deleteOperationMutation] = useMutation(DELETE_OPERATION, {
     onCompleted: () => close(),
@@ -54,6 +66,13 @@ const Operation = props => {
           </div>
         </div>
         {expanded && <div className="description">{operation.description}</div>  }
+
+        {!editing && !expanded && !operation.started && !operation.completed && (
+          <button onClick={() => startOperation({variables: {id: operation.id}})}>Start</button>  
+        )}
+        {!editing && !expanded && operation.started && !operation.completed && (
+          <button onClick={() => completeOperation({variables: {id: operation.id}})}>Complete</button>  
+        )}
 
         {editing && (
           <div className="buttons">

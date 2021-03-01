@@ -108,6 +108,14 @@ export const MOVE_OPERATION_WITHIN_PROJECT = gql`mutation moveOperationWithinPro
   }
 }`;
 
+export const START_OPERATION = gql`mutation startOperation($id: ID!) {
+  startOperation(id: $id) { operation { id started } }
+}`;
+
+export const COMPLETE_OPERATION = gql`mutation completeOperation($id: ID!) {
+  completeOperation(id: $id) { operation { id completed } }
+}`;
+
 export const DELETE_OPERATION = gql`mutation deleteOperation($id: ID!) {
   deleteOperation(id: $id) { success }
 }`;
