@@ -19,13 +19,13 @@ export const SLOTS = gql`{ user { id slots {
 } } }`;
 
 export const PROJECTS = gql`{ user {
-  id projects { id name color status creationTime category }
+  id projects { id name color status created category }
   projectCategories { id name order }
 } }`;
 
 export const PROJECT = gql`query project($id: ID!) { user {
   id project(id: $id) {
-    id name description status color creationTime category
+    id name description status color created category
     statusChanges { original timestamp }
     operations { id name started completed projectOrder projects { id name color } }
   }

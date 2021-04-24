@@ -122,7 +122,7 @@ const ProjectPage = () => {
       <div className="second-row">
         <p className="description">{project.description}</p>
         <div className="project-history">
-          <div className="event">Started <time title={moment(project.creationTime * 1000).format()}>{moment(project.creationTime * 1000).format("D MMMM, YYYY")}</time></div>
+          <div className="event">Started <time title={moment(project.created * 1000).format()}>{moment(project.created * 1000).format("D MMMM, YYYY")}</time></div>
           {changes.map((change, i) => (
             <div className="event" key={i}>
               Changed from <span className="status">{change[2]}</span> to <span className="status">{change[3]}</span> on <time title={change[1]}> {change[0]}</time></div>
