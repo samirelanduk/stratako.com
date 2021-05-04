@@ -20,11 +20,12 @@
                 margin-right: $gap-2;
                 cursor: pointer;
                 background: none;
-                opacity: 0.3;
+                transition-duration: 0.1s;
+                padding: 1px
             }
 
             img:hover {
-                opacity: 0.4;
+                padding: 0;
             }
     
             .operation-projects {
@@ -96,6 +97,11 @@
             img {
                 width: 18px;
                 margin-right: $gap-3;
+                padding: 0;
+            }
+
+            img:hover {
+                padding: 1px;
             }
 
             .operation-projects {
