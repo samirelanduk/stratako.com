@@ -12,7 +12,7 @@ import { FUTURE_OPERATIONS, PROJECT, SLOTS } from "../queries";
 
 const Operation = props => {
 
-  const { operation, expanded, expand, close, provided } = props;
+  const { operation, expanded, canStart, expand, close, provided } = props;
   const [editing, setEditing] = useState(false);
 
   const className = classNames({"operation-background": true, expanded});
@@ -67,7 +67,7 @@ const Operation = props => {
         </div>
         {expanded && <div className="description">{operation.description}</div>  }
 
-        {!editing && !expanded && !operation.started && !operation.completed && (
+        {!editing && !expanded && !operation.started && !operation.completed && canStart && (
           <button onClick={() => startOperation({variables: {id: operation.id}})}>Start</button>  
         )}
         {!editing && !expanded && operation.started && !operation.completed && (
@@ -88,7 +88,7 @@ const Operation = props => {
 
 const DraggableOperation = props => {
 
-  const { operation, expanded, expand, close, draggable } = props;
+  const { operation, expanded, expand, close, draggable, canStart } = props;
 
   if (draggable && !expanded) {
     return (
@@ -97,6 +97,7 @@ const DraggableOperation = props => {
           <Operation
             operation={operation} expanded={expanded} close={close}
             expand={expand} draggable={draggable} provided={provided}
+            canStart={canStart}
           />
         )}
       </Draggable>

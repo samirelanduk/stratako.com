@@ -5,7 +5,7 @@ import Operation from "./Operation";
 
 const OperationsList = props => {
 
-  const { operations, droppableId } = props;
+  const { operations, droppableId, canStart } = props;
 
   const [expanded, setExpanded] = useState(null);
 
@@ -20,6 +20,7 @@ const OperationsList = props => {
                 expanded={expanded === i}
                 expand={() => setExpanded(i)}
                 close={() => setExpanded(null)}
+                canStart={canStart}
                 draggable={true}
               />
               {expanded === i && (

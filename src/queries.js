@@ -38,7 +38,7 @@ export const PROJECT_CATEGORIES = gql`{ user { projectCategories {
 
 export const FUTURE_OPERATIONS = gql`{ user {
   id slots { 
-    id name order
+    id name order vacant
     futureOperations { id name started completed order description projects { id name color } }
   } 
   operationsWithoutSlots { id name started completed order description projects { id name color } }
