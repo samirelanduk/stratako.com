@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useQuery, useMutation, useApolloClient } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { MoonLoader } from "react-spinners";
 import { cloneDeep } from "lodash";
@@ -15,7 +15,6 @@ const SlotsForm = () => {
   const [newName, setNewName] = useState("");
   const newRef = useRef(null);
   const newText = useRef(null);
-  const client = useApolloClient();
 
   useEffect(() => {
     /**
@@ -28,23 +27,8 @@ const SlotsForm = () => {
   })
 
   const [createSlot, createSlotMutation] = useMutation(CREATE_SLOT, {
-    optimisticResponse: {__typename: "Mutation"},
-    update: (proxy) => {
-      const newData = cloneDeep(proxy.readQuery({ query: SLOTS }));
-      newData.user.slots.push({
-        id: 0,
-        order: slots.length, name: newName
-      })
-      proxy.writeQuery({ query: SLOTS, data: newData })
-    },
-    onCompleted: data => {
-      const newData = cloneDeep(client.cache.readQuery({ query: SLOTS }));
-      for (let slot of newData.user.slots) {
-        if (slot.id === 0) {
-          slot.id = data.createSlot.slot.id
-        }
-      }
-      client.cache.writeQuery({ query: SLOTS, data: newData });
+    refetchQueries: [{query: SLOTS}],
+    onCompleted: () => {
       setNewName("")
     },
     onError: () => {}
