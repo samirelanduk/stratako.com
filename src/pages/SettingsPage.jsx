@@ -3,36 +3,38 @@ import AuthSettingsForm from "../components/AuthSettingsForm";
 import SlotsForm from "../components/SlotsForm";
 import ProjectsSettingsForm from "../components/ProjectsSettingsForm";
 import Base from "./Base";
+import { Link } from "react-router-dom";
 
-const SettingsPage = () => {
+const SettingsPage = props => {
 
   useEffect(() => {
     document.title = "stratako - Settings";
   });
 
+  const { view } = props;
   const [settings, setSettings] = useState("account");
 
   return (
     <Base className="settings-page">
       <div className="settings-container">
         <div className="options">
-          <div
-            className={settings === "account" ? "selected option" : "option"}
-            onClick={() => setSettings("account")}
-          >Account</div>
-          <div
-            className={settings === "slots" ? "selected option" : "option"}
-            onClick={() => setSettings("slots")}
-          >Slots</div>
-          <div
-            className={settings === "projects" ? "selected option" : "option"}
-            onClick={() => setSettings("projects")}
-          >Projects</div>
+          <Link
+            className={!view ? "selected option" : "option"}
+            to="/settings/"
+          >Account</Link>
+          <Link
+            className={view === "slots" ? "selected option" : "option"}
+            to="/settings/slots/"
+          >Slots</Link>
+          <Link
+            className={view === "projects" ? "selected option" : "option"}
+            to="/settings/projects/"
+          >Projects</Link>
         </div>
         <div className="content">
-          {settings === "account" && <AuthSettingsForm />}
-          {settings === "slots" && <SlotsForm />}
-          {settings === "projects" && <ProjectsSettingsForm />}
+          {!view && <AuthSettingsForm />}
+          {view === "slots" && <SlotsForm />}
+          {view === "projects" && <ProjectsSettingsForm />}
         </div>
       </div>
     </Base>

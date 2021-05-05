@@ -62,6 +62,12 @@ const App = () => {
             {user && <Route path="/settings/" exact>
               <SettingsPage />
             </Route>}
+            {user && <Route path="/settings/slots/" exact>
+              <SettingsPage view="slots" />
+            </Route>}
+            {user && <Route path="/settings/projects/" exact>
+              <SettingsPage view="projects"/>
+            </Route>}
             {user && <Route path="/operations/" exact>
               <OperationsPage />
             </Route>}
