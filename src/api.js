@@ -59,6 +59,9 @@ export const makeClient = () => {
       }},
       ProjectType: {fields: {
         operations: {merge(existing, incoming) { return incoming } },
+      }},
+      OperationType: {fields: {
+        projects: {merge(existing, incoming) { return incoming } },
       }}
     }
   })

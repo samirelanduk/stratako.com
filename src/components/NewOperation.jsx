@@ -51,26 +51,27 @@ const NewOperation = props => {
           projects: [project], started: null, completed: null, __typename: "OperationType", description: ""
         })
         proxy.writeQuery({ query: PROJECT, variables: {id: project.id}, data: newData });      
-      }
-      const newData = cloneDeep(proxy.readQuery({query: FUTURE_OPERATIONS}));
-      if (slot && newData) {
-        for (let dataSlot of newData.user.slots) {
-          if (slot.id === dataSlot.id) {
-            dataSlot.futureOperations.push({
-              id: "-1", name, order: dataSlot.futureOperations.length + 1,
-              projects: [], started: null, completed: null, __typename: "OperationType",
-              description: ""
-            })
+      } else {
+        const newData = cloneDeep(proxy.readQuery({query: FUTURE_OPERATIONS}));
+        if (slot && newData) {
+          for (let dataSlot of newData.user.slots) {
+            if (slot.id === dataSlot.id) {
+              dataSlot.futureOperations.push({
+                id: "-1", name, order: dataSlot.futureOperations.length + 1,
+                projects: [], started: null, completed: null, __typename: "OperationType",
+                description: ""
+              })
+            }
           }
+        } else if (newData) {
+          newData.user.operationsWithoutSlots.push({
+            id: "-1", name, order: newData.user.operationsWithoutSlots.length + 1,
+            projects: [], started: null, completed: null, __typename: "OperationType",
+            description: ""
+          })
         }
-      } else if (newData) {
-        newData.user.operationsWithoutSlots.push({
-          id: "-1", name, order: newData.user.operationsWithoutSlots.length + 1,
-          projects: [], started: null, completed: null, __typename: "OperationType",
-          description: ""
-        })
+        proxy.writeQuery({ query: FUTURE_OPERATIONS, data: newData });
       }
-      proxy.writeQuery({ query: FUTURE_OPERATIONS, data: newData });
     },
   })
 
