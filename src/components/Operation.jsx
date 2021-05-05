@@ -92,7 +92,7 @@ const DraggableOperation = props => {
 
   if (draggable && !expanded) {
     return (
-      <Draggable draggableId={operation.id.toString()} index={operation.order === undefined ? operation.projectOrder : operation.order}>
+      <Draggable draggableId={operation.id.toString()} key={operation.id} index={operation.order === undefined ? operation.projectOrder : operation.order}>
         {provided => (
           <Operation
             operation={operation} expanded={expanded} close={close}
