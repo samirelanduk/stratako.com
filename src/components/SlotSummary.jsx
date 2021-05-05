@@ -78,7 +78,9 @@ const SlotSummary = props => {
             className={canDelete ? "delete" : "delete disabled" }
             onClick={() => deleteSlot({variables: {id: slot.id}})}
           ><img src={cross} alt="delete"/></div>
-          <div className="slot-info">No current operation, none waiting.</div>
+          <div className="slot-info">
+            {slot.vacant ? "Vacant" : "Occupied"}, {slot.futureOperations.length} operation{slot.futureOperations.length === 1 ? "" : "s"} waiting.
+          </div>
         </div>
       )}
     </Draggable>
