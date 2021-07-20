@@ -4,29 +4,21 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.11",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.2.2",
-    "classnames": "^2.2.6",
     "graphql": "^15.4.0",
-    "lodash": "^4.17.20",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
     "react-beautiful-dnd": "^13.0.0",
-    "react-color": "^2.19.3",
     "react-div-100vh": "^0.5.6",
-    "react-dom": "^17.0.1",
+    "react-dom": "^17.0.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-select": "^3.2.0",
     "react-spinners": "^0.9.0",
-    "react-toggle": "^4.1.1",
-    "web-vitals": "^0.2.4"
+    "react-toggle": "^4.1.1"
   },
   "scripts": {
-    "start": "BROWSER=none PORT=3003 react-scripts start",
+    "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
